@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Scenario {
+  id         String   @id @default(cuid())
+  slug       String
+  version    Int
+  definition Json
+  createdAt  DateTime @default(now())
+  sessions   SimulationSession[]
+  @@unique([slug, version])
+}
+
+model SimulationSession {
+  id           String   @id @default(cuid())
+  ownerHash    String
+  scenarioId   String
+  scenario     Scenario @relation(fields: [scenarioId], references: [id])
+  scenarioData Json
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
+  branches     Branch[]
+  @@index([ownerHash, createdAt])
+}
+
+model Branch {
+  id             String @id @default(cuid())
+  sessionId      String
+  session        SimulationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  name           String
+  revision       Int @default(0)
+  parentBranchId String?
+  parentBranch   Branch? @relation("BranchTree", fields: [parentBranchId], references: [id])
+  children       Branch[] @relation("BranchTree")
+  forkSnapshotId String?
+  forkSnapshot   StateSnapshot? @relation("ForkPoint", fields: [forkSnapshotId], references: [id])
+  createdAt      DateTime @default(now())
+  messages       Message[]
+  events         SimulationEvent[]
+  snapshots      StateSnapshot[] @relation("BranchSnapshots")
+  requests       TurnRequest[]
+  evaluations    Evaluation[]
+  @@index([sessionId])
+}
+
+model Message {
+  id        String @id @default(cuid())
+  branchId  String
+  branch    Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  sequence  Int
+  turn      Int
+  role      String
+  content   String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  @@unique([branchId, sequence])
+}
+
+model SimulationEvent {
+  id        String @id @default(cuid())
+  branchId  String
+  branch    Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  sequence  Int
+  turn      Int
+  type      String
+  payload   Json
+  createdAt DateTime @default(now())
+  @@unique([branchId, sequence])
+}
+
+model StateSnapshot {
+  id                 String @id @default(cuid())
+  branchId           String
+  branch             Branch @relation("BranchSnapshots", fields: [branchId], references: [id], onDelete: Cascade)
+  turnNumber         Int
+  state              Json
+  characterKnowledge Json
+  contextVersion     String
+  createdAt          DateTime @default(now())
+  forkedBranches     Branch[] @relation("ForkPoint")
+  @@unique([branchId, turnNumber])
+}
+
+model TurnRequest {
+  id             String @id @default(cuid())
+  branchId       String
+  branch         Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  key            String
+  inputHash      String
+  resultRevision Int
+  createdAt      DateTime @default(now())
+  @@unique([branchId, key])
+}
+
+model Evaluation {
+  id             String @id @default(cuid())
+  branchId       String
+  branch         Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  branchRevision Int
+  rubricVersion  String
+  findings       Json
+  createdAt      DateTime @default(now())
+}

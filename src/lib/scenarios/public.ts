@@ -1,0 +1,73 @@
+export const publicScenario = {
+  slug: "the-trust-conversation",
+  version: 1,
+  contextVersion: "insurance-v1-rules-v1",
+  title: "The trust conversation",
+  category: "Insurance · Customer negotiation",
+  description:
+    "A careful customer. A complicated policy. A chance to earn trust without overpromising.",
+  character: {
+    name: "Priya",
+    role: "Prospective customer",
+    persona:
+      "Thoughtful, skeptical, direct. Concerned about exclusions, rejected claims, and affordability.",
+    goals: [
+      "Understand exclusions",
+      "Avoid unsupported promises",
+      "Decide on a suitable next step",
+    ],
+  },
+  objectives: [
+    "Discover what matters to Priya",
+    "Explain the fictional policy accurately",
+    "Agree on an appropriate next step",
+  ],
+  approvedFacts: [
+    {
+      id: "price",
+      title: "Monthly premium",
+      detail:
+        "₹1,250/month for the fictional example plan. Pricing is fixed for this exercise.",
+    },
+    {
+      id: "limit",
+      title: "Coverage limit",
+      detail:
+        "Up to ₹5,00,000 per policy year for eligible covered hospitalization, subject to terms.",
+    },
+    {
+      id: "waiting",
+      title: "Waiting period",
+      detail:
+        "A 30-day initial waiting period applies except for covered accidents.",
+    },
+    {
+      id: "exclusions",
+      title: "Exclusions",
+      detail:
+        "Cosmetic procedures and non-prescribed treatments are excluded. Pre-existing conditions have a 24-month waiting period.",
+    },
+    {
+      id: "claims",
+      title: "Claims are reviewed",
+      detail:
+        "Every claim is assessed against policy terms and required documentation. Approval is never guaranteed.",
+    },
+  ],
+  constraints: [
+    "Fictional training only",
+    "Never guarantee claim approval",
+    "No real policy, financial, or medical advice",
+    "Do not invent policy facts",
+  ],
+  opening:
+    "I've looked at a few policies, but they all sound reassuring until you actually need to make a claim. How do I know this one will be any different?",
+  rubricVersion: "insurance-rubric-v1",
+  rubric: {
+    accuracy: 30,
+    discovery: 20,
+    objections: 20,
+    communication: 15,
+    nextStep: 15,
+  },
+} as const;
