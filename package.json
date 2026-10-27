@@ -12,6 +12,7 @@
     "test": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
     "test:e2e": "playwright test",
+    "verify:live": "playwright test --config playwright.live.config.ts",
     "db:setup": "node scripts/setup-local-db.mjs",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "node --conditions=react-server --import tsx prisma/seed.ts",

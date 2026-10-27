@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "verifiedAt": "2026-10-27T10:53:56.834Z",
+  "environment": "isolated local production server on 3102 with intentionally invalid test credential",
+  "upstreamStatus": 401,
+  "applicationStatus": 502,
+  "checks": {
+    "recoverableErrorVisible": true,
+    "draftRetained": true,
+    "draftSurvivesReload": true,
+    "messagesEventsSnapshotsAndRevisionUnchanged": true,
+    "noIdempotencyRecordCommitted": true,
+    "noMockFallback": true
+  },
+  "userApplicationConfigurationChanged": false
+}

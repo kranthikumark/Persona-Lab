@@ -13,7 +13,7 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 - Side-by-side transcript/state/event-count comparison and guarantee-phrase feedback tied to stored messages.
 - Explicit deterministic mock adapter and a server-only Meta Muse Spark adapter built against official documentation.
 
-**Live Meta smoke test verified:** a real structured character turn and reload succeeded locally. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full multi-turn/fork live acceptance is pending. Full five-category evaluation, rich event-difference visualization, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
+**Phase 2 live Meta acceptance complete locally:** five turns, exact reload/resume, a sixth turn, scoped access, and provider-failure recovery passed. An independent live alternative and comparison also passed. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full five-category evaluation, rich event-difference visualization, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
 
 ## Local setup
 
@@ -46,6 +46,8 @@ Persistence integration and end-to-end tests use the local database and create f
 
 For production use `npm run build` and `npm start`, and set `APP_ORIGIN` to the exact HTTPS origin. Production cookies use `Secure`. The localhost development origin is deliberately `http://127.0.0.1:3100`; using another origin requires matching `APP_ORIGIN`.
 
+Live checks are separate and opt-in because they make real provider requests: `PERSONA_LIVE_VERIFY=1 npm run verify:live`. They require the Meta application on 3100 and an isolated invalid-credential server on 3102. Setup, evidence, and cleanup are documented in [Phase 2 acceptance](docs/PHASE_2_ACCEPTANCE.md). Routine tests stay in mock mode.
+
 ## Architecture and consistency
 
 Next.js App Router + React + TypeScript + Tailwind, shadcn-style Radix/CVA primitives, Lucide, Prisma 6, PostgreSQL, and Zod. Prisma is pinned to a stable 6.x version for its schema-based datasource configuration; do not upgrade across major versions without migrating configuration.
@@ -71,6 +73,7 @@ Session expiry is enforced on reads after 30 days, but automated physical purgin
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
 - [Design system](docs/DESIGN_SYSTEM.md)
 - [Phase 1 acceptance and screenshots](docs/PHASE_1_ACCEPTANCE.md)
+- [Phase 2 live acceptance and evidence](docs/PHASE_2_ACCEPTANCE.md)
 - [Actual phase status](docs/PHASE_STATUS.md)
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 

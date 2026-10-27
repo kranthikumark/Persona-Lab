@@ -59,6 +59,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 2 — Persisted conversation vertical slice
 
+**Status: complete locally with live Meta verification on October 27, 2026.** Acceptance evidence: [Phase 2 review](PHASE_2_ACCEPTANCE.md).
+
 **Target: Days 2–3, October 28–29**
 
 - Define versioned fictional policy facts, exclusions, objectives, character goals, private knowledge, constraints, and rubric.

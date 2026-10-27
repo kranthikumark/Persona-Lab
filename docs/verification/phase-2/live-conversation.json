@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "verifiedAt": "2026-10-27T10:53:55.070Z",
+  "environment": "local production build",
+  "provider": "meta",
+  "model": "muse-spark-1.3",
+  "fictionalTrainingDataOnly": true,
+  "checks": {
+    "fiveTurns": true,
+    "reloadPreservedExactHistory": true,
+    "resumedSixthTurn": true,
+    "knowledgeBoundariesInTestedInputs": true,
+    "unauthorizedAccessDenied": true,
+    "independentLiveAlternative": true,
+    "comparisonDisplayedActualTranscripts": true,
+    "allSevenGeneratedResponsesHaveMetaMetadata": true,
+    "pinnedScenarioVersion": 1
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "elapsedMs": 5161,
+      "messageId": "cmvqkhlhz0008xpia2fgoxq6c",
+      "trainee": "All claims are guaranteed.",
+      "character": "That guarantee concerns me — I thought every claim is assessed against terms and never guaranteed. Can you explain what exclusions could actually cause a rejection?",
+      "revealed": []
+    },
+    {
+      "turn": 2,
+      "elapsedMs": 5528,
+      "messageId": "cmvqkhprk000ixpia8dyba1yr",
+      "trainee": "You're right: I cannot guarantee claim approval. Claims are reviewed against the terms. Let's review exclusions and waiting periods.",
+      "character": "Thanks for clarifying — that helps. Can you walk me through what’s actually excluded and how the waiting periods work in practice?",
+      "revealed": []
+    },
+    {
+      "turn": 3,
+      "elapsedMs": 6884,
+      "messageId": "cmvqkhv35000sxpiahs90kcy1",
+      "trainee": "What monthly budget would feel comfortable for you?",
+      "character": "To be honest, I'd need to stay under ₹1,500 a month. If we can stay within that, can you clearly explain how the exclusions and waiting periods would apply before I decide on a next step?",
+      "revealed": [
+        "budgetConcern"
+      ]
+    },
+    {
+      "turn": 4,
+      "elapsedMs": 12223,
+      "messageId": "cmvqki4j00012xpianu0mizzx",
+      "trainee": "Have you had a previous experience that makes you concerned about claims?",
+      "character": "Yes, a friend had a claim rejected, so I'm careful about fine print. Could you explain the exclusions and waiting periods plainly so I can decide on a next step?",
+      "revealed": [
+        "budgetConcern",
+        "previousExperience"
+      ]
+    },
+    {
+      "turn": 5,
+      "elapsedMs": 4749,
+      "messageId": "cmvqki875001cxpiazplemohs",
+      "trainee": "May I send a summary of this fictional policy, including exclusions and waiting periods, for you to review before a follow-up?",
+      "character": "Yes, please send that summary with the exclusions and waiting periods clearly listed. I’ll review it before we schedule a follow-up.",
+      "revealed": [
+        "budgetConcern",
+        "previousExperience"
+      ]
+    },
+    {
+      "turn": 6,
+      "elapsedMs": 3514,
+      "messageId": "cmvqkiayv001mxpia43bduj1s",
+      "trainee": "Please recap the next step we agreed on without adding any policy promises.",
+      "character": "We agreed you'll send the summary for me to review before we schedule a follow-up.",
+      "revealed": [
+        "budgetConcern",
+        "previousExperience"
+      ]
+    },
+    {
+      "turn": 1,
+      "elapsedMs": 3999,
+      "messageId": "cmvqkiegt001zxpiae2lk6pva",
+      "trainee": "Before I explain the policy, what concerns you most about making a claim?",
+      "character": "My biggest worry is paying every month and then having a claim rejected over an exclusion I didn't notice. What exactly isn't covered?",
+      "revealed": []
+    }
+  ],
+  "originalFinalState": {
+    "trust": 38,
+    "frustration": 35,
+    "interest": 32,
+    "violations": 1,
+    "phase": "next_step",
+    "revealed": [
+      "budgetConcern",
+      "previousExperience"
+    ]
+  },
+  "alternativeFinalState": {
+    "trust": 37,
+    "frustration": 39,
+    "interest": 31,
+    "violations": 0,
+    "phase": "clarification",
+    "revealed": []
+  },
+  "cleanup": "The verification session is deleted after the test; evidence references are historical IDs."
+}
