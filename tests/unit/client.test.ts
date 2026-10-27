@@ -1,5 +1,11 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { api } from "@/lib/client";
+import { api, requestKey } from "@/lib/client";
+it("creates a valid v4 retry key when the browser lacks randomUUID", () => {
+  vi.stubGlobal("crypto", {
+    getRandomValues: (bytes: Uint8Array) => bytes.fill(0x12),
+  });
+  expect(requestKey()).toBe("12121212-1212-4212-9212-121212121212");
+});
 afterEach(() => vi.unstubAllGlobals());
 it("explains a lost connection without claiming a potentially committed turn was not saved", async () => {
   vi.stubGlobal(

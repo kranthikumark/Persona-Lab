@@ -1,0 +1,31 @@
+{
+  "verifiedAt": "2026-10-27T18:45:31.046Z",
+  "provider": "mock",
+  "data": {
+    "sizes": [
+      {
+        "name": "desktop",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "name": "reflow-320",
+        "width": 320,
+        "height": 800
+      }
+    ],
+    "noOverflow": true,
+    "portraitLoaded": true,
+    "selectedAxeRulesPassed": true
+  }
+}

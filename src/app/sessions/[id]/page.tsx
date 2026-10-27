@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Practice conversation" };
 import { Suspense } from "react";
 import { Practice } from "@/components/practice";
 export default async function SessionPage({

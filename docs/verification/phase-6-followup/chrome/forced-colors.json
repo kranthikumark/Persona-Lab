@@ -1,0 +1,10 @@
+{
+  "verifiedAt": "2026-10-27T18:44:54.566Z",
+  "provider": "mock",
+  "data": {
+    "systemColors": true,
+    "captionContrast": true,
+    "keyboardFocusOutline": true,
+    "noOverflow": true
+  }
+}

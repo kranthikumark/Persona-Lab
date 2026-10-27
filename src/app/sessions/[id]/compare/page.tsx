@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Compare approaches" };
 import { Suspense } from "react";
 import { Compare } from "@/components/compare";
 export default async function ComparePage({

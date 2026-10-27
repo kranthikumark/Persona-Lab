@@ -16,6 +16,13 @@ Updated October 27, 2026. This is local evidence, not public-release acceptance.
 | 7 — Deployment/release     | Local release checks passed   | Shared PostgreSQL admission, atomic creation quotas, streamed request bounds, expiry cleanup command, build/privacy scan and full localhost live Meta journey passed. AWS Ubuntu deployment and scheduled cleanup remain pending.                                                           |
 | 8 — Demo/submission        | Not started                   | No demonstration video or organizer submission.                                                                                                                                                                                                                                             |
 
+## October 28 Phase 6 review follow-up
+
+- Page titles, composer focus, pointer-opened dialog focus and HTTP phone-review retry keys repaired.
+- Eight acceptance checks passed in each of Chrome, Firefox and WebKit (24 executions). 48 unit and 26 integration tests passed, including a real UTC window-duration assertion. Lint, typecheck, production build and client privacy checks passed. Four migrations are applied.
+- A dedicated temporary mock server is available for the user’s physical phone review; the live app remains on loopback port 3100. Automated runs have independent mock admission namespaces. Existing admission-window expiry was normalized without resetting counts.
+- The user agreed to provide human results; native zoom, audible VoiceOver, physical devices, native Safari and human comprehension remain pending. See `PHASE_6_MANUAL_REVIEW.md`.
+
 ## Latest Phase 7 local results
 
 - 47 unit tests, 26 PostgreSQL integration tests, and all 19 mock browser tests passed.

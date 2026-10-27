@@ -118,7 +118,13 @@ export function Studio({ mode }: { mode: string }) {
                   {busy ? "Opening your studio…" : "Begin practice"}
                   <ArrowRight size={17} />
                 </Button>
-                <Button variant="ghost" onClick={() => setFacts(true)}>
+                <Button
+                  variant="ghost"
+                  onClick={(event) => {
+                    event.currentTarget.focus();
+                    setFacts(true);
+                  }}
+                >
                   Read the brief <ArrowUpRight size={15} />
                 </Button>
               </div>

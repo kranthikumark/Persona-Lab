@@ -19,6 +19,11 @@ const config: NextConfig = {
 export default function nextConfig(phase: string): NextConfig {
   return {
     ...config,
-    distDir: phase === PHASE_DEVELOPMENT_SERVER ? ".next-dev" : ".next",
+    distDir:
+      phase === PHASE_DEVELOPMENT_SERVER
+        ? process.env.PERSONA_PHONE_REVIEW === "1"
+          ? ".next-phone"
+          : ".next-dev"
+        : ".next",
   };
 }

@@ -29,7 +29,7 @@ import { Button } from "./ui/button";
 import { Drawer } from "./ui/drawer";
 import { Facts } from "./studio";
 import { EvaluationPanel } from "./evaluation";
-import { api, type SessionView } from "@/lib/client";
+import { api, requestKey, type SessionView } from "@/lib/client";
 import { publicScenario as scenario } from "@/lib/scenarios/public";
 
 export function Practice({ sessionId }: { sessionId: string }) {
@@ -63,6 +63,7 @@ function PracticeSession({
   const [decision, setDecision] = useState<number | null>(null);
   const [branchName, setBranchName] = useState("A different approach");
   const bottom = useRef<HTMLDivElement>(null);
+  const composer = useRef<HTMLTextAreaElement>(null);
   const evidenceHandled = useRef(false);
   const evidenceFocus = useRef<HTMLElement | null>(null);
   const pending = useRef<{ text: string; key: string } | null>(null);
@@ -123,11 +124,14 @@ function PracticeSession({
   async function send(event: React.FormEvent) {
     event.preventDefault();
     if (!view || !draft.trim() || busy) return;
+    const restoreComposer = event.currentTarget.contains(
+      document.activeElement,
+    );
     setBusy(true);
     setError("");
     const text = draft.trim();
     if (pending.current?.text !== text)
-      pending.current = { text, key: crypto.randomUUID() };
+      pending.current = { text, key: requestKey() };
     try {
       const next = await api<SessionView>(
         `/api/branches/${view.branch.id}/turns`,
@@ -140,6 +144,14 @@ function PracticeSession({
       setError((e as Error).message);
     } finally {
       setBusy(false);
+      if (restoreComposer) {
+        requestAnimationFrame(() => {
+          // Restore a submit button's lost focus, without interrupting someone
+          // who moved to another control while waiting for the response.
+          if (document.activeElement === document.body)
+            composer.current?.focus({ preventScroll: true });
+        });
+      }
     }
   }
   async function fork() {
@@ -182,7 +194,13 @@ function PracticeSession({
             <p>A careful customer. An honest conversation.</p>
           </div>
           <div className="practice-heading-actions">
-            <Button variant="secondary" onClick={() => setPanel("facts")}>
+            <Button
+              variant="secondary"
+              onClick={(event) => {
+                event.currentTarget.focus();
+                setPanel("facts");
+              }}
+            >
               <BookOpen size={16} /> Policy brief
             </Button>
             {view && view.branches.length > 1 && (
@@ -253,7 +271,10 @@ function PracticeSession({
                 className="coach-trigger"
                 variant="ghost"
                 size="sm"
-                onClick={() => setPanel("coach")}
+                onClick={(event) => {
+                  event.currentTarget.focus();
+                  setPanel("coach");
+                }}
               >
                 <Sparkles size={15} /> Field notes · Evaluation{" "}
                 {view.findings.length > 0 && (
@@ -385,7 +406,8 @@ function PracticeSession({
                         {message.role === "user" && (
                           <button
                             className="message-rewind"
-                            onClick={() => {
+                            onClick={(event) => {
+                              event.currentTarget.focus();
                               setBranchName(
                                 `Alternative ${view.branches.length}`,
                               );
@@ -401,7 +423,10 @@ function PracticeSession({
                         ) && (
                           <button
                             className="message-flag"
-                            onClick={() => setPanel("coach")}
+                            onClick={(event) => {
+                              event.currentTarget.focus();
+                              setPanel("coach");
+                            }}
                           >
                             <Flag size={12} /> Policy guarantee flagged
                           </button>
@@ -421,7 +446,11 @@ function PracticeSession({
                   )}
                   <div ref={bottom} />
                 </div>
-                <form className="composer-area" onSubmit={send}>
+                <form
+                  className="composer-area"
+                  onSubmit={send}
+                  aria-busy={busy}
+                >
                   {error && (
                     <div className="error-banner" role="alert">
                       {error}
@@ -435,13 +464,14 @@ function PracticeSession({
                       Your response to Priya
                     </label>
                     <textarea
+                      ref={composer}
                       id="response"
                       placeholder="What would you say to Priya?"
                       value={draft}
                       onChange={(e) => updateDraft(e.target.value)}
                       maxLength={2000}
                       rows={3}
-                      disabled={busy}
+                      readOnly={busy}
                       onKeyDown={(e) => {
                         if (
                           e.key === "Enter" &&
@@ -502,7 +532,8 @@ function PracticeSession({
                       <button
                         className={`timeline-item ${snapshot.turnNumber === view.snapshots.at(-1)?.turnNumber ? "current" : ""}`}
                         key={snapshot.id}
-                        onClick={() => {
+                        onClick={(event) => {
+                          event.currentTarget.focus();
                           setBranchName(`Alternative ${view.branches.length}`);
                           setDecision(snapshot.turnNumber);
                         }}

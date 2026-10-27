@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-10-27T18:46:44.386428+00:00",
+  "userLocalDate": "2026-10-28",
+  "automatedCrossBrowserChecks": {
+    "chrome": 8,
+    "firefox": 8,
+    "webkit": 8,
+    "status": "passed",
+    "note": "Automated desktop engines, not physical devices or audible screen-reader verification."
+  },
+  "unitTests": 48,
+  "integrationTests": 26,
+  "manualChecks": {
+    "nativeZoom200And400": "awaiting user results",
+    "audibleVoiceOver": "awaiting user results",
+    "physicalPhone": "awaiting user results",
+    "humanComprehensionAndTiming": "awaiting user results",
+    "nativeSafari": "not verified; WebKit automation is separate"
+  },
+  "phoneReview": {
+    "url": "http://192.168.1.7:3104/",
+    "provider": "mock",
+    "separateGeneratedDirectory": ".next-phone",
+    "httpHealth": "200",
+    "physicalDeviceResult": "pending"
+  },
+  "findingsAddressed": [
+    "Distinct page titles",
+    "Composer focus during and after submission",
+    "Dialog return focus after pointer activation on WebKit",
+    "UUID fallback for HTTP phone review",
+    "Automated admission namespace isolation",
+    "Existing admission-window expiry normalization without resetting usage counts"
+  ],
+  "awsChanged": false,
+  "fullChromeSuite": {
+    "tests": 21,
+    "passed": true,
+    "seconds": 55.6
+  },
+  "migrationsApplied": 4,
+  "crossEngineReportedDuration": "1.2 minutes (rounded test-runner output)"
+}

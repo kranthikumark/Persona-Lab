@@ -45,11 +45,15 @@ Screenshots:
 
 Structured evidence is in [studio reflow](verification/phase-6/studio-reflow.json), [keyboard rehearsal](verification/phase-6/keyboard-rehearsal.json), [narrow/text checks](verification/phase-6/reflow-and-text.json), [draft retry](verification/phase-6/draft-retry.json), [recovery](verification/phase-6/recovery.json), and [forced colors](verification/phase-6/forced-colors.json).
 
+## October 28 follow-up
+
+[Follow-up findings, fixes, cross-engine evidence and human checklist](PHASE_6_MANUAL_REVIEW.md). Eight checks now pass in each of Chrome, Firefox and WebKit. Page identities, composer focus, pointer-opened dialog return focus and local phone-review compatibility were improved. Human native zoom, audible VoiceOver, actual devices and comprehension results are still awaited.
+
 ## Release validation still open
 
 - Listen through the complete journey using VoiceOver/NVDA, including transcript and error announcements. Accessibility-tree and automated semantic checks are not a substitute.
 - Verify actual native browser zoom at 200%/400%, plus platform text scaling. Native Chrome control was interrupted during this run, so no native zoom pass is claimed. Reflow and larger-text results above remain separate evidence.
-- Test actual iOS/Android touch devices and Safari/Firefox. Current automated browser coverage uses local Chrome.
+- Test actual iOS/Android touch devices and Safari/Firefox. Chrome, Firefox and Playwright WebKit automation now pass; actual Safari and physical-device review remain separate.
 - Run a human timed rehearsal and collect comprehension feedback. Automation timing does not demonstrate human usability.
 
 This is local acceptance of the implemented redesign and listed checks, not accessibility certification or public release acceptance. Phase 7 must retain these checks alongside deployment security, rate limits, retention cleanup and deployed/live verification.

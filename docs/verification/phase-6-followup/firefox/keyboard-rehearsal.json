@@ -1,0 +1,15 @@
+{
+  "verifiedAt": "2026-10-27T18:45:13.914Z",
+  "provider": "mock",
+  "data": {
+    "elapsedMs": 5802,
+    "keyboardActivation": true,
+    "skipLink": true,
+    "dialogFocusContained": true,
+    "evidenceReceivesFocus": true,
+    "rewindAndComparison": true,
+    "selectedAxeRulesPassed": true,
+    "automatedTimingOnly": true,
+    "tabKey": "Tab"
+  }
+}

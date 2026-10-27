@@ -51,17 +51,25 @@ async function audit(page: Page) {
   ).toEqual([]);
 }
 async function capture(page: Page, name: string) {
-  await mkdir("docs/screenshots/phase-6", { recursive: true });
+  const directory =
+    process.env.PERSONA_ACCEPTANCE_REVIEW === "1"
+      ? `docs/screenshots/phase-6-followup/${test.info().project.name}`
+      : "docs/screenshots/phase-6";
+  await mkdir(directory, { recursive: true });
   await page.screenshot({
-    path: `docs/screenshots/phase-6/${name}.png`,
+    path: `${directory}/${name}.png`,
     fullPage: true,
     animations: "disabled",
   });
 }
 async function record(name: string, data: unknown) {
-  await mkdir("docs/verification/phase-6", { recursive: true });
+  const directory =
+    process.env.PERSONA_ACCEPTANCE_REVIEW === "1"
+      ? `docs/verification/phase-6-followup/${test.info().project.name}`
+      : "docs/verification/phase-6";
+  await mkdir(directory, { recursive: true });
   await writeFile(
-    `docs/verification/phase-6/${name}.json`,
+    `${directory}/${name}.json`,
     `${JSON.stringify({ verifiedAt: new Date().toISOString(), provider: "mock", data }, null, 2)}\n`,
   );
 }
@@ -104,7 +112,13 @@ test("portrait-led studio reflows from desktop through tablet to 320 CSS pixels"
 
 test("keyboard rehearsal: guarantee, evidence, rewind, alternative and comparison", async ({
   page,
+  browserName,
 }) => {
+  // macOS WebKit uses Option-Tab for links unless full keyboard access is enabled.
+  const tab =
+    browserName === "webkit" && process.platform === "darwin"
+      ? "Alt+Tab"
+      : "Tab";
   const startedAt = Date.now();
   await page.setViewportSize({ width: 1440, height: 1000 });
   await Promise.all([
@@ -115,7 +129,10 @@ test("keyboard rehearsal: guarantee, evidence, rewind, alternative and compariso
     ),
     page.goto("/"),
   ]);
-  await page.keyboard.press("Tab");
+  await expect(
+    page.getByRole("heading", { name: /Better conversations/ }),
+  ).toBeVisible();
+  await page.keyboard.press(tab);
   await expect(
     page.getByRole("link", { name: "Skip to content" }),
   ).toBeFocused();
@@ -126,7 +143,7 @@ test("keyboard rehearsal: guarantee, evidence, rewind, alternative and compariso
     exact: true,
   });
   await begin.focus();
-  await page.keyboard.press("Tab");
+  await page.keyboard.press(tab);
   const brief = page.getByRole("button", { name: "Read the brief" });
   await expect(brief).toBeFocused();
   await page.keyboard.press("Enter");
@@ -164,7 +181,7 @@ test("keyboard rehearsal: guarantee, evidence, rewind, alternative and compariso
     await audit(page);
     await capture(page, "evaluation-desktop");
     for (let i = 0; i < 16; i++) {
-      await page.keyboard.press("Tab");
+      await page.keyboard.press(tab);
       expect(
         await page.evaluate(() =>
           Boolean(document.activeElement?.closest('[role="dialog"]')),
@@ -207,6 +224,7 @@ test("keyboard rehearsal: guarantee, evidence, rewind, alternative and compariso
       rewindAndComparison: true,
       selectedAxeRulesPassed: true,
       automatedTimingOnly: true,
+      tabKey: tab,
     });
   } finally {
     expect(
@@ -241,8 +259,8 @@ test("practice, branching and report reflow at 320px and larger text", async ({
   expect(
     await page
       .locator(".drawer-content")
-      .evaluate((node) => getComputedStyle(node).animationDuration),
-  ).toBe("1e-05s");
+      .evaluate((node) => parseFloat(getComputedStyle(node).animationDuration)),
+  ).toBeLessThanOrEqual(0.00001);
   await noOverflow(page);
   await audit(page);
   await page.keyboard.press("Escape");
@@ -305,7 +323,10 @@ test("provider failure announces progress, keeps a draft on reload and retries w
   await expect(page.getByRole("status")).toContainText(
     "Preparing Priya's response",
   );
-  await expect(page.getByLabel("Your response to Priya")).toBeDisabled();
+  await expect(page.getByLabel("Your response to Priya")).toHaveJSProperty(
+    "readOnly",
+    true,
+  );
   release();
   await expect(
     page.getByRole("alert").filter({ hasText: "No turn was saved" }),
@@ -383,6 +404,9 @@ test("forced colors keeps the portrait captions and keyboard focus legible", asy
   page,
 }) => {
   await page.emulateMedia({ forcedColors: "active", reducedMotion: "reduce" });
+  expect(
+    await page.evaluate(() => matchMedia("(forced-colors: active)").matches),
+  ).toBe(true);
   await page.setViewportSize({ width: 1280, height: 900 });
   await Promise.all([
     page.waitForResponse((r) => new URL(r.url()).pathname === "/api/sessions"),

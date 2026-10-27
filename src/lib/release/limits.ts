@@ -2,6 +2,16 @@ import "server-only";
 import { db } from "@/lib/db";
 import { ApiError } from "@/lib/api";
 
+function admissionKey(key: string) {
+  const run = process.env.PERSONA_ACCEPTANCE_RUN;
+  return process.env.NODE_ENV !== "production" &&
+    process.env.AI_PROVIDER === "mock" &&
+    run &&
+    /^[a-zA-Z0-9-]{1,64}$/.test(run)
+    ? `test:${run}:${key}`
+    : key;
+}
+
 // PostgreSQL admission counters are shared by all app instances. Failed provider
 // attempts consume admission too; successful retry replays never reach this gate.
 export async function reserveBudget(
@@ -36,9 +46,13 @@ export async function reserveBudget(
 export async function reserveGeneration(ownerHash: string) {
   const namespace = process.env.AI_PROVIDER === "mock" ? "mock" : "live";
   return reserveBudget([
-    { key: `${namespace}:generation:global`, limit: 300, windowSeconds: 3600 },
     {
-      key: `${namespace}:generation:owner:${ownerHash}`,
+      key: admissionKey(`${namespace}:generation:global`),
+      limit: 300,
+      windowSeconds: 3600,
+    },
+    {
+      key: admissionKey(`${namespace}:generation:owner:${ownerHash}`),
       limit: 40,
       windowSeconds: 3600,
     },
@@ -48,6 +62,6 @@ export async function reserveGeneration(ownerHash: string) {
 export async function reserveCreation() {
   // A new cookie cannot bypass the shared creation cap.
   return reserveBudget([
-    { key: "creation:global", limit: 100, windowSeconds: 60 },
+    { key: admissionKey("creation:global"), limit: 100, windowSeconds: 60 },
   ]);
 }

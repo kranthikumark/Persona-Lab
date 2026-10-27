@@ -67,6 +67,11 @@ it("shared admission accepts only the cap under concurrent calls and resets expi
     (await db.rateLimitBucket.findUniqueOrThrow({ where: { key: budget.key } }))
       .count,
   ).toBe(3);
+  const window = await db.rateLimitBucket.findUniqueOrThrow({
+    where: { key: budget.key },
+  });
+  expect(window.expiresAt.getTime() - Date.now()).toBeGreaterThan(55000);
+  expect(window.expiresAt.getTime() - Date.now()).toBeLessThanOrEqual(60000);
   await db.rateLimitBucket.update({
     where: { key: budget.key },
     data: { expiresAt: new Date(0) },

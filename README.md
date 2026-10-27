@@ -21,6 +21,8 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 
 **Phase 5 evaluation complete locally:** versioned five-category reports, exact evidence, strengths/next actions, explicit insufficient evidence, saved revision scope and outdated-report notices. Open Field notes in practice or Rubric evaluation in comparison. See [Phase 5 acceptance](docs/PHASE_5_ACCEPTANCE.md).
 
+**October 28 acceptance follow-up:** page titles and composer/dialog focus repaired; eight checks pass in each of Chrome, Firefox and WebKit. Human zoom, VoiceOver, physical-device and comprehension results are awaited. See [manual review checklist](docs/PHASE_6_MANUAL_REVIEW.md).
+
 **Phase 7 localhost release checks:** shared usage admission, atomic creation quotas and expiry cleanup implemented; 47 unit, 26 integration and 19 mock browser checks plus a seven-generation live Meta journey passed. AWS Ubuntu deployment is pending local review. See [local release results and AWS handoff](docs/PHASE_7_LOCAL_RELEASE.md).
 
 **Phase 6 visual upgrade and local acceptance:** portrait-led studio, editorial workspace headings, prominent evaluation, repaired evidence focus, 320px reflow, larger-text and forced-colors checks. Native zoom, audible screen-reader and physical-device release checks remain open. See [Phase 6 acceptance](docs/PHASE_6_ACCEPTANCE.md).

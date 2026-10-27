@@ -1,0 +1,12 @@
+{
+  "verifiedAt": "2026-10-27T18:45:39.452Z",
+  "provider": "mock",
+  "data": {
+    "width": 320,
+    "reducedMotion": true,
+    "focusRestored": true,
+    "selectedAxeRulesPassed": true,
+    "textResize": "24px body/control stress test; not native browser zoom",
+    "noOverflow": true
+  }
+}
