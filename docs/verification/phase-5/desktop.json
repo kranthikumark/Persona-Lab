@@ -1,0 +1,475 @@
+{
+  "verifiedAt": "2026-10-27T11:48:51.584Z",
+  "status": "passed",
+  "provider": "mock",
+  "viewport": {
+    "name": "desktop",
+    "width": 1440,
+    "height": 1000
+  },
+  "checks": {
+    "documentedWeightedScore": true,
+    "exactEvidenceLink": true,
+    "persistedReport": true,
+    "staleAfterNewTurn": true,
+    "newRevisionReport": true,
+    "foreignAccessDenied": true,
+    "clientFindingsRejected": true,
+    "selectedAxeRules": true,
+    "noHorizontalOverflow": true
+  },
+  "originalReport": {
+    "rubricVersion": "insurance-rubric-v1",
+    "engineVersion": "phrase-evaluation-v1",
+    "scope": {
+      "branchId": "cmvqmh1630058xpxm6jno05vw",
+      "revision": 3,
+      "throughTurn": 3,
+      "forkTurn": null,
+      "messageIds": [
+        "cmvqmh1630059xpxm71n944pe",
+        "cmvqmh18f005cxpxmia72vkyz",
+        "cmvqmh18g005expxm8di4871q",
+        "cmvqmh18v005mxpxm389sbc43",
+        "cmvqmh18w005oxpxm8v9pcgqx",
+        "cmvqmh19a005wxpxmhftyqkg1",
+        "cmvqmh19b005yxpxmhlmrzf3s"
+      ],
+      "eventIds": [
+        "cmvqmh18g005gxpxmio43wr0b",
+        "cmvqmh18w005qxpxmulgi5xoo",
+        "cmvqmh19b0060xpxm2q2859bz"
+      ]
+    },
+    "categories": [
+      {
+        "id": "accuracy",
+        "label": "Factual accuracy / compliance",
+        "weight": 30,
+        "score": 100,
+        "checks": [
+          {
+            "id": "claim-boundaries",
+            "label": "Explain claim review without guarantees",
+            "status": "demonstrated",
+            "feedback": "Explicitly explain that claims are reviewed or approval cannot be guaranteed. Any matched unsupported guarantee makes this check a concern, even after a correction.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "approved-terms",
+            "label": "State a checked policy term",
+            "status": "demonstrated",
+            "feedback": "State one checked fictional term: 30-day waiting period, cosmetic procedures excluded, or 24-month waiting period for pre-existing conditions. Matched contradictory phrases override positive evidence; other facts remain unverified.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "discovery",
+        "label": "Needs discovery",
+        "weight": 20,
+        "score": 100,
+        "checks": [
+          {
+            "id": "budget-question",
+            "label": "Ask about budget",
+            "status": "demonstrated",
+            "feedback": "Ask a direct question about budget, affordability or monthly cost; this rule requires a question mark.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18v005mxpxm389sbc43",
+                "eventId": "cmvqmh18w005qxpxmulgi5xoo",
+                "turn": 2,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "experience-question",
+            "label": "Ask about prior concerns",
+            "status": "demonstrated",
+            "feedback": "Ask about past/previous experience or why Priya is concerned, with a question mark.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18v005mxpxm389sbc43",
+                "eventId": "cmvqmh18w005qxpxmulgi5xoo",
+                "turn": 2,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "objections",
+        "label": "Objection handling",
+        "weight": 20,
+        "score": 100,
+        "checks": [
+          {
+            "id": "acknowledgement",
+            "label": "Acknowledge the concern",
+            "status": "demonstrated",
+            "feedback": "Acknowledge the concern explicitly, such as 'I understand your concern.' This check does not measure empathy.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "limits-explained",
+            "label": "Address the policy limits",
+            "status": "demonstrated",
+            "feedback": "Address the objection with a checked exclusion or waiting-period explanation, using the approved fictional terms.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "communication",
+        "label": "Communication",
+        "weight": 15,
+        "score": 100,
+        "checks": [
+          {
+            "id": "concise-response",
+            "label": "Keep responses readable",
+            "status": "demonstrated",
+            "feedback": "Every recorded trainee response must be 70 words or fewer. This measures length only, not the meaning or quality of the language.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              },
+              {
+                "messageId": "cmvqmh18v005mxpxm389sbc43",
+                "eventId": "cmvqmh18w005qxpxmulgi5xoo",
+                "turn": 2,
+                "scope": "original"
+              },
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "collaborative-language",
+            "label": "Use collaborative language",
+            "status": "demonstrated",
+            "feedback": "Use an explicit permission phrase such as 'may I' or 'could we'. Matched pressure phrases such as 'sign now' override positive evidence.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nextStep",
+        "label": "Appropriate next step",
+        "weight": 15,
+        "score": 100,
+        "checks": [
+          {
+            "id": "review-offer",
+            "label": "Offer review or a reasoned pause",
+            "status": "demonstrated",
+            "feedback": "Offer a written summary/terms review, or explicitly decline to recommend until needs or terms are reviewed. No sale is required.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "unpressured-choice",
+            "label": "Leave the next decision open",
+            "status": "demonstrated",
+            "feedback": "Offer time or permission before the next step, or explicitly pause a recommendation pending review. Matched pressure language is a concern.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "overall": 100,
+    "assessedChecks": 10,
+    "totalChecks": 10,
+    "nextAction": "All ten phrase checks have evidence. Revisit a decision and try another grounded response; these checks do not establish overall conversation quality."
+  },
+  "currentReport": {
+    "rubricVersion": "insurance-rubric-v1",
+    "engineVersion": "phrase-evaluation-v1",
+    "scope": {
+      "branchId": "cmvqmh1630058xpxm6jno05vw",
+      "revision": 4,
+      "throughTurn": 4,
+      "forkTurn": null,
+      "messageIds": [
+        "cmvqmh1630059xpxm71n944pe",
+        "cmvqmh18f005cxpxmia72vkyz",
+        "cmvqmh18g005expxm8di4871q",
+        "cmvqmh18v005mxpxm389sbc43",
+        "cmvqmh18w005oxpxm8v9pcgqx",
+        "cmvqmh19a005wxpxmhftyqkg1",
+        "cmvqmh19b005yxpxmhlmrzf3s",
+        "cmvqmh2jr0068xpxmn9anxpyc",
+        "cmvqmh2jr006axpxm3ebnxgm0"
+      ],
+      "eventIds": [
+        "cmvqmh18g005gxpxmio43wr0b",
+        "cmvqmh18w005qxpxmulgi5xoo",
+        "cmvqmh19b0060xpxm2q2859bz",
+        "cmvqmh2js006cxpxmnclexhg5"
+      ]
+    },
+    "categories": [
+      {
+        "id": "accuracy",
+        "label": "Factual accuracy / compliance",
+        "weight": 30,
+        "score": 50,
+        "checks": [
+          {
+            "id": "claim-boundaries",
+            "label": "Explain claim review without guarantees",
+            "status": "concern",
+            "feedback": "Explicitly explain that claims are reviewed or approval cannot be guaranteed. Any matched unsupported guarantee makes this check a concern, even after a correction.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh2jr0068xpxmn9anxpyc",
+                "eventId": "cmvqmh2js006cxpxmnclexhg5",
+                "turn": 4,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "approved-terms",
+            "label": "State a checked policy term",
+            "status": "demonstrated",
+            "feedback": "State one checked fictional term: 30-day waiting period, cosmetic procedures excluded, or 24-month waiting period for pre-existing conditions. Matched contradictory phrases override positive evidence; other facts remain unverified.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "discovery",
+        "label": "Needs discovery",
+        "weight": 20,
+        "score": 100,
+        "checks": [
+          {
+            "id": "budget-question",
+            "label": "Ask about budget",
+            "status": "demonstrated",
+            "feedback": "Ask a direct question about budget, affordability or monthly cost; this rule requires a question mark.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18v005mxpxm389sbc43",
+                "eventId": "cmvqmh18w005qxpxmulgi5xoo",
+                "turn": 2,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "experience-question",
+            "label": "Ask about prior concerns",
+            "status": "demonstrated",
+            "feedback": "Ask about past/previous experience or why Priya is concerned, with a question mark.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18v005mxpxm389sbc43",
+                "eventId": "cmvqmh18w005qxpxmulgi5xoo",
+                "turn": 2,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "objections",
+        "label": "Objection handling",
+        "weight": 20,
+        "score": 100,
+        "checks": [
+          {
+            "id": "acknowledgement",
+            "label": "Acknowledge the concern",
+            "status": "demonstrated",
+            "feedback": "Acknowledge the concern explicitly, such as 'I understand your concern.' This check does not measure empathy.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "limits-explained",
+            "label": "Address the policy limits",
+            "status": "demonstrated",
+            "feedback": "Address the objection with a checked exclusion or waiting-period explanation, using the approved fictional terms.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "communication",
+        "label": "Communication",
+        "weight": 15,
+        "score": 100,
+        "checks": [
+          {
+            "id": "concise-response",
+            "label": "Keep responses readable",
+            "status": "demonstrated",
+            "feedback": "Every recorded trainee response must be 70 words or fewer. This measures length only, not the meaning or quality of the language.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh18f005cxpxmia72vkyz",
+                "eventId": "cmvqmh18g005gxpxmio43wr0b",
+                "turn": 1,
+                "scope": "original"
+              },
+              {
+                "messageId": "cmvqmh18v005mxpxm389sbc43",
+                "eventId": "cmvqmh18w005qxpxmulgi5xoo",
+                "turn": 2,
+                "scope": "original"
+              },
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              },
+              {
+                "messageId": "cmvqmh2jr0068xpxmn9anxpyc",
+                "eventId": "cmvqmh2js006cxpxmnclexhg5",
+                "turn": 4,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "collaborative-language",
+            "label": "Use collaborative language",
+            "status": "demonstrated",
+            "feedback": "Use an explicit permission phrase such as 'may I' or 'could we'. Matched pressure phrases such as 'sign now' override positive evidence.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nextStep",
+        "label": "Appropriate next step",
+        "weight": 15,
+        "score": 100,
+        "checks": [
+          {
+            "id": "review-offer",
+            "label": "Offer review or a reasoned pause",
+            "status": "demonstrated",
+            "feedback": "Offer a written summary/terms review, or explicitly decline to recommend until needs or terms are reviewed. No sale is required.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          },
+          {
+            "id": "unpressured-choice",
+            "label": "Leave the next decision open",
+            "status": "demonstrated",
+            "feedback": "Offer time or permission before the next step, or explicitly pause a recommendation pending review. Matched pressure language is a concern.",
+            "evidence": [
+              {
+                "messageId": "cmvqmh19a005wxpxmhftyqkg1",
+                "eventId": "cmvqmh19b0060xpxm2q2859bz",
+                "turn": 3,
+                "scope": "original"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "overall": 85,
+    "assessedChecks": 10,
+    "totalChecks": 10,
+    "nextAction": "Explicitly explain that claims are reviewed or approval cannot be guaranteed. Any matched unsupported guarantee makes this check a concern, even after a correction."
+  },
+  "cleanup": "The test deletes only its own session; record IDs are historical evidence."
+}

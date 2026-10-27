@@ -34,7 +34,7 @@ export async function requireSession(id: string, ownerHash: string | null) {
   if (!session) throw new ApiError(404, "Session not found or expired.");
   return session;
 }
-async function requireBranch(id: string, ownerHash: string | null) {
+export async function requireBranch(id: string, ownerHash: string | null) {
   const branch = await db.branch.findUnique({ where: { id } });
   if (!branch) throw new ApiError(404, "Branch not found.");
   const session = await requireSession(branch.sessionId, ownerHash);

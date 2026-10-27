@@ -106,6 +106,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 5 — Evidence-grounded evaluation
 
+**Status: complete locally on October 27, 2026.** Acceptance evidence: [Phase 5 review](PHASE_5_ACCEPTANCE.md).
+
 **Target: Day 6, November 1**
 
 - Implement the scenario rubric: factual accuracy/compliance 30%, needs discovery 20%, objection handling 20%, communication 15%, appropriate next step 15%.

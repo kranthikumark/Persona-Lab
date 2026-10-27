@@ -106,4 +106,5 @@ model Evaluation {
   rubricVersion  String
   findings       Json
   createdAt      DateTime @default(now())
+  @@unique([branchId, branchRevision, rubricVersion])
 }

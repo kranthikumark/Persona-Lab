@@ -13,6 +13,7 @@ import { api, type SessionView } from "@/lib/client";
 import { Shell } from "./shell";
 import { Button } from "./ui/button";
 import { StateIndicators } from "./practice";
+import { EvaluationPanel } from "./evaluation";
 import { comparePaths, type turnRecord } from "@/lib/simulation/comparison";
 
 export function Compare({ sessionId }: { sessionId: string }) {
@@ -296,6 +297,17 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                       </span>
                     </div>
                   </div>
+                  <details className="comparison-evaluation">
+                    <summary>Rubric evaluation · {view.branch.name}</summary>
+                    <EvaluationPanel
+                      branchId={view.branch.id}
+                      revision={view.branch.revision}
+                      compact
+                      evidenceHref={(id) =>
+                        `/sessions/${sessionId}?branch=${view.branch.id}#message-${id}`
+                      }
+                    />
+                  </details>
                   <Link
                     className="button button-secondary"
                     href={`/sessions/${sessionId}?branch=${view.branch.id}`}

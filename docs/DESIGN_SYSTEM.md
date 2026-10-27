@@ -36,11 +36,12 @@ Locally bundled fonts avoid external font requests. The fictional portrait's pro
 - **Drawers:** Radix dialog semantics, title/description, trapped keyboard focus, Escape/close, and return to the originating control.
 - **Comparison:** shared origin and two labelled paths, expandable recorded prefix, stacked columns on mobile, and branch selectors that refresh the selected transcript. Changing paths clears stale content while the new view loads.
 - **Recorded changes:** matched turn cards use violet/teal path borders and neutral signed deltas, with response evidence links. Missing turns remain explicitly empty. Shared and post-split findings are labelled; unequal conversation lengths carry a visible caution. Cards stack below 700 pixels.
+- **Evaluation:** Field notes contains the five-category report. The evaluation action stays near the top, missing evidence uses an em dash, category details expose scoring rules and evidence, and an amber notice identifies outdated reports. Compact comparison reports expand independently per path.
 - **History:** distinct loading, empty, populated, and recoverable error presentations. Loading never masquerades as an empty history.
 
 ## Truthful presentation
 
-Mock screens identify the scripted provider. Live screens identify Meta. While session configuration loads, the shell says Connecting studio rather than guessing a provider. Comparison shows recorded differences and simulation indicators, not causal or psychological claims. Full rubric scoring remains a later phase.
+Mock screens identify the scripted provider. Live screens identify Meta. While session configuration loads, the shell says Connecting studio rather than guessing a provider. Comparison shows recorded differences and simulation indicators, not causal or psychological claims. Rubric reports label limited rule coverage and insufficient evidence, with explicit version and revision scope.
 
 ## Accessibility and validation
 
@@ -49,3 +50,5 @@ Use visible focus, semantic links/buttons, associated input labels, text alongsi
 Phase 1 evidence, representative screenshots, and remaining release-level checks are recorded in `PHASE_1_ACCEPTANCE.md`.
 
 Phase 4 adds reviewed desktop/mobile comparison captures and two selected-rule axe scans; see `PHASE_4_ACCEPTANCE.md`.
+
+Phase 5 adds reviewed desktop/mobile evaluation captures and two selected-rule axe scans; see `PHASE_5_ACCEPTANCE.md`.

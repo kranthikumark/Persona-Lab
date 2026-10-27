@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-10-27T11:51:36.073Z",
+  "status": "passed",
+  "environment": "local production build, Meta configuration, no generation calls",
+  "checks": {
+    "openingOnlyEvaluationUnscored": true,
+    "persistedReportReloaded": true,
+    "unauthorizedReadDenied": true
+  },
+  "rubricVersion": "insurance-rubric-v1",
+  "revision": 0,
+  "cleanup": "Test session and report deleted after verification."
+}

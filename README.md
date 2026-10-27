@@ -13,11 +13,13 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 - Side-by-side transcripts, shared-history findings, per-turn recorded state/event changes, and guarantee-phrase feedback linked to stored messages.
 - Explicit deterministic mock adapter and a server-only Meta Muse Spark adapter built against official documentation.
 
-**Phase 2 live Meta acceptance complete locally:** five turns, exact reload/resume, a sixth turn, scoped access, and provider-failure recovery passed. An independent live alternative and comparison also passed. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full five-category evaluation, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
+**Phase 2 live Meta acceptance complete locally:** five turns, exact reload/resume, a sixth turn, scoped access, and provider-failure recovery passed. An independent live alternative and comparison also passed. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
 
 **Phase 3 state/timeline acceptance complete locally:** 38 routine checks pass, including forced concurrent writes, rollback, bounded state, knowledge isolation, evidence references, and saved-state previews. See [Phase 3 acceptance](docs/PHASE_3_ACCEPTANCE.md).
 
 **Phase 4 branching/comparison acceptance complete locally:** independent parent/sibling/nested paths, shared versus divergent evidence, per-turn recorded state changes, and desktop/mobile replay and resumption. See [Phase 4 acceptance](docs/PHASE_4_ACCEPTANCE.md).
+
+**Phase 5 evaluation complete locally:** versioned five-category reports, exact evidence, strengths/next actions, explicit insufficient evidence, saved revision scope and outdated-report notices. Open Field notes in practice or Rubric evaluation in comparison. See [Phase 5 acceptance](docs/PHASE_5_ACCEPTANCE.md).
 
 ## Local setup
 
@@ -64,7 +66,7 @@ Private personal knowledge is withheld from model input until explicit rules rev
 
 ## Limits and interpretation
 
-All policy facts and people are fictional. Outcomes are model-generated possibilities, not predictions of human behavior or causal effects. Visible confidence indicators are simulation variables. The deterministic guarantee check recognizes a narrow set of phrases; absence of a flag does not prove compliance or factual accuracy. Full rubric evaluation is not yet implemented.
+All policy facts and people are fictional. Outcomes are model-generated possibilities, not predictions of human behavior or causal effects. Visible confidence indicators are simulation variables. The deterministic guarantee check recognizes a narrow set of phrases; absence of a flag does not prove compliance or factual accuracy. The five-category rubric uses ten versioned phrase checks with actual message/event evidence. Missing checks remain unscored; results are limited rule coverage rather than a complete quality assessment. See [evaluation rules](docs/EVALUATION_RULES.md).
 
 Session expiry is enforced on reads after 30 days, but automated physical purging is not yet configured. Explicit session deletion is available in practice history. Browser-scoped limits are basic local-demo controls, not production abuse prevention. Branch creation/start quotas need stronger transactional enforcement and distributed rate limiting before public release.
 
@@ -80,6 +82,8 @@ Session expiry is enforced on reads after 30 days, but automated physical purgin
 - [Phase 2 live acceptance and evidence](docs/PHASE_2_ACCEPTANCE.md)
 - [Phase 3 state and timeline acceptance](docs/PHASE_3_ACCEPTANCE.md)
 - [Phase 4 branching and comparison acceptance](docs/PHASE_4_ACCEPTANCE.md)
+- [Phase 5 evaluation acceptance](docs/PHASE_5_ACCEPTANCE.md)
+- [Evaluation scoring rules](docs/EVALUATION_RULES.md)
 - [Actual phase status](docs/PHASE_STATUS.md)
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 

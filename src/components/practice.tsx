@@ -28,6 +28,7 @@ import { Shell } from "./shell";
 import { Button } from "./ui/button";
 import { Drawer } from "./ui/drawer";
 import { Facts } from "./studio";
+import { EvaluationPanel } from "./evaluation";
 import { api, type SessionView } from "@/lib/client";
 import { publicScenario as scenario } from "@/lib/scenarios/public";
 
@@ -62,6 +63,7 @@ function PracticeSession({
   const [decision, setDecision] = useState<number | null>(null);
   const [branchName, setBranchName] = useState("A different approach");
   const bottom = useRef<HTMLDivElement>(null);
+  const evidenceHandled = useRef(false);
   const pending = useRef<{ text: string; key: string } | null>(null);
   const storageKey = `persona-draft:${sessionId}:${branchId ?? "original"}`;
   const draft = useSyncExternalStore(
@@ -99,6 +101,17 @@ function PracticeSession({
     };
   }, [sessionId, branchId]);
   useEffect(() => {
+    if (!evidenceHandled.current && view?.messages.length) {
+      evidenceHandled.current = true;
+      const id = window.location.hash.slice(1);
+      const target = id.startsWith("message-")
+        ? document.getElementById(id)
+        : null;
+      if (target) {
+        target.scrollIntoView({ behavior: "instant", block: "center" });
+        return;
+      }
+    }
     bottom.current?.scrollIntoView({ behavior: "instant", block: "nearest" });
   }, [view?.messages.length, busy]);
   function updateDraft(value: string) {
@@ -531,56 +544,29 @@ function PracticeSession({
         description={
           panel === "facts"
             ? "Use only these approved facts. Be clear about the limits and never promise claim approval."
-            : "Early coaching uses a narrow deterministic check for guarantee phrases. Full rubric scoring is planned; these notes are not a complete assessment."
+            : "A versioned review of the recorded conversation. Every assessed check links to its evidence; missing evidence remains unscored."
         }
       >
         {panel === "facts" ? (
           <Facts />
         ) : (
-          <div className="coaching-list">
-            {view?.findings.length ? (
-              view.findings.map((finding) => (
-                <div className="coaching-card" key={finding.messageId}>
-                  <Flag size={18} />
-                  <span className="eyebrow">
-                    TURN {finding.turn} / POLICY ACCURACY
-                  </span>
-                  <h3>{finding.title}</h3>
-                  <p>{finding.detail}</p>
-                  <blockquote>
-                    {
-                      view.messages.find((m) => m.id === finding.messageId)
-                        ?.content
-                    }
-                  </blockquote>
-                  <a
-                    href={`#message-${finding.messageId}`}
-                    onClick={() => setPanel(null)}
-                  >
-                    View exact message <ArrowRight size={14} />
-                  </a>
-                  <small>{finding.source}</small>
-                </div>
-              ))
-            ) : (
-              <div className="coaching-card">
-                <ShieldCheck size={22} />
-                <h3>No guarantee phrase flagged.</h3>
-                <p>
-                  This phrase check cannot establish that every statement is
-                  accurate. Keep referring to the approved policy facts.
-                </p>
-              </div>
-            )}
-            <div className="coaching-card neutral-card">
-              <h3>Try a different opening.</h3>
-              <p>
-                Ask what worries Priya before explaining the policy. Use the
-                timeline to explore another response and compare the
-                conversations.
-              </p>
-            </div>
-          </div>
+          view &&
+          panel === "coach" && (
+            <EvaluationPanel
+              key={`${view.branch.id}:${view.branch.revision}`}
+              branchId={view.branch.id}
+              revision={view.branch.revision}
+              evidenceHref={(id) => `#message-${id}`}
+              onEvidence={(id) => {
+                setPanel(null);
+                requestAnimationFrame(() =>
+                  document
+                    .getElementById(`message-${id}`)
+                    ?.scrollIntoView({ block: "center" }),
+                );
+              }}
+            />
+          )
         )}
       </Drawer>
       <Drawer
