@@ -121,6 +121,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 6 — Complete journey, visual refinement, and accessibility
 
+**Status: visual implementation and local acceptance complete October 27, 2026.** [Acceptance evidence and remaining native/device checks](PHASE_6_ACCEPTANCE.md).
+
 **Target: Day 7, November 2**
 
 - Refine scenario introduction, character presence, conversation readability, timeline selection, branching transition, and report layout.

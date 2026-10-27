@@ -9,12 +9,14 @@ export function Drawer({
   title,
   description,
   children,
+  closeFocusRef,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description: string;
   children: React.ReactNode;
+  closeFocusRef?: React.RefObject<HTMLElement | null>;
 }) {
   const opener = useRef<HTMLElement | null>(null);
   return (
@@ -30,6 +32,14 @@ export function Drawer({
                 : null;
           }}
           onCloseAutoFocus={(event) => {
+            const evidence = closeFocusRef?.current;
+            if (evidence?.isConnected) {
+              event.preventDefault();
+              closeFocusRef!.current = null;
+              evidence.focus({ preventScroll: true });
+              evidence.scrollIntoView({ block: "center" });
+              return;
+            }
             if (opener.current?.isConnected) {
               event.preventDefault();
               opener.current.focus();

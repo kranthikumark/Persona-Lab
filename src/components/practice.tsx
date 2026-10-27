@@ -64,6 +64,7 @@ function PracticeSession({
   const [branchName, setBranchName] = useState("A different approach");
   const bottom = useRef<HTMLDivElement>(null);
   const evidenceHandled = useRef(false);
+  const evidenceFocus = useRef<HTMLElement | null>(null);
   const pending = useRef<{ text: string; key: string } | null>(null);
   const storageKey = `persona-draft:${sessionId}:${branchId ?? "original"}`;
   const draft = useSyncExternalStore(
@@ -108,6 +109,7 @@ function PracticeSession({
         ? document.getElementById(id)
         : null;
       if (target) {
+        target.focus({ preventScroll: true });
         target.scrollIntoView({ behavior: "instant", block: "center" });
         return;
       }
@@ -173,6 +175,9 @@ function PracticeSession({
             <Link className="back-link" href="/">
               <ArrowLeft size={15} /> Scenario studio
             </Link>
+            <span className="eyebrow mint practice-kicker">
+              THE CONVERSATION ROOM
+            </span>
             <h1>The trust conversation</h1>
             <p>A careful customer. An honest conversation.</p>
           </div>
@@ -191,17 +196,22 @@ function PracticeSession({
           </div>
         </div>
         {!view ? (
-          <div className="empty-state">
+          <div className="empty-state" aria-busy={!error}>
             {error ? (
               <>
                 <h2>Let’s reconnect.</h2>
                 <p role="alert">{error}</p>
-                <Button onClick={load}>Try again</Button>
+                <div className="recovery-actions">
+                  <Button onClick={load}>Try again</Button>
+                  <Link className="button button-secondary" href="/">
+                    Return to scenario studio
+                  </Link>
+                </div>
               </>
             ) : (
               <>
                 <LoaderCircle size={28} className="spin" />
-                <p>Preparing your practice space…</p>
+                <p role="status">Preparing your practice space…</p>
               </>
             )}
           </div>
@@ -245,7 +255,7 @@ function PracticeSession({
                 size="sm"
                 onClick={() => setPanel("coach")}
               >
-                <Sparkles size={15} /> Field notes{" "}
+                <Sparkles size={15} /> Field notes · Evaluation{" "}
                 {view.findings.length > 0 && (
                   <span className="issue-count">{view.findings.length}</span>
                 )}
@@ -315,6 +325,12 @@ function PracticeSession({
                 </div>
               </aside>
               <section className="conversation-panel" aria-label="Conversation">
+                <div className="conversation-context">
+                  <span>ONE CONVERSATION. ROOM TO EXPLORE.</span>
+                  <a href="#decision-timeline">
+                    Revisit a decision <CornerUpLeft size={13} />
+                  </a>
+                </div>
                 <div className="conversation-top">
                   <div>
                     <span className="presence-dot" />
@@ -346,6 +362,7 @@ function PracticeSession({
                   {view.messages.map((message) => (
                     <div
                       id={`message-${message.id}`}
+                      tabIndex={-1}
                       className={`message-row ${message.role === "user" ? "from-user" : "from-priya"}`}
                       key={message.id}
                     >
@@ -463,7 +480,11 @@ function PracticeSession({
                   </div>
                 </form>
               </section>
-              <aside className="timeline-panel">
+              <aside
+                className="timeline-panel"
+                id="decision-timeline"
+                tabIndex={-1}
+              >
                 <div className="timeline-heading">
                   <GitBranch size={18} />
                   <h2>Decision timeline</h2>
@@ -533,6 +554,7 @@ function PracticeSession({
       </main>
       <Drawer
         open={panel !== null}
+        closeFocusRef={evidenceFocus}
         onOpenChange={(open) => {
           if (!open) setPanel(null);
         }}
@@ -558,12 +580,10 @@ function PracticeSession({
               revision={view.branch.revision}
               evidenceHref={(id) => `#message-${id}`}
               onEvidence={(id) => {
-                setPanel(null);
-                requestAnimationFrame(() =>
-                  document
-                    .getElementById(`message-${id}`)
-                    ?.scrollIntoView({ block: "center" }),
+                evidenceFocus.current = document.getElementById(
+                  `message-${id}`,
                 );
+                setPanel(null);
               }}
             />
           )

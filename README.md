@@ -21,6 +21,8 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 
 **Phase 5 evaluation complete locally:** versioned five-category reports, exact evidence, strengths/next actions, explicit insufficient evidence, saved revision scope and outdated-report notices. Open Field notes in practice or Rubric evaluation in comparison. See [Phase 5 acceptance](docs/PHASE_5_ACCEPTANCE.md).
 
+**Phase 6 visual upgrade and local acceptance:** portrait-led studio, editorial workspace headings, prominent evaluation, repaired evidence focus, 320px reflow, larger-text and forced-colors checks. Native zoom, audible screen-reader and physical-device release checks remain open. See [Phase 6 acceptance](docs/PHASE_6_ACCEPTANCE.md).
+
 ## Local setup
 
 Requires Node.js 22+ (verified with 24.22.1), npm, native PostgreSQL, and `psql` for the optional local database helper. No Docker is required.
@@ -84,6 +86,7 @@ Session expiry is enforced on reads after 30 days, but automated physical purgin
 - [Phase 4 branching and comparison acceptance](docs/PHASE_4_ACCEPTANCE.md)
 - [Phase 5 evaluation acceptance](docs/PHASE_5_ACCEPTANCE.md)
 - [Evaluation scoring rules](docs/EVALUATION_RULES.md)
+- [Phase 6 visual/accessibility acceptance](docs/PHASE_6_ACCEPTANCE.md)
 - [Actual phase status](docs/PHASE_STATUS.md)
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 

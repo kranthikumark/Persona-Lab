@@ -47,7 +47,15 @@ for (const size of [
       const audit = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
         .analyze();
-      expect(audit.violations.map(({ id }) => id)).toEqual([]);
+      expect(
+        audit.violations.map(({ id, nodes }) => ({
+          id,
+          nodes: nodes.map(({ target, failureSummary }) => ({
+            target,
+            failureSummary,
+          })),
+        })),
+      ).toEqual([]);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,

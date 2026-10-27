@@ -1,0 +1,10 @@
+{
+  "verifiedAt": "2026-10-27T17:42:19.908Z",
+  "provider": "mock",
+  "data": {
+    "progressStatus": true,
+    "draftSurvivesReload": true,
+    "noPartialTurn": true,
+    "retryCommittedExactlyOnce": true
+  }
+}

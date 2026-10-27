@@ -76,7 +76,10 @@ function CompareSession({ sessionId }: { sessionId: string }) {
           <h1>
             See what changes<span>.</span>
           </h1>
-          <p>Two conversations. A shared starting point. More room to learn.</p>
+          <p>
+            Follow the fork. Read both replies. See the evidence behind each
+            possibility.
+          </p>
         </div>
         {error ? (
           <div className="error-banner" role="alert">

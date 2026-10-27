@@ -8,7 +8,6 @@ import {
   ArrowUpRight,
   Check,
   ChevronRight,
-  Clock3,
   GitBranch,
   LoaderCircle,
   MessageSquare,
@@ -75,68 +74,100 @@ export function Studio({ mode }: { mode: string }) {
       mode={mode}
     >
       <main className="studio-main" id="page-content" tabIndex={-1}>
-        <section className="studio-intro">
-          <div>
-            <div className="eyebrow mint">
-              <span className="tiny-line" /> YOUR NEXT POSSIBILITY
+        {historyOnly ? (
+          <section className="studio-intro history-intro">
+            <div>
+              <span className="eyebrow mint">
+                YOUR PERSONAL PRACTICE ARCHIVE
+              </span>
+              <h1>
+                Every attempt.
+                <br />
+                <em>A new perspective.</em>
+              </h1>
+              <p className="intro-copy">
+                Return to a conversation. Explore the decision you would make
+                differently.
+              </p>
             </div>
-            <h1>
-              {historyOnly ? (
-                <>
-                  Every attempt.
+            <HistoryMark />
+          </section>
+        ) : (
+          <section className="studio-hero" aria-labelledby="studio-title">
+            <div className="studio-hero-copy">
+              <span className="eyebrow mint">
+                <span className="tiny-line" /> THE DECISION STUDIO
+              </span>
+              <h1 id="studio-title">
+                Better conversations
+                <br />
+                begin with <em>practice.</em>
+              </h1>
+              <p>
+                A little rehearsal for the moments that matter. Meet a
+                character, make a decision, and discover what another response
+                could change.
+              </p>
+              <div className="hero-actions">
+                <Button onClick={start} disabled={busy}>
+                  {busy ? (
+                    <LoaderCircle size={17} className="spin" />
+                  ) : (
+                    <Sparkles size={17} />
+                  )}
+                  {busy ? "Opening your studio…" : "Begin practice"}
+                  <ArrowRight size={17} />
+                </Button>
+                <Button variant="ghost" onClick={() => setFacts(true)}>
+                  Read the brief <ArrowUpRight size={15} />
+                </Button>
+              </div>
+              <div className="hero-journey" aria-label="Your practice journey">
+                <span>
+                  <b>01</b> Converse
+                </span>
+                <i aria-hidden="true" />
+                <span>
+                  <b>02</b> Rewind
+                </span>
+                <i aria-hidden="true" />
+                <span>
+                  <b>03</b> Compare
+                </span>
+              </div>
+              <span className="hero-footnote">
+                <ShieldCheck size={14} /> Fictional scenarios. Real room to
+                practice.
+              </span>
+            </div>
+            <div className="studio-hero-portrait">
+              <Image
+                src="/images/priya.webp"
+                alt="Priya, a fictional customer in an office"
+                fill
+                sizes="(max-width: 760px) 100vw, 480px"
+                priority
+              />
+              <div className="hero-image-shade" />
+              <span className="hero-persona-label">
+                <span /> FICTIONAL PERSONA / 001
+              </span>
+              <div className="hero-persona-caption">
+                <span>YOUR NEXT CONVERSATION</span>
+                <h2>Meet Priya.</h2>
+                <p>
+                  Thoughtful. Skeptical.
                   <br />
-                  <em>A new perspective.</em>
-                </>
-              ) : (
-                <>
-                  Better conversations
-                  <br />
-                  begin with <em>practice.</em>
-                </>
-              )}
-            </h1>
-            <p className="intro-copy">
-              A safe space for the conversations that matter.
-              <br />
-              Make a decision. Rewind the moment. Discover another way.
-            </p>
-          </div>
-          <div className="branch-art" aria-hidden="true">
-            <svg viewBox="0 0 380 230">
-              <defs>
-                <linearGradient id="pathGradient">
-                  <stop stopColor="#8070df" />
-                  <stop offset="1" stopColor="#79d7bd" />
-                </linearGradient>
-              </defs>
-              <path
-                className="art-grid"
-                d="M0 60H380M0 115H380M0 170H380M70 0V230M140 0V230M210 0V230M280 0V230M350 0V230"
-              />
-              <path
-                className="art-path-secondary"
-                d="M20 175H130Q165 175 190 140L220 102Q240 78 270 78H355"
-              />
-              <path
-                className="art-path"
-                d="M20 175H130Q165 175 190 140L244 180Q259 190 285 190H355"
-              />
-              <circle cx="135" cy="175" r="18" className="art-halo" />
-              <circle cx="135" cy="175" r="6" fill="#b5a4ff" />
-              <circle cx="270" cy="78" r="7" fill="#89dfc6" />
-              <circle cx="285" cy="190" r="6" fill="#b5a4ff" />
-              <text x="207" y="45">
-                WHAT IF YOU TRIED...
-              </text>
-              <text x="265" y="217">
-                ANOTHER WAY?
-              </text>
-            </svg>
-            <span className="art-label">
-              <GitBranch size={13} /> One moment. More possibilities.
-            </span>
-          </div>
-        </section>
+                  Looking for an honest answer.
+                </p>
+              </div>
+              <span className="hero-format">
+                <MessageSquare size={14} /> Text-first roleplay{" "}
+                <span>5–10 min</span>
+              </span>
+            </div>
+          </section>
+        )}
         {error && (
           <div className="error-banner" role="alert">
             {error}
@@ -144,85 +175,33 @@ export function Studio({ mode }: { mode: string }) {
         )}
         {!historyOnly && (
           <>
-            <div className="section-heading">
+            <section
+              className="scenario-brief-card"
+              aria-labelledby="featured-title"
+            >
               <div>
-                <span className="eyebrow">CURATED FOR YOUR PRACTICE</span>
-                <h2>Step into a scenario</h2>
-              </div>
-              <span className="subtle-label">
-                01 scenario <span className="footer-dot">·</span> Multiple
-                possibilities
-              </span>
-            </div>
-            <section className="featured-scenario">
-              <div className="scenario-portrait">
-                <Image
-                  src="/images/priya.webp"
-                  alt="Priya, a fictional customer in an office"
-                  fill
-                  sizes="(max-width: 760px) 100vw, 380px"
-                  priority
-                />
-                <div className="portrait-shade" />
-                <span className="portrait-topline">
-                  <span /> MEET YOUR COUNTERPART
+                <span className="eyebrow">
+                  FEATURED PRACTICE / CUSTOMER NEGOTIATION
                 </span>
-                <div className="portrait-caption">
-                  <span className="portrait-name">Priya</span>
-                  <span>Thoughtful. Skeptical. Ready to listen.</span>
-                </div>
-              </div>
-              <div className="scenario-content">
-                <div className="scenario-meta">
-                  <span className="pill violet">
-                    <ShieldCheck size={13} /> Customer negotiation
-                  </span>
-                  <span className="scenario-number">SCENARIO / 001</span>
-                </div>
-                <h2>
-                  The trust <br />
-                  conversation<span>.</span>
-                </h2>
+                <h2 id="featured-title">The trust conversation.</h2>
                 <p>
-                  A customer wants clarity, not another promise.
-                  <br className="desktop-break" /> Can you turn skepticism into
-                  an honest conversation?
+                  A customer wants clarity, not another promise. Understand her
+                  concerns and explain the limits of a fictional policy.
                 </p>
-                <div className="scenario-tags">
-                  <span>
-                    <Clock3 size={14} /> 5–10 min practice
-                  </span>
-                  <span>
-                    <MessageSquare size={14} /> Text conversation
-                  </span>
-                </div>
-                <div className="scenario-divider" />
-                <div className="scenario-objective">
-                  <span className="eyebrow">YOUR CHALLENGE</span>
-                  <p>
-                    Understand her concerns. Explain the limits.
-                    <br />
-                    Earn trust without overpromising.
-                  </p>
-                </div>
-                <div className="scenario-actions">
-                  <Button onClick={start} disabled={busy}>
-                    {busy ? (
-                      <LoaderCircle size={17} className="spin" />
-                    ) : (
-                      <Sparkles size={16} />
-                    )}
-                    {busy ? "Opening your studio…" : "Begin practice"}
-                    <ArrowRight size={17} />
-                  </Button>
-                  <Button variant="ghost" onClick={() => setFacts(true)}>
-                    Read the brief <ArrowUpRight size={15} />
-                  </Button>
-                </div>
-                <div className="disclaimer-small">
-                  <ShieldCheck size={12} /> Fictional policy and character. A
-                  safe space to experiment.
-                </div>
+              </div>
+              <div className="brief-focus">
+                <span className="eyebrow mint">WHAT YOU’LL PRACTICE</span>
+                <ul>
+                  <li>
+                    <Check size={15} /> Discover what matters
+                  </li>
+                  <li>
+                    <Check size={15} /> Explain without overpromising
+                  </li>
+                  <li>
+                    <Check size={15} /> Agree on a suitable next step
+                  </li>
+                </ul>
               </div>
             </section>
             <section className="how-section">
@@ -384,6 +363,15 @@ export function Facts() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function HistoryMark() {
+  return (
+    <div className="history-mark" aria-hidden="true">
+      <GitBranch size={72} strokeWidth={0.8} />
+      <span>Every path has a story.</span>
     </div>
   );
 }

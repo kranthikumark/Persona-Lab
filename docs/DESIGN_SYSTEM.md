@@ -2,7 +2,7 @@
 
 ## Direction
 
-A calm, premium decision studio: human character photography, a dark navy canvas, crisp conversation surfaces, restrained violet actions, and mint alternative paths. Shared history and the moment of divergence carry the product identity. Decorative charts, voice controls, and invented performance statistics are excluded.
+A calm, premium decision studio: a portrait-led studio, an editorial headline, a deep navy/teal canvas, crisp conversation surfaces, mint start/evaluation actions, violet original paths and mint alternative paths. Shared history and the moment of divergence carry the product identity. Decorative charts, voice controls, and invented performance statistics are excluded.
 
 ## Tokens
 
@@ -10,11 +10,11 @@ Tokens are defined in `src/app/globals.css`.
 
 | Role               | Token / treatment                                                                           |
 | ------------------ | ------------------------------------------------------------------------------------------- |
-| Canvas             | `--background`, `#101218`                                                                   |
+| Canvas             | `--background`, `#0c1219`                                                                   |
 | Panels             | `--surface`, `--surface-raised`                                                             |
 | Text               | `--foreground`, `--muted`; secondary labels must retain contrast                            |
 | Original/action    | `--violet`, `#b8a1ff`                                                                       |
-| Alternative/status | `--mint`, `#9cddc7`                                                                         |
+| Alternative/status | `--mint`, `#a9e3cc`                                                                         |
 | Policy warning     | `--amber`, `#e7bf87`, always paired with text                                               |
 | Typography         | `--font-body` Inter Variable; `--font-heading` Manrope Variable; `--font-editorial` Georgia |
 | Spacing            | `--space-1/2/3/4/6/8`: 4, 8, 12, 16, 24, 32 pixels                                          |
@@ -29,14 +29,14 @@ Locally bundled fonts avoid external font requests. The fictional portrait's pro
 
 - **Navigation:** desktop workspace sidebar; compact Studio/History/Practice links on smaller viewports. The selected page uses `aria-current`. The skip link moves keyboard focus directly to the page's main region.
 - **Actions:** CVA button variants for primary, secondary, ghost, small, and icon actions. Disabled and pending states remain visually distinct.
-- **Scenario card:** character portrait, fictional scenario label, task, duration, primary start action, and accessible policy brief.
+- **Studio hero:** headline and primary practice/brief actions alongside the fictional character portrait; visible Converse/Rewind/Compare sequence and a separate scenario/focus card. Desktop uses two columns; mobile stacks the text and portrait.
 - **Messages/composer:** speaker names, turn labels, inherited-history labels, preserved draft, send/pending state, and retry feedback.
 - **Character context:** persistent on desktop; an explicit Objectives & state disclosure on mobile. Important context is available rather than discarded at small sizes.
 - **Timeline:** saved-state buttons, readable labels, current-state marking, and keyboard-accessible decision selection. Mobile uses a vertical list so decisions are discoverable without horizontal scrolling.
-- **Drawers:** Radix dialog semantics, title/description, trapped keyboard focus, Escape/close, and return to the originating control.
+- **Drawers:** Radix dialog semantics, title/description, trapped keyboard focus, Escape/close, and return to the originating control. Following report evidence instead transfers focus to the exact referenced message after the dialog closes.
 - **Comparison:** shared origin and two labelled paths, expandable recorded prefix, stacked columns on mobile, and branch selectors that refresh the selected transcript. Changing paths clears stale content while the new view loads.
 - **Recorded changes:** matched turn cards use violet/teal path borders and neutral signed deltas, with response evidence links. Missing turns remain explicitly empty. Shared and post-split findings are labelled; unequal conversation lengths carry a visible caution. Cards stack below 700 pixels.
-- **Evaluation:** Field notes contains the five-category report. The evaluation action stays near the top, missing evidence uses an em dash, category details expose scoring rules and evidence, and an amber notice identifies outdated reports. Compact comparison reports expand independently per path.
+- **Evaluation:** the prominent Field notes · Evaluation action contains the five-category report. The evaluation action stays near the top, missing evidence uses an em dash, category details expose scoring rules and evidence, and an amber notice identifies outdated reports. Compact comparison reports expand independently per path.
 - **History:** distinct loading, empty, populated, and recoverable error presentations. Loading never masquerades as an empty history.
 
 ## Truthful presentation
@@ -52,3 +52,5 @@ Phase 1 evidence, representative screenshots, and remaining release-level checks
 Phase 4 adds reviewed desktop/mobile comparison captures and two selected-rule axe scans; see `PHASE_4_ACCEPTANCE.md`.
 
 Phase 5 adds reviewed desktop/mobile evaluation captures and two selected-rule axe scans; see `PHASE_5_ACCEPTANCE.md`.
+
+Phase 6 changes the visible studio and workspace composition, tests 320px reflow, larger text and forced colors, and records the remaining native zoom/screen-reader/device checks in `PHASE_6_ACCEPTANCE.md`.

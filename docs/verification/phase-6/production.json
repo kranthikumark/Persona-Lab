@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-10-27T17:46:45.506Z",
+  "status": "passed",
+  "httpStatus": 200,
+  "portraitLedStudioPresent": true,
+  "provider": "meta",
+  "clientChunkPrivacyScan": {
+    "passed": true,
+    "chunks": 13
+  },
+  "browserTabOpened": true,
+  "modelCallsMade": 0
+}

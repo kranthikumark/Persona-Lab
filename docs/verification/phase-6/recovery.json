@@ -1,0 +1,10 @@
+{
+  "verifiedAt": "2026-10-27T17:42:20.728Z",
+  "provider": "mock",
+  "data": {
+    "expiredRecoveryLink": true,
+    "temporaryReadFailure": true,
+    "retryRestoresHistory": true,
+    "errorsInjectedAtBrowserBoundary": true
+  }
+}

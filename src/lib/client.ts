@@ -3,15 +3,33 @@ export async function api<T>(
   data?: unknown,
   method?: string,
 ): Promise<T> {
-  const response = await fetch(url, {
-    method: method ?? (data ? "POST" : "GET"),
-    headers: data ? { "Content-Type": "application/json" } : undefined,
-    body: data ? JSON.stringify(data) : undefined,
-    cache: "no-store",
-  });
-  const result = await response.json();
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      method: method ?? (data ? "POST" : "GET"),
+      headers: data ? { "Content-Type": "application/json" } : undefined,
+      body: data ? JSON.stringify(data) : undefined,
+      cache: "no-store",
+    });
+  } catch {
+    throw new Error(
+      "Connection interrupted. Reload your saved history before retrying.",
+    );
+  }
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error(
+      "The studio returned an unreadable response. Reload your saved history before retrying.",
+    );
+  }
   if (!response.ok)
-    throw new Error(result.error || "Something went wrong. Please try again.");
+    throw new Error(
+      typeof result?.error === "string"
+        ? result.error
+        : "The studio could not complete this request. Please try again.",
+    );
   return result as T;
 }
 export type SessionSummary = {
