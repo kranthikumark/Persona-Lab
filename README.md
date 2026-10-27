@@ -15,6 +15,8 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 
 **Phase 2 live Meta acceptance complete locally:** five turns, exact reload/resume, a sixth turn, scoped access, and provider-failure recovery passed. An independent live alternative and comparison also passed. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full five-category evaluation, rich event-difference visualization, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
 
+**Phase 3 state/timeline acceptance complete locally:** 38 routine checks pass, including forced concurrent writes, rollback, bounded state, knowledge isolation, evidence references, and saved-state previews. See [Phase 3 acceptance](docs/PHASE_3_ACCEPTANCE.md).
+
 ## Local setup
 
 Requires Node.js 22+ (verified with 24.22.1), npm, native PostgreSQL, and `psql` for the optional local database helper. No Docker is required.
@@ -74,7 +76,8 @@ Session expiry is enforced on reads after 30 days, but automated physical purgin
 - [Design system](docs/DESIGN_SYSTEM.md)
 - [Phase 1 acceptance and screenshots](docs/PHASE_1_ACCEPTANCE.md)
 - [Phase 2 live acceptance and evidence](docs/PHASE_2_ACCEPTANCE.md)
+- [Phase 3 state and timeline acceptance](docs/PHASE_3_ACCEPTANCE.md)
 - [Actual phase status](docs/PHASE_STATUS.md)
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 
-Software is provided under the [MIT license](LICENSE). The current implementation has not been pushed or publicly deployed.
+Software is provided under the [MIT license](LICENSE). The foundation and Phases 1–2 were pushed to GitHub; current Git delivery is reported in the handoff. The application has not been publicly deployed.

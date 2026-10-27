@@ -1,0 +1,64 @@
+{
+  "verifiedAt": "2026-10-27T11:24:24.453Z",
+  "provider": "mock",
+  "status": "passed",
+  "checks": {
+    "orderedTimeline": true,
+    "preResponseBoundary": true,
+    "exactSavedStatePreview": true,
+    "reloadPreservesSnapshotsAndEvents": true
+  },
+  "snapshotStates": [
+    {
+      "turnNumber": 0,
+      "state": {
+        "trust": 35,
+        "frustration": 40,
+        "interest": 30,
+        "violations": 0,
+        "phase": "discovery",
+        "revealed": []
+      }
+    },
+    {
+      "turnNumber": 1,
+      "state": {
+        "trust": 41,
+        "frustration": 36,
+        "interest": 34,
+        "violations": 0,
+        "phase": "discovery",
+        "revealed": [
+          "budgetConcern"
+        ]
+      }
+    },
+    {
+      "turnNumber": 2,
+      "state": {
+        "trust": 29,
+        "frustration": 46,
+        "interest": 26,
+        "violations": 1,
+        "phase": "clarification",
+        "revealed": [
+          "budgetConcern"
+        ]
+      }
+    },
+    {
+      "turnNumber": 3,
+      "state": {
+        "trust": 34,
+        "frustration": 42,
+        "interest": 30,
+        "violations": 1,
+        "phase": "next_step",
+        "revealed": [
+          "budgetConcern"
+        ]
+      }
+    }
+  ],
+  "cleanup": "The test deletes only its own session in finally."
+}

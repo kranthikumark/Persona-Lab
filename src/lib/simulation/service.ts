@@ -113,6 +113,7 @@ export async function startSession(ownerHash: string) {
       503,
       "The scenario hasn't been seeded. Run npm run db:seed.",
     );
+  const definition = scenario.definition as unknown as ScenarioDefinition;
   const session = await db.simulationSession.create({
     data: {
       ownerHash,
@@ -127,9 +128,8 @@ export async function startSession(ownerHash: string) {
               sequence: 0,
               turn: 0,
               role: "assistant",
-              content: (scenario.definition as unknown as ScenarioDefinition)
-                .opening,
-              metadata: { provider: "scenario", version: 1 },
+              content: definition.opening,
+              metadata: { provider: "scenario", version: scenario.version },
             },
           },
           snapshots: {
@@ -137,7 +137,7 @@ export async function startSession(ownerHash: string) {
               turnNumber: 0,
               state: initialState,
               characterKnowledge: [],
-              contextVersion: insuranceScenario.contextVersion,
+              contextVersion: definition.contextVersion,
             },
           },
         },

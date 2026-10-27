@@ -51,7 +51,7 @@ export function unsupportedGuarantee(text: string) {
         sentence,
       ) ||
       /\bguarantee\b.{0,35}\b(claim|approval|payout)\b/.test(sentence) ||
-      /\b100\s*%\b.{0,25}\b(approval|guarantee)/.test(sentence)
+      /\b100\s*%.{0,25}\b(approval|guarantee)/.test(sentence)
     );
   });
 }
@@ -91,7 +91,9 @@ export function transition(
     phase:
       /\b(send|review|follow.up|next step|summary)\b/i.test(text) && !violation
         ? "next_step"
-        : /\b(exclu|waiting|claim|cover)\b/i.test(text)
+        : /\b(exclusions?|excluded|waiting|claims?|cover|covered|coverage)\b/i.test(
+              text,
+            )
           ? "clarification"
           : state.phase,
   });

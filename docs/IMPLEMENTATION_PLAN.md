@@ -75,6 +75,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 3 — Authoritative state and decision timeline
 
+**Status: complete locally on October 27, 2026.** Acceptance evidence: [Phase 3 review](PHASE_3_ACCEPTANCE.md).
+
 **Target: Days 3–4, October 29–30**
 
 - Implement a deterministic state reducer with allowlisted transitions, bounds, and explicit knowledge-reveal events.

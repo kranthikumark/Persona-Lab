@@ -84,3 +84,22 @@ describe("provider boundaries", () => {
     await expect(metaProvider.respond(input)).rejects.toThrow("HTTP 429");
   });
 });
+
+describe("mock knowledge parity with server reveal rules", () => {
+  it("does not disclose personal history for a near-match the server did not reveal", async () => {
+    const result = await mockProvider.respond({
+      ...input,
+      text: "What concerns you most?",
+    });
+    expect(result.proposal.utterance).not.toContain("A friend");
+  });
+  it("uses only explicitly permitted personal facts", async () => {
+    const result = await mockProvider.respond({
+      ...input,
+      text: "What was your past experience?",
+      state: { ...initialState, revealed: ["previousExperience"] },
+    });
+    expect(result.proposal.utterance).toContain("A friend");
+    expect(result.proposal.utterance).not.toContain("1,500");
+  });
+});

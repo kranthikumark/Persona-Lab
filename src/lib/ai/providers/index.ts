@@ -58,13 +58,17 @@ export const mockProvider: CharacterProvider = {
       trustDelta = -12;
       frustrationDelta = 10;
       interestDelta = -8;
-    } else if (/\b(budget|afford|spend)\b/.test(input)) {
+    } else if (
+      state.revealed.includes("budgetConcern") &&
+      /\b(budget|afford|spend|monthly cost)\b/.test(input)
+    ) {
       utterance =
         "I'd prefer to stay below ₹1,500 a month. ₹1,250 sounds manageable, but I still need to understand what isn't covered.";
       trustDelta = 6;
       frustrationDelta = -4;
       interestDelta = 4;
     } else if (
+      state.revealed.includes("previousExperience") &&
       /previous|past|experience|why.{0,12}(concern|worr)|what.{0,12}(concern|worr)/.test(
         input,
       )

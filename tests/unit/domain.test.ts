@@ -82,3 +82,71 @@ describe("authoritative simulation rules", () => {
     ]);
   });
 });
+
+describe("Phase 3 rule acceptance", () => {
+  it.each(["exclusions", "claims", "coverage", "covered", "waiting periods"])(
+    "recognizes clarification about %s",
+    (topic) => {
+      expect(
+        transition(initialState, proposal, `Let's discuss ${topic}.`).state
+          .phase,
+      ).toBe("clarification");
+    },
+  );
+  it("recognizes a percentage guarantee and keeps negated language exempt", () => {
+    expect(unsupportedGuarantee("100% approval.")).toBe(true);
+    expect(unsupportedGuarantee("I cannot guarantee 100% approval.")).toBe(
+      false,
+    );
+  });
+  it("rejects model control over phase, violations and revealed knowledge", () => {
+    for (const extra of [
+      { phase: "next_step" },
+      { violations: 0 },
+      { revealed: ["budgetConcern"] },
+    ])
+      expect(() =>
+        transition(initialState, { ...proposal, ...extra }, "Hello"),
+      ).toThrow();
+  });
+  it("keeps all indicators bounded across repeated extreme proposals", () => {
+    for (const delta of [-12, 12]) {
+      let state = structuredClone(initialState);
+      for (let i = 0; i < 100; i++) {
+        state = transition(
+          state,
+          {
+            utterance: "Tell me more.",
+            trustDelta: delta,
+            frustrationDelta: delta,
+            interestDelta: delta,
+          },
+          "Hello",
+        ).state;
+        for (const value of [state.trust, state.frustration, state.interest]) {
+          expect(value).toBeGreaterThanOrEqual(0);
+          expect(value).toBeLessThanOrEqual(100);
+        }
+      }
+      expect([state.trust, state.frustration, state.interest]).toEqual(
+        Array(3).fill(delta > 0 ? 100 : 0),
+      );
+    }
+  });
+  it("keeps reveals unique, preserves prior snapshots and counts each flagged turn once", () => {
+    const saved = structuredClone(initialState);
+    const first = transition(saved, proposal, "What is your budget?");
+    const repeated = transition(first.state, proposal, "What is your budget?");
+    expect(first.newlyRevealed).toEqual(["budgetConcern"]);
+    expect(repeated.newlyRevealed).toEqual([]);
+    expect(repeated.state.revealed).toEqual(["budgetConcern"]);
+    expect(saved).toEqual(initialState);
+    const flagged = transition(
+      repeated.state,
+      proposal,
+      "All claims are guaranteed. Every claim is approved.",
+    );
+    expect(flagged.state.violations).toBe(1);
+    expect(flagged.state.phase).not.toBe("next_step");
+  });
+});
