@@ -18,7 +18,7 @@ export const hash = (value: string) =>
 export async function owner(create = false) {
   const jar = await cookies();
   let token = jar.get("persona_owner")?.value;
-  if (!token && create) {
+  if ((!token || !/^[a-f0-9]{64}$/.test(token)) && create) {
     token = randomBytes(32).toString("hex");
     jar.set("persona_owner", token, {
       httpOnly: true,
@@ -38,8 +38,26 @@ export function assertOrigin(request: Request) {
 export async function jsonBody(request: Request) {
   if (Number(request.headers.get("content-length") ?? 0) > 12000)
     throw new ApiError(413, "Request is too large.");
-  const text = await request.text();
-  if (text.length > 12000) throw new ApiError(413, "Request is too large.");
+  const reader = request.body?.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  if (reader) {
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        size += value.byteLength;
+        if (size > 12000) {
+          await reader.cancel();
+          throw new ApiError(413, "Request is too large.");
+        }
+        chunks.push(value);
+      }
+    } finally {
+      reader.releaseLock();
+    }
+  }
+  const text = Buffer.concat(chunks).toString("utf8");
   try {
     return JSON.parse(text);
   } catch {
@@ -55,14 +73,17 @@ export async function handle(action: () => Promise<unknown>) {
     if (error instanceof ApiError)
       return NextResponse.json(
         { error: error.message },
-        { status: error.status },
+        { status: error.status, headers: { "Cache-Control": "no-store" } },
       );
     if (error instanceof ProviderError)
-      return NextResponse.json({ error: error.message }, { status: 502 });
+      return NextResponse.json(
+        { error: error.message },
+        { status: 502, headers: { "Cache-Control": "no-store" } },
+      );
     if (error instanceof z.ZodError)
       return NextResponse.json(
         { error: "Check your input and try again." },
-        { status: 400 },
+        { status: 400, headers: { "Cache-Control": "no-store" } },
       );
     // Do not log Prisma connection strings, provider bodies, or personal conversation text.
     console.error(
@@ -74,7 +95,7 @@ export async function handle(action: () => Promise<unknown>) {
         error:
           "The studio couldn't complete this request. Check the database setup and try again.",
       },
-      { status: 503 },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
     );
   }
 }

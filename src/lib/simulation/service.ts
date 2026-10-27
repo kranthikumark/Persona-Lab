@@ -7,6 +7,7 @@ import {
 } from "@prisma/client";
 import { db } from "@/lib/db";
 import { ApiError, hash } from "@/lib/api";
+import { reserveCreation, reserveGeneration } from "@/lib/release/limits";
 import {
   insuranceScenario,
   type ScenarioDefinition,
@@ -94,11 +95,6 @@ export async function listSessions(ownerHash: string | null) {
   });
 }
 export async function startSession(ownerHash: string) {
-  const count = await db.simulationSession.count({
-    where: { ownerHash, createdAt: { gt: new Date(Date.now() - 86400000) } },
-  });
-  if (count >= 20)
-    throw new ApiError(429, "You have reached the daily demo session limit.");
   providerMode();
   const scenario = await db.scenario.findUnique({
     where: {
@@ -114,36 +110,45 @@ export async function startSession(ownerHash: string) {
       "The scenario hasn't been seeded. Run npm run db:seed.",
     );
   const definition = scenario.definition as unknown as ScenarioDefinition;
-  const session = await db.simulationSession.create({
-    data: {
-      ownerHash,
-      scenarioId: scenario.id,
-      scenarioData: scenario.definition as Prisma.InputJsonValue,
-      expiresAt: new Date(Date.now() + 30 * 86400000),
-      branches: {
-        create: {
-          name: "Original approach",
-          messages: {
-            create: {
-              sequence: 0,
-              turn: 0,
-              role: "assistant",
-              content: definition.opening,
-              metadata: { provider: "scenario", version: scenario.version },
+  await reserveCreation();
+  const session = await db.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT 1 FROM pg_advisory_xact_lock(hashtext(${`sessions:${ownerHash}`}))`;
+    const count = await tx.simulationSession.count({
+      where: { ownerHash, createdAt: { gt: new Date(Date.now() - 86400000) } },
+    });
+    if (count >= 20)
+      throw new ApiError(429, "You have reached the daily demo session limit.");
+    return tx.simulationSession.create({
+      data: {
+        ownerHash,
+        scenarioId: scenario.id,
+        scenarioData: scenario.definition as Prisma.InputJsonValue,
+        expiresAt: new Date(Date.now() + 30 * 86400000),
+        branches: {
+          create: {
+            name: "Original approach",
+            messages: {
+              create: {
+                sequence: 0,
+                turn: 0,
+                role: "assistant",
+                content: definition.opening,
+                metadata: { provider: "scenario", version: scenario.version },
+              },
             },
-          },
-          snapshots: {
-            create: {
-              turnNumber: 0,
-              state: initialState,
-              characterKnowledge: [],
-              contextVersion: definition.contextVersion,
+            snapshots: {
+              create: {
+                turnNumber: 0,
+                state: initialState,
+                characterKnowledge: [],
+                contextVersion: definition.contextVersion,
+              },
             },
           },
         },
       },
-    },
-    include: { branches: true },
+      include: { branches: true },
+    });
   });
   return { sessionId: session.id, branchId: session.branches[0].id };
 }
@@ -239,6 +244,7 @@ export async function sendTurn(
     ...state,
     revealed: revealForInput(input.text, state.revealed),
   };
+  await reserveGeneration(ownerHash!);
   const generated = await characterProvider().respond({
     text: input.text,
     state: promptState,
@@ -250,7 +256,11 @@ export async function sendTurn(
   try {
     await db.$transaction(async (tx) => {
       const updated = await tx.branch.updateMany({
-        where: { id: branchId, revision: input.revision },
+        where: {
+          id: branchId,
+          revision: input.revision,
+          session: { ownerHash: ownerHash!, expiresAt: { gt: new Date() } },
+        },
         data: { revision: { increment: 1 } },
       });
       if (updated.count !== 1)
@@ -329,25 +339,28 @@ export async function forkBranch(
   const snapshot = history.snapshots.find((s) => s.id === snapshotId);
   if (!snapshot)
     throw new ApiError(404, "Snapshot not found in this branch's history.");
-  const count = await db.branch.count({ where: { sessionId: session.id } });
-  if (count >= 10)
-    throw new ApiError(429, "This session supports up to 10 branches.");
-  const branch = await db.branch.create({
-    data: {
-      sessionId: session.id,
-      parentBranchId: branchId,
-      forkSnapshotId: snapshot.id,
-      name,
-      snapshots: {
-        create: {
-          turnNumber: snapshot.turnNumber,
-          state: snapshot.state as Prisma.InputJsonValue,
-          characterKnowledge:
-            snapshot.characterKnowledge as Prisma.InputJsonValue,
-          contextVersion: snapshot.contextVersion,
+  const branch = await db.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT 1 FROM pg_advisory_xact_lock(hashtext(${`branches:${session.id}`}))`;
+    const count = await tx.branch.count({ where: { sessionId: session.id } });
+    if (count >= 10)
+      throw new ApiError(429, "This session supports up to 10 branches.");
+    return tx.branch.create({
+      data: {
+        sessionId: session.id,
+        parentBranchId: branchId,
+        forkSnapshotId: snapshot.id,
+        name,
+        snapshots: {
+          create: {
+            turnNumber: snapshot.turnNumber,
+            state: snapshot.state as Prisma.InputJsonValue,
+            characterKnowledge:
+              snapshot.characterKnowledge as Prisma.InputJsonValue,
+            contextVersion: snapshot.contextVersion,
+          },
         },
       },
-    },
+    });
   });
   return { sessionId: session.id, branchId: branch.id };
 }

@@ -8,7 +8,10 @@ import type { SessionView } from "../../src/lib/client";
 // Load only the database destination into this verifier; the browser never receives a Meta key.
 const local = parseEnv(readFileSync(".env", "utf8"));
 const db = new PrismaClient({ datasourceUrl: local.DATABASE_URL });
-const evidenceDirectory = "docs/verification/phase-2";
+const phase = process.env.PERSONA_VERIFY_PHASE ?? "phase-2";
+if (!/^phase-[1-8]$/.test(phase)) throw new Error("Invalid evidence phase.");
+const evidenceDirectory = `docs/verification/${phase}`;
+const screenshotDirectory = `docs/screenshots/${phase}`;
 
 async function save(name: string, value: unknown) {
   await mkdir(evidenceDirectory, { recursive: true });
@@ -56,6 +59,7 @@ test("real Meta: five turns, reload/resume, private knowledge, access isolation,
   page,
   playwright,
 }) => {
+  await mkdir(screenshotDirectory, { recursive: true });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
   await expect(
@@ -161,9 +165,9 @@ test("real Meta: five turns, reload/resume, private knowledge, access isolation,
     );
     expect(resumed.messages.length).toBe(13);
     expect(resumed.snapshots.length).toBe(7);
-    await mkdir("docs/screenshots/phase-2", { recursive: true });
+    await mkdir(screenshotDirectory, { recursive: true });
     await page.screenshot({
-      path: "docs/screenshots/phase-2/live-conversation.png",
+      path: `${screenshotDirectory}/live-conversation.png`,
       fullPage: true,
     });
     const outsider = await playwright.request.newContext({
@@ -228,7 +232,7 @@ test("real Meta: five turns, reload/resume, private knowledge, access isolation,
       "No guarantee phrase flagged",
     );
     await page.screenshot({
-      path: "docs/screenshots/phase-2/live-comparison.png",
+      path: `${screenshotDirectory}/live-comparison.png`,
       fullPage: true,
     });
     const modelMessages = await db.message.findMany({
@@ -316,10 +320,10 @@ test("real Meta credential failure is recoverable and saves no partial turn", as
     ).toBe(0);
     await page.reload();
     await expect(page.getByLabel("Your response to Priya")).toHaveValue(draft);
-    await mkdir("docs/screenshots/phase-2", { recursive: true });
+    await mkdir(screenshotDirectory, { recursive: true });
     // Capture the recovered draft after reload; the error was asserted before reload.
     await page.screenshot({
-      path: "docs/screenshots/phase-2/preserved-draft.png",
+      path: `${screenshotDirectory}/preserved-draft.png`,
       fullPage: true,
     });
     await save("provider-failure", {

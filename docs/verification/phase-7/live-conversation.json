@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "verifiedAt": "2026-10-27T18:20:44.062Z",
+  "environment": "local production build",
+  "provider": "meta",
+  "model": "muse-spark-1.3",
+  "fictionalTrainingDataOnly": true,
+  "checks": {
+    "fiveTurns": true,
+    "reloadPreservedExactHistory": true,
+    "resumedSixthTurn": true,
+    "knowledgeBoundariesInTestedInputs": true,
+    "unauthorizedAccessDenied": true,
+    "independentLiveAlternative": true,
+    "comparisonDisplayedActualTranscripts": true,
+    "allSevenGeneratedResponsesHaveMetaMetadata": true,
+    "pinnedScenarioVersion": 1
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "elapsedMs": 9054,
+      "messageId": "cmvr0fwy90008xpmvbyoctg7g",
+      "trainee": "All claims are guaranteed.",
+      "character": "Wait, that sounds like a guarantee — but I understood every claim is assessed against terms and approval is never guaranteed. Can you explain what the review actually checks?",
+      "revealed": []
+    },
+    {
+      "turn": 2,
+      "elapsedMs": 7387,
+      "messageId": "cmvr0g2n2000ixpmv084sx4ro",
+      "trainee": "You're right: I cannot guarantee claim approval. Claims are reviewed against the terms. Let's review exclusions and waiting periods.",
+      "character": "Thanks for correcting that — that helps. Can you walk me through the exclusions and the 30-day and 24-month waiting periods so I know what wouldn't be covered?",
+      "revealed": []
+    },
+    {
+      "turn": 3,
+      "elapsedMs": 9729,
+      "messageId": "cmvr0ga5m000sxpmvw84hgsbq",
+      "trainee": "What monthly budget would feel comfortable for you?",
+      "character": "I'd prefer to stay below ₹1,500 a month. Could you still walk me through the exclusions and those waiting periods before I decide on a next step?",
+      "revealed": [
+        "budgetConcern"
+      ]
+    },
+    {
+      "turn": 4,
+      "elapsedMs": 12681,
+      "messageId": "cmvr0gjyn0012xpmv2pu7uesb",
+      "trainee": "Have you had a previous experience that makes you concerned about claims?",
+      "character": "Yes, a friend had a claim rejected so I'm careful about the fine print. Can you walk me through the exclusions and waiting periods before we talk about any next step?",
+      "revealed": [
+        "budgetConcern",
+        "previousExperience"
+      ]
+    },
+    {
+      "turn": 5,
+      "elapsedMs": 7028,
+      "messageId": "cmvr0gpdx001cxpmv96w52rym",
+      "trainee": "May I send a summary of this fictional policy, including exclusions and waiting periods, for you to review before a follow-up?",
+      "character": "Yes, please send the summary with the exclusions and waiting periods spelled out — that would help me review carefully. Let's plan a follow-up after I've looked at it.",
+      "revealed": [
+        "budgetConcern",
+        "previousExperience"
+      ]
+    },
+    {
+      "turn": 6,
+      "elapsedMs": 7370,
+      "messageId": "cmvr0gv5l001mxpmvz2ty6h60",
+      "trainee": "Please recap the next step we agreed on without adding any policy promises.",
+      "character": "We agreed you'll send the summary for me to review. Then we'll have a follow-up after I've had a chance to look it over.",
+      "revealed": [
+        "budgetConcern",
+        "previousExperience"
+      ]
+    },
+    {
+      "turn": 1,
+      "elapsedMs": 6321,
+      "messageId": "cmvr0h0f4001zxpmvxpm99akp",
+      "trainee": "Before I explain the policy, what concerns you most about making a claim?",
+      "character": "My biggest worry is paying premiums and then having a claim rejected because of fine print I didn't understand. What exactly is excluded?",
+      "revealed": []
+    }
+  ],
+  "originalFinalState": {
+    "trust": 38,
+    "frustration": 40,
+    "interest": 29,
+    "violations": 1,
+    "phase": "next_step",
+    "revealed": [
+      "budgetConcern",
+      "previousExperience"
+    ]
+  },
+  "alternativeFinalState": {
+    "trust": 37,
+    "frustration": 38,
+    "interest": 31,
+    "violations": 0,
+    "phase": "clarification",
+    "revealed": []
+  },
+  "cleanup": "The verification session is deleted after the test; evidence references are historical IDs."
+}

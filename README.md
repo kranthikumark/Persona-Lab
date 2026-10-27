@@ -21,6 +21,8 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 
 **Phase 5 evaluation complete locally:** versioned five-category reports, exact evidence, strengths/next actions, explicit insufficient evidence, saved revision scope and outdated-report notices. Open Field notes in practice or Rubric evaluation in comparison. See [Phase 5 acceptance](docs/PHASE_5_ACCEPTANCE.md).
 
+**Phase 7 localhost release checks:** shared usage admission, atomic creation quotas and expiry cleanup implemented; 47 unit, 26 integration and 19 mock browser checks plus a seven-generation live Meta journey passed. AWS Ubuntu deployment is pending local review. See [local release results and AWS handoff](docs/PHASE_7_LOCAL_RELEASE.md).
+
 **Phase 6 visual upgrade and local acceptance:** portrait-led studio, editorial workspace headings, prominent evaluation, repaired evidence focus, 320px reflow, larger-text and forced-colors checks. Native zoom, audible screen-reader and physical-device release checks remain open. See [Phase 6 acceptance](docs/PHASE_6_ACCEPTANCE.md).
 
 ## Local setup
@@ -70,7 +72,7 @@ Private personal knowledge is withheld from model input until explicit rules rev
 
 All policy facts and people are fictional. Outcomes are model-generated possibilities, not predictions of human behavior or causal effects. Visible confidence indicators are simulation variables. The deterministic guarantee check recognizes a narrow set of phrases; absence of a flag does not prove compliance or factual accuracy. The five-category rubric uses ten versioned phrase checks with actual message/event evidence. Missing checks remain unscored; results are limited rule coverage rather than a complete quality assessment. See [evaluation rules](docs/EVALUATION_RULES.md).
 
-Session expiry is enforced on reads after 30 days, but automated physical purging is not yet configured. Explicit session deletion is available in practice history. Browser-scoped limits are basic local-demo controls, not production abuse prevention. Branch creation/start quotas need stronger transactional enforcement and distributed rate limiting before public release.
+Session access expires after 30 days. `npm run db:purge` physically deletes a bounded batch of expired aggregates; deployment must schedule and monitor it. Explicit deletion remains available in history. PostgreSQL-backed generation/creation admission and transactional session/branch quotas are implemented; browser ownership can be reset, so AWS edge abuse controls and deployed acceptance remain pending. See [Phase 7 localhost-to-AWS handoff](docs/PHASE_7_LOCAL_RELEASE.md).
 
 ## Assets
 

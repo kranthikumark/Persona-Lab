@@ -1,0 +1,22 @@
+{
+  "verifiedAt": "2026-10-27T18:21:30.182538+00:00",
+  "environment": "localhost, native PostgreSQL; production Next build; AWS unchanged",
+  "unitTests": 47,
+  "postgresIntegrationTests": 26,
+  "mockBrowserTests": 19,
+  "mockBrowserSeconds": 47.5,
+  "liveMetaJourney": "passed; see live-conversation.json",
+  "lint": "passed",
+  "typecheck": "passed",
+  "build": "passed",
+  "migrations": 3,
+  "clientPrivacyScannedFiles": 16,
+  "cleanupCli": {
+    "deletedSessions": 0,
+    "deletedRateBuckets": 0
+  },
+  "initialBrowserAttempt": "Interrupted after ENOSPC in generated .next-dev cache; cache removed and full suite rerun successfully.",
+  "scheduledCleanup": false,
+  "awsDeploymentVerified": false,
+  "nativeDeviceAcceptance": "pending"
+}

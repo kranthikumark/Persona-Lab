@@ -135,6 +135,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 7 — Release validation and public deployment
 
+**Status: local release safeguards and validation passed October 27, 2026; AWS Ubuntu deployment pending the user’s local review.** [Local evidence and AWS handoff](PHASE_7_LOCAL_RELEASE.md).
+
 **Target: Day 8, November 3**
 
 - Run lint, typecheck, unit/integration tests, Playwright journeys, migration checks, and production build.

@@ -13,10 +13,20 @@ Updated October 27, 2026. This is local evidence, not public-release acceptance.
 | 4 — Branching/comparison   | Complete locally              | Exact saved-state/prefix restoration, independent parent/sibling/nested paths, access isolation, evidence links, per-turn recorded state changes, unequal-length notices, and responsive replay/resumption. Acceptance: `PHASE_4_ACCEPTANCE.md`.                                            |
 | 5 — Evaluation             | Complete locally              | Versioned five-category phrase rubric, explicit insufficient evidence, message/event references, immutable revision-scoped reports, stale notices, inherited finding scope, strengths/next actions and comparison reports. Acceptance: `PHASE_5_ACCEPTANCE.md`.                             |
 | 6 — Polish/accessibility   | Local implementation accepted | Portrait-led studio and editorial workspace redesign, prominent evaluation, focus transfer, recovery states, 320px reflow, larger text and forced colors verified. Native zoom, audible screen-reader, physical devices and human rehearsal remain release checks: `PHASE_6_ACCEPTANCE.md`. |
-| 7 — Deployment/release     | Local checks only             | Local build/tests and setup documentation. No public hosting, deployed live-provider acceptance, production rate limiting, or automated expiry purge yet.                                                                                                                                   |
+| 7 — Deployment/release     | Local release checks passed   | Shared PostgreSQL admission, atomic creation quotas, streamed request bounds, expiry cleanup command, build/privacy scan and full localhost live Meta journey passed. AWS Ubuntu deployment and scheduled cleanup remain pending.                                                           |
 | 8 — Demo/submission        | Not started                   | No demonstration video or organizer submission.                                                                                                                                                                                                                                             |
 
-## Verification performed
+## Latest Phase 7 local results
+
+- 47 unit tests, 26 PostgreSQL integration tests, and all 19 mock browser tests passed.
+- The production live Meta journey passed in 1.1 minutes: seven actual generations, five initial turns, reload/resume, private knowledge boundaries, outsider access denial, an independent fork and comparison. Its fictional test session was deleted.
+- Lint, typecheck, production build, all three applied migrations, and the client privacy/configuration scan passed (16 production client files).
+- The expiry cleanup CLI ran successfully with zero expired sessions/counters to delete. Integration checks separately prove actual deletion of an expired forked aggregate and preservation of active data.
+- Initial browser execution hit a generated-cache ENOSPC error. After clearing `.next-dev`, all 19 browser tests passed in 47.5 seconds. Historical phase artifacts were restored; current mock captures are under `screenshots/phase-7/mock/`.
+- AWS was not modified. Local command availability does not mean expiry cleanup is scheduled. Phase 6 native/device checks remain open.
+- Evidence: `verification/phase-7/local-release.json`, `verification/phase-7/live-conversation.json`; handoff: `PHASE_7_LOCAL_RELEASE.md`.
+
+## Earlier verification performed
 
 - `npm install --no-audit --no-fund`: dependencies installed successfully.
 - `npm run db:setup`: dedicated local role/database created; generated credentials saved privately without printing them.
@@ -50,13 +60,13 @@ The first seed attempt exposed ESM configuration and environment-loading issues;
 - Saved scenario context versions do not select historical executable reducers; old snapshots are replayed as stored, while new turns use the current code.
 - Evaluation uses ten limited English phrase rules. Category/overall scores stay unscored until their evidence requirements are met; scored results represent rule coverage, not a complete skill/compliance assessment.
 - Guarantee detection uses a narrow transparent phrase heuristic. No claim of exhaustive accuracy, psychological measurement, real-world prediction, or proven causality is made.
-- Session access expires after 30 days; automated physical purging is pending. Clearing the browser ownership cookie loses access.
-- Demo session/branch/turn limits are basic local controls. Public release needs distributed rate limiting and transactionally enforced creation quotas.
+- Session access expires after 30 days. The bounded physical purge command is implemented and tested; scheduling and monitoring remain pending for AWS. Clearing the browser ownership cookie loses access.
+- PostgreSQL-backed global/browser generation admission and shared creation admission are implemented, as are transactionally enforced session/branch quotas. Browser identity can be reset; AWS edge abuse controls and deployed limits still require acceptance.
 - Prisma 6 emits a configuration deprecation notice. It is pinned and working; a future major upgrade needs a deliberate configuration migration.
 
 ## Next implementation increment
 
-1. Complete Phase 7 production abuse controls, expiry cleanup and managed deployment acceptance.
+1. Review the validated local journey, then deploy to the user’s AWS Ubuntu instance and verify HTTPS, secure cookies, edge controls, scheduled cleanup, restart/backup recovery and the deployed live journey. See `PHASE_7_LOCAL_RELEASE.md`.
 2. Finish native zoom, audible screen-reader, physical-device/browser and human rehearsal release checks listed in Phase 6.
 3. Prepare Phase 8 demo/submission artifacts after release acceptance.
 

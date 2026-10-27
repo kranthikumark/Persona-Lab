@@ -27,6 +27,14 @@ model SimulationSession {
   expiresAt    DateTime
   branches     Branch[]
   @@index([ownerHash, createdAt])
+  @@index([expiresAt])
+}
+
+model RateLimitBucket {
+  key       String @id
+  count     Int
+  expiresAt DateTime
+  @@index([expiresAt])
 }
 
 model Branch {
