@@ -26,13 +26,15 @@ export function Brand() {
 export function Shell({
   children,
   page,
-  mode = "mock",
+  mode = "pending",
 }: {
   children: React.ReactNode;
   page: string;
   mode?: string;
 }) {
   const pathname = usePathname();
+  const historyActive = page === "Practice history";
+  const studioActive = pathname === "/" && !historyActive;
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -43,12 +45,17 @@ export function Shell({
         <nav aria-label="Main navigation">
           <Link
             href="/"
-            className={pathname === "/" ? "nav-item active" : "nav-item"}
+            className={studioActive ? "nav-item active" : "nav-item"}
+            aria-current={studioActive ? "page" : undefined}
           >
             <Layers3 size={18} /> Scenario studio{" "}
             <span className="nav-count">01</span>
           </Link>
-          <Link href="/?view=history" className="nav-item">
+          <Link
+            href="/?view=history"
+            className={historyActive ? "nav-item active" : "nav-item"}
+            aria-current={historyActive ? "page" : undefined}
+          >
             <History size={18} /> Practice history
           </Link>
           {pathname.startsWith("/sessions") && (
@@ -99,6 +106,12 @@ export function Shell({
       </aside>
       <div className="main-shell">
         <header className="topbar">
+          <Link href="/" className="mobile-brand" aria-label="PERSONA LAB home">
+            <GitBranch size={18} />
+            <span>
+              PERSONA <b>LAB</b>
+            </span>
+          </Link>
           <div className="breadcrumb">
             <span>Workspace</span>
             <span>/</span>
@@ -108,9 +121,30 @@ export function Shell({
             <span />
             {mode === "meta"
               ? "Meta · Live model"
-              : "Mock mode · Local practice"}
+              : mode === "mock"
+                ? "Mock mode · Local practice"
+                : "Connecting studio…"}
           </div>
         </header>
+        <nav className="compact-nav" aria-label="Workspace navigation">
+          <Link href="/" aria-current={studioActive ? "page" : undefined}>
+            <Layers3 size={15} /> Studio
+          </Link>
+          <Link
+            href="/?view=history"
+            aria-current={historyActive ? "page" : undefined}
+          >
+            <History size={15} /> History
+          </Link>
+          {pathname.startsWith("/sessions/") && (
+            <Link
+              href={pathname.replace(/\/compare$/, "")}
+              aria-current={page === "Practice workspace" ? "page" : undefined}
+            >
+              <GitBranch size={15} /> Practice
+            </Link>
+          )}
+        </nav>
         {children}
         <footer className="app-footer">
           <span>

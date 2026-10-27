@@ -13,7 +13,7 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 - Side-by-side transcript/state/event-count comparison and guarantee-phrase feedback tied to stored messages.
 - Explicit deterministic mock adapter and a server-only Meta Muse Spark adapter built against official documentation.
 
-**Live Meta integration is not yet verified.** The local application defaults to mock mode. Full five-category evaluation, rich event-difference visualization, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
+**Live Meta smoke test verified:** a real structured character turn and reload succeeded locally. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full multi-turn/fork live acceptance is pending. Full five-category evaluation, rich event-difference visualization, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
 
 ## Local setup
 
@@ -42,7 +42,7 @@ npm run test:e2e
 npm run build
 ```
 
-Persistence integration and end-to-end tests use the local database and create fictional test sessions. One API test deletes only the session it creates; browser journey sessions remain visible only to their isolated browser contexts. Locally, Playwright uses installed Google Chrome to avoid downloading another browser. In CI, run `npx playwright install --with-deps chromium` before testing. Tests start the development server if it is not already serving on 3100.
+Persistence integration and end-to-end tests use the local database and create fictional test sessions. One API test deletes only the session it creates; browser journey sessions remain visible only to their isolated browser contexts. Locally, Playwright uses installed Google Chrome to avoid downloading another browser. In CI, run `npx playwright install --with-deps chromium` before testing. Browser tests start an isolated mock development server on 3101, using `.next-dev`; they do not reuse or change the Meta application running on 3100.
 
 For production use `npm run build` and `npm start`, and set `APP_ORIGIN` to the exact HTTPS origin. Production cookies use `Secure`. The localhost development origin is deliberately `http://127.0.0.1:3100`; using another origin requires matching `APP_ORIGIN`.
 
@@ -69,6 +69,8 @@ Session expiry is enforced on reads after 30 days, but automated physical purgin
 ## Project documentation
 
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
+- [Design system](docs/DESIGN_SYSTEM.md)
+- [Phase 1 acceptance and screenshots](docs/PHASE_1_ACCEPTANCE.md)
 - [Actual phase status](docs/PHASE_STATUS.md)
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 

@@ -14,7 +14,7 @@ The adapter uses native server-side fetch, a 30-second timeout, schema-constrain
 
 Set `AI_PROVIDER=meta` and `META_API_KEY` privately in `.env`. The local variable is named `META_API_KEY`; Meta examples name their key variable `MODEL_API_KEY`, but both supply the same bearer header. Use `META_MODEL=muse-spark-1.3` unless your participant access requires another documented model ID. Restart the server after changing these values.
 
-No key was supplied during initial implementation. Account access, billing/credits, rate limits, real model latency, schema support for this account, and successful live responses remain unverified. Do not infer them from documentation or mocked HTTP tests.
+Live smoke verification on October 27, 2026: the configured key returned HTTP 200 from Muse Spark 1.3. The application adapter also returned HTTP 200 with a validated structured character turn, two saved snapshots, and preserved history after reload. The temporary verification session was deleted. Broader live five-turn/fork acceptance, account quotas, billing/credits, and production behavior remain unverified. The key is stored only in the ignored private .env file.
 
 ## Verification procedure
 

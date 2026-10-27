@@ -44,6 +44,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 1 — Visual system and complete interface prototype
 
+**Status: complete locally on October 27, 2026.** Acceptance evidence: [Phase 1 review](PHASE_1_ACCEPTANCE.md).
+
 **Target: Days 1–2, October 27–28**
 
 - Create color, typography, spacing, elevation, radius, focus, and motion tokens.

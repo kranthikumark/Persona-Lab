@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SkipLink } from "@/components/skip-link";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/manrope";
 import "./globals.css";
@@ -16,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
+        <SkipLink />
         <div id="main-content">{children}</div>
       </body>
     </html>

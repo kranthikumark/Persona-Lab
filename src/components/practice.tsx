@@ -57,6 +57,7 @@ function PracticeSession({
   const [view, setView] = useState<SessionView | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [contextOpen, setContextOpen] = useState(false);
   const [panel, setPanel] = useState<"facts" | "coach" | null>(null);
   const [decision, setDecision] = useState<number | null>(null);
   const [branchName, setBranchName] = useState("A different approach");
@@ -153,7 +154,7 @@ function PracticeSession({
   );
   return (
     <Shell page="Practice workspace" mode={view?.provider}>
-      <main className="practice-main">
+      <main className="practice-main" id="page-content" tabIndex={-1}>
         <div className="practice-heading">
           <div>
             <Link className="back-link" href="/">
@@ -260,6 +261,20 @@ function PracticeSession({
                     Looking for clarity about coverage, exclusions, and whether
                     she can trust your explanation.
                   </p>
+                  <button
+                    type="button"
+                    className="character-details-toggle"
+                    aria-expanded={contextOpen}
+                    aria-controls="character-context"
+                    onClick={() => setContextOpen(!contextOpen)}
+                  >
+                    Objectives & state <ChevronDown size={15} />
+                  </button>
+                </div>
+                <div
+                  id="character-context"
+                  className={`character-context ${contextOpen ? "expanded" : ""}`}
+                >
                   <div className="character-divider" />
                   <span className="eyebrow">YOUR OBJECTIVE</span>
                   <h3>

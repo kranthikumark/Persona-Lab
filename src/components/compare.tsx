@@ -15,6 +15,15 @@ import { Button } from "./ui/button";
 import { StateIndicators } from "./practice";
 
 export function Compare({ sessionId }: { sessionId: string }) {
+  const search = useSearchParams();
+  return (
+    <CompareSession
+      key={`${sessionId}:${search.get("left")}:${search.get("right")}`}
+      sessionId={sessionId}
+    />
+  );
+}
+function CompareSession({ sessionId }: { sessionId: string }) {
   const router = useRouter();
   const search = useSearchParams();
   const leftId = search.get("left");
@@ -62,7 +71,7 @@ export function Compare({ sessionId }: { sessionId: string }) {
   }
   return (
     <Shell page="Compare possibilities" mode={views?.[0].provider}>
-      <main className="compare-main">
+      <main className="compare-main" id="page-content" tabIndex={-1}>
         <Link className="back-link" href={`/sessions/${sessionId}`}>
           <ArrowLeft size={15} /> Back to practice
         </Link>
@@ -76,9 +85,15 @@ export function Compare({ sessionId }: { sessionId: string }) {
         {error ? (
           <div className="error-banner" role="alert">
             {error}
+            <Link
+              href={`/sessions/${sessionId}`}
+              className="error-recovery-link"
+            >
+              Return to practice <ArrowRight size={14} />
+            </Link>
           </div>
         ) : !views ? (
-          <div className="empty-state">
+          <div className="empty-state" role="status">
             <LoaderCircle className="spin" />
             <p>Aligning your conversations…</p>
           </div>
@@ -91,17 +106,48 @@ export function Compare({ sessionId }: { sessionId: string }) {
                 conversations, not proven real-world effects.
               </span>
             </div>
+            <div
+              className="branch-split"
+              aria-label="Both paths share the same recorded history before diverging"
+            >
+              <div className="split-origin">
+                <GitBranch size={18} />
+                <span>
+                  Shared starting point
+                  <small>
+                    {prefix} recorded {prefix === 1 ? "message" : "messages"} in
+                    common
+                  </small>
+                </span>
+              </div>
+              <div className="split-paths">
+                <span className="split-path-a">
+                  <i aria-hidden="true" />A · {views[0].branch.name}
+                </span>
+                <span className="split-path-b">
+                  <i aria-hidden="true" />B · {views[1].branch.name}
+                </span>
+              </div>
+            </div>
+            {views[0].branch.id === views[1].branch.id && (
+              <div className="comparison-note">
+                Both selectors currently show the same approach. Choose another
+                path to compare different decisions.
+              </div>
+            )}
             <div className="shared-history">
               <Button
                 variant="ghost"
                 onClick={() => setSharedOpen(!sharedOpen)}
+                aria-expanded={sharedOpen}
+                aria-controls="shared-transcript"
               >
                 <GitBranch size={16} />
                 {prefix} shared messages before the paths diverge{" "}
                 <span>{sharedOpen ? "Hide" : "View"}</span>
               </Button>
               {sharedOpen && (
-                <div>
+                <div id="shared-transcript">
                   {views[0].messages.slice(0, prefix).map((m) => (
                     <p key={m.id}>
                       <strong>{m.role === "user" ? "You" : "Priya"}</strong>
@@ -115,6 +161,7 @@ export function Compare({ sessionId }: { sessionId: string }) {
               {views.map((view, index) => (
                 <section
                   className={`compare-column ${index === 1 ? "alternative" : ""}`}
+                  aria-label={`Path ${index === 0 ? "A" : "B"}: ${view.branch.name}`}
                   key={`${index}-${view.branch.id}`}
                 >
                   <div className="compare-column-heading">
@@ -140,11 +187,20 @@ export function Compare({ sessionId }: { sessionId: string }) {
                           index === 0 ? "left" : "right",
                           e.target.value,
                         );
-                        router.push(`/sessions/${sessionId}/compare?${next}`);
+                        router.push(`/sessions/${sessionId}/compare?${next}`, {
+                          scroll: false,
+                        });
                       }}
                     >
                       {view.branches.map((b) => (
-                        <option key={b.id} value={b.id}>
+                        <option
+                          key={b.id}
+                          value={b.id}
+                          disabled={
+                            b.id === views[index === 0 ? 1 : 0].branch.id &&
+                            b.id !== view.branch.id
+                          }
+                        >
                           {b.name}
                         </option>
                       ))}

@@ -74,12 +74,12 @@ test("API enforces access, idempotency, concurrency and fork isolation", async (
   playwright,
 }) => {
   const owner = await playwright.request.newContext({
-    baseURL: "http://127.0.0.1:3100",
-    extraHTTPHeaders: { origin: "http://127.0.0.1:3100" },
+    baseURL: "http://127.0.0.1:3101",
+    extraHTTPHeaders: { origin: "http://127.0.0.1:3101" },
   });
   const outsider = await playwright.request.newContext({
-    baseURL: "http://127.0.0.1:3100",
-    extraHTTPHeaders: { origin: "http://127.0.0.1:3100" },
+    baseURL: "http://127.0.0.1:3101",
+    extraHTTPHeaders: { origin: "http://127.0.0.1:3101" },
   });
   const started = await owner.post("/api/sessions", { data: {} });
   expect(started.ok()).toBe(true);

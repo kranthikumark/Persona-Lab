@@ -31,11 +31,25 @@ export function Studio({ mode }: { mode: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [facts, setFacts] = useState(false);
+  const [sessionsLoading, setSessionsLoading] = useState(true);
   useEffect(() => {
     api<{ sessions: SessionSummary[] }>("/api/sessions")
       .then((r) => setSessions(r.sessions))
-      .catch((e) => setError(e.message));
+      .catch((e) => setError(e.message))
+      .finally(() => setSessionsLoading(false));
   }, []);
+  async function refreshHistory() {
+    setSessionsLoading(true);
+    setError("");
+    try {
+      const result = await api<{ sessions: SessionSummary[] }>("/api/sessions");
+      setSessions(result.sessions);
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setSessionsLoading(false);
+    }
+  }
   async function start() {
     setBusy(true);
     setError("");
@@ -60,7 +74,7 @@ export function Studio({ mode }: { mode: string }) {
       page={historyOnly ? "Practice history" : "Scenario studio"}
       mode={mode}
     >
-      <main className="studio-main">
+      <main className="studio-main" id="page-content" tabIndex={-1}>
         <section className="studio-intro">
           <div>
             <div className="eyebrow mint">
@@ -166,8 +180,7 @@ export function Studio({ mode }: { mode: string }) {
                   <span className="scenario-number">SCENARIO / 001</span>
                 </div>
                 <h2>
-                  The trust
-                  <br />
+                  The trust <br />
                   conversation<span>.</span>
                 </h2>
                 <p>
@@ -264,7 +277,20 @@ export function Studio({ mode }: { mode: string }) {
                 Saved to this browser · 30-day access
               </span>
             </div>
-            {sessions.length === 0 ? (
+            {sessionsLoading ? (
+              <div className="history-loading" role="status">
+                <LoaderCircle size={18} className="spin" />
+                <span>Loading your saved practice…</span>
+              </div>
+            ) : error ? (
+              <div className="empty-state">
+                <h3>Your history is temporarily unavailable.</h3>
+                <p>Your saved practice has not been changed.</p>
+                <Button variant="secondary" onClick={refreshHistory}>
+                  Retry history
+                </Button>
+              </div>
+            ) : sessions.length === 0 ? (
               <div className="empty-state">
                 <GitBranch size={28} />
                 <h3>Your first possibility is waiting.</h3>
