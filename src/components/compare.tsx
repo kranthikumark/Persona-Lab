@@ -72,7 +72,9 @@ function CompareSession({ sessionId }: { sessionId: string }) {
           <ArrowLeft size={15} /> Back to practice
         </Link>
         <div className="compare-heading">
-          <span className="eyebrow mint">SAME MOMENT. DIFFERENT CHOICES.</span>
+          <span className="eyebrow accent-secondary">
+            SAME MOMENT. DIFFERENT CHOICES.
+          </span>
           <h1>
             See what changes<span>.</span>
           </h1>
@@ -173,7 +175,7 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                 >
                   <div className="compare-column-heading">
                     <span
-                      className={`pill ${index === 0 ? "violet" : "mint-pill"}`}
+                      className={`pill ${index === 0 ? "violet" : "secondary-pill"}`}
                     >
                       <GitBranch size={13} />
                       {index === 0 ? "PATH A" : "PATH B"}

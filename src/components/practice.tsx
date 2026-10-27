@@ -175,7 +175,7 @@ function PracticeSession({
             <Link className="back-link" href="/">
               <ArrowLeft size={15} /> Scenario studio
             </Link>
-            <span className="eyebrow mint practice-kicker">
+            <span className="eyebrow accent-secondary practice-kicker">
               THE CONVERSATION ROOM
             </span>
             <h1>The trust conversation</h1>
@@ -219,7 +219,7 @@ function PracticeSession({
           <>
             <div className="session-toolbar">
               <span
-                className={`pill ${view.branch.parentBranchId ? "mint-pill" : "violet"}`}
+                className={`pill ${view.branch.parentBranchId ? "secondary-pill" : "violet"}`}
               >
                 <GitBranch size={14} />
                 {view.branch.parentBranchId
@@ -653,7 +653,7 @@ export function StateIndicators({ state }: { state: SessionView["state"] }) {
     <div className="state-indicators">
       <div>
         <span>Customer confidence</span>
-        <strong className={state.trust >= 50 ? "mint" : ""}>
+        <strong className={state.trust >= 50 ? "accent-secondary" : ""}>
           {state.trust >= 65
             ? "Growing"
             : state.trust >= 40
@@ -678,7 +678,7 @@ export function StateIndicators({ state }: { state: SessionView["state"] }) {
       </div>
       <div>
         <span>Guarantee flags</span>
-        <strong className={state.violations ? "amber" : "mint"}>
+        <strong className={state.violations ? "amber" : "accent-secondary"}>
           {state.violations || "None flagged"}
         </strong>
       </div>

@@ -4,9 +4,11 @@ Local implementation and acceptance completed October 27, 2026. Native screen-re
 
 ## Visible design upgrade
 
-The studio now opens with a large portrait-led hero: editorial typography, mint primary action, a clear Converse → Rewind → Compare journey, and a separate scenario/focus brief. The previous abstract opening and lower portrait card have been replaced. Existing original fictional imagery and locally bundled fonts are reused.
+The studio now opens with a large portrait-led hero: editorial typography, violet primary action, a clear Converse → Rewind → Compare journey, and a separate scenario/focus brief. The previous abstract opening and lower portrait card have been replaced. Existing original fictional imagery and locally bundled fonts are reused.
 
-Practice now has a conversation-room heading, a contained branch toolbar, a prominent **Field notes · Evaluation** action, larger message surfaces, a direct timeline link, and clearer saved-state markers. Comparison and reports carry the same deep teal/navy surfaces, editorial headings and layered panels. Original/alternative branches retain violet/teal identification without assigning meaning by color alone.
+Practice now has a conversation-room heading, a contained branch toolbar, a prominent **Field notes · Evaluation** action, larger message surfaces, a direct timeline link, and clearer saved-state markers. Comparison and reports carry the same navy/slate surfaces, editorial headings and layered panels. Original/alternative branches retain violet/periwinkle identification without assigning meaning by color alone.
+
+The later palette follow-up removes all remaining mint/green accents. Current palette captures are in `screenshots/palette-restored/`; Phase 6 screenshots below remain historical evidence of the initial redesign.
 
 ## Verified locally
 

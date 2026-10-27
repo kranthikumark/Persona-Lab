@@ -77,7 +77,7 @@ export function Studio({ mode }: { mode: string }) {
         {historyOnly ? (
           <section className="studio-intro history-intro">
             <div>
-              <span className="eyebrow mint">
+              <span className="eyebrow accent-secondary">
                 YOUR PERSONAL PRACTICE ARCHIVE
               </span>
               <h1>
@@ -95,7 +95,7 @@ export function Studio({ mode }: { mode: string }) {
         ) : (
           <section className="studio-hero" aria-labelledby="studio-title">
             <div className="studio-hero-copy">
-              <span className="eyebrow mint">
+              <span className="eyebrow accent-secondary">
                 <span className="tiny-line" /> THE DECISION STUDIO
               </span>
               <h1 id="studio-title">
@@ -190,7 +190,9 @@ export function Studio({ mode }: { mode: string }) {
                 </p>
               </div>
               <div className="brief-focus">
-                <span className="eyebrow mint">WHAT YOU’LL PRACTICE</span>
+                <span className="eyebrow accent-secondary">
+                  WHAT YOU’LL PRACTICE
+                </span>
                 <ul>
                   <li>
                     <Check size={15} /> Discover what matters
