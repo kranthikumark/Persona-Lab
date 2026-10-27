@@ -10,12 +10,14 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 - PostgreSQL-backed sessions, ordered messages/events, saved state, browser-scoped access, 30-day session expiry, draft recovery, and session deletion.
 - Server-validated bounded state, transactional turn writes, optimistic concurrency, and idempotent turn retries.
 - Fork from a saved pre-decision snapshot, preserve shared message IDs, and keep parent and child turns independent.
-- Side-by-side transcript/state/event-count comparison and guarantee-phrase feedback tied to stored messages.
+- Side-by-side transcripts, shared-history findings, per-turn recorded state/event changes, and guarantee-phrase feedback linked to stored messages.
 - Explicit deterministic mock adapter and a server-only Meta Muse Spark adapter built against official documentation.
 
-**Phase 2 live Meta acceptance complete locally:** five turns, exact reload/resume, a sixth turn, scoped access, and provider-failure recovery passed. An independent live alternative and comparison also passed. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full five-category evaluation, rich event-difference visualization, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
+**Phase 2 live Meta acceptance complete locally:** five turns, exact reload/resume, a sixth turn, scoped access, and provider-failure recovery passed. An independent live alternative and comparison also passed. The checked-in template defaults to mock mode; the current private local configuration uses Meta. Full five-category evaluation, production controls, public deployment, and submission are still pending. See [phase status](docs/PHASE_STATUS.md).
 
 **Phase 3 state/timeline acceptance complete locally:** 38 routine checks pass, including forced concurrent writes, rollback, bounded state, knowledge isolation, evidence references, and saved-state previews. See [Phase 3 acceptance](docs/PHASE_3_ACCEPTANCE.md).
+
+**Phase 4 branching/comparison acceptance complete locally:** independent parent/sibling/nested paths, shared versus divergent evidence, per-turn recorded state changes, and desktop/mobile replay and resumption. See [Phase 4 acceptance](docs/PHASE_4_ACCEPTANCE.md).
 
 ## Local setup
 
@@ -77,7 +79,8 @@ Session expiry is enforced on reads after 30 days, but automated physical purgin
 - [Phase 1 acceptance and screenshots](docs/PHASE_1_ACCEPTANCE.md)
 - [Phase 2 live acceptance and evidence](docs/PHASE_2_ACCEPTANCE.md)
 - [Phase 3 state and timeline acceptance](docs/PHASE_3_ACCEPTANCE.md)
+- [Phase 4 branching and comparison acceptance](docs/PHASE_4_ACCEPTANCE.md)
 - [Actual phase status](docs/PHASE_STATUS.md)
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 
-Software is provided under the [MIT license](LICENSE). The foundation and Phases 1–2 were pushed to GitHub; current Git delivery is reported in the handoff. The application has not been publicly deployed.
+Software is provided under the [MIT license](LICENSE). Current Git delivery is reported in the handoff. The application has not been publicly deployed.

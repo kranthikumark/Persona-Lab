@@ -1,0 +1,31 @@
+{
+  "verifiedAt": "2026-10-27T11:33:02.321Z",
+  "status": "passed",
+  "provider": "mock",
+  "viewport": {
+    "name": "desktop",
+    "width": 1440,
+    "height": 1000
+  },
+  "checks": {
+    "nonzeroFork": true,
+    "prefixPreserved": true,
+    "parentUnchanged": true,
+    "savedDeltasMatch": true,
+    "unequalLengthExplicit": true,
+    "sharedAndDivergentEvidenceLinks": true,
+    "reloadAndSwitchWithoutGeneration": true,
+    "noHorizontalOverflow": true,
+    "selectedAxeRules": true
+  },
+  "sharedMessages": 3,
+  "comparedTurns": [
+    2,
+    3
+  ],
+  "turn2TrustChanges": [
+    6,
+    8
+  ],
+  "cleanup": "The test deletes only its own session in finally."
+}

@@ -91,6 +91,8 @@ Counterfactual outcomes are generated simulations, not predictions. State indica
 
 ## Phase 4 — Rewind, independent branches, and comparison
 
+**Status: complete locally on October 27, 2026.** Acceptance evidence: [Phase 4 review](PHASE_4_ACCEPTANCE.md).
+
 **Target: Days 4–5, October 30–31**
 
 - Create child branches linked to an immutable parent snapshot and the session's pinned scenario.

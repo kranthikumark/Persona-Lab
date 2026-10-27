@@ -35,6 +35,7 @@ Locally bundled fonts avoid external font requests. The fictional portrait's pro
 - **Timeline:** saved-state buttons, readable labels, current-state marking, and keyboard-accessible decision selection. Mobile uses a vertical list so decisions are discoverable without horizontal scrolling.
 - **Drawers:** Radix dialog semantics, title/description, trapped keyboard focus, Escape/close, and return to the originating control.
 - **Comparison:** shared origin and two labelled paths, expandable recorded prefix, stacked columns on mobile, and branch selectors that refresh the selected transcript. Changing paths clears stale content while the new view loads.
+- **Recorded changes:** matched turn cards use violet/teal path borders and neutral signed deltas, with response evidence links. Missing turns remain explicitly empty. Shared and post-split findings are labelled; unequal conversation lengths carry a visible caution. Cards stack below 700 pixels.
 - **History:** distinct loading, empty, populated, and recoverable error presentations. Loading never masquerades as an empty history.
 
 ## Truthful presentation
@@ -46,3 +47,5 @@ Mock screens identify the scripted provider. Live screens identify Meta. While s
 Use visible focus, semantic links/buttons, associated input labels, text alongside color, readable contrast, and no required hover-only actions. Reduced motion removes animations and smooth scrolling. Wait for actual animations to finish before automated contrast scans; partially faded frames are not the settled interface.
 
 Phase 1 evidence, representative screenshots, and remaining release-level checks are recorded in `PHASE_1_ACCEPTANCE.md`.
+
+Phase 4 adds reviewed desktop/mobile comparison captures and two selected-rule axe scans; see `PHASE_4_ACCEPTANCE.md`.

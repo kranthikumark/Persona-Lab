@@ -13,6 +13,7 @@ import { api, type SessionView } from "@/lib/client";
 import { Shell } from "./shell";
 import { Button } from "./ui/button";
 import { StateIndicators } from "./practice";
+import { comparePaths, type turnRecord } from "@/lib/simulation/comparison";
 
 export function Compare({ sessionId }: { sessionId: string }) {
   const search = useSearchParams();
@@ -61,14 +62,8 @@ function CompareSession({ sessionId }: { sessionId: string }) {
       cancelled = true;
     };
   }, [sessionId, leftId, rightId]);
-  let prefix = 0;
-  if (views) {
-    while (
-      prefix < Math.min(views[0].messages.length, views[1].messages.length) &&
-      views[0].messages[prefix].id === views[1].messages[prefix].id
-    )
-      prefix++;
-  }
+  const comparison = views ? comparePaths(views[0], views[1]) : null;
+  const prefix = comparison?.prefix ?? 0;
   return (
     <Shell page="Compare possibilities" mode={views?.[0].provider}>
       <main className="compare-main" id="page-content" tabIndex={-1}>
@@ -103,9 +98,17 @@ function CompareSession({ sessionId }: { sessionId: string }) {
               <ShieldCheck size={17} />
               <span>
                 These are simulated possibilities. Differences describe recorded
-                conversations, not proven real-world effects.
+                conversations, not proven real-world effects. Opening this page
+                replays saved records; it does not generate new dialogue.
               </span>
             </div>
+            {comparison?.unequalLength && (
+              <div className="comparison-note" role="note">
+                These paths have different numbers of decisions. Final
+                indicators describe different conversation lengths; compare
+                matching turns below.
+              </div>
+            )}
             <div
               className="branch-split"
               aria-label="Both paths share the same recorded history before diverging"
@@ -149,7 +152,7 @@ function CompareSession({ sessionId }: { sessionId: string }) {
               {sharedOpen && (
                 <div id="shared-transcript">
                   {views[0].messages.slice(0, prefix).map((m) => (
-                    <p key={m.id}>
+                    <p key={m.id} id={`shared-${m.id}`}>
                       <strong>{m.role === "user" ? "You" : "Priya"}</strong>
                       {m.content}
                     </p>
@@ -224,7 +227,7 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                       view.messages.slice(prefix).map((message) => (
                         <div
                           className={`comparison-message ${message.role === "user" ? "is-user" : ""}`}
-                          id={`compare-${message.id}`}
+                          id={`compare-${index}-${message.id}`}
                           key={message.id}
                         >
                           <span>
@@ -242,6 +245,13 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                       view.findings.map((finding) => (
                         <div key={finding.messageId}>
                           <h3>{finding.title}</h3>
+                          <span className="finding-scope">
+                            {view.messages
+                              .slice(0, prefix)
+                              .some((m) => m.id === finding.messageId)
+                              ? "From shared history"
+                              : "After the split"}
+                          </span>
                           <p>{finding.detail}</p>
                           <blockquote>
                             {
@@ -250,9 +260,26 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                               )?.content
                             }
                           </blockquote>
-                          <small>
-                            Evidence: turn {finding.turn} · {finding.messageId}
-                          </small>
+                          <a
+                            className="evidence-link"
+                            href={
+                              view.messages
+                                .slice(0, prefix)
+                                .some((m) => m.id === finding.messageId)
+                                ? `#shared-${finding.messageId}`
+                                : `#compare-${index}-${finding.messageId}`
+                            }
+                            onClick={() => {
+                              if (
+                                view.messages
+                                  .slice(0, prefix)
+                                  .some((m) => m.id === finding.messageId)
+                              )
+                                setSharedOpen(true);
+                            }}
+                          >
+                            View evidence · turn {finding.turn}
+                          </a>
                         </div>
                       ))
                     ) : (
@@ -278,6 +305,47 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                 </section>
               ))}
             </div>
+            <section
+              className="recorded-differences"
+              aria-labelledby="differences-title"
+            >
+              <div className="differences-heading">
+                <span className="eyebrow">
+                  RECORDED STATE / AFTER THE SPLIT
+                </span>
+                <h2 id="differences-title">What changed at each turn</h2>
+                <p>
+                  Changes are calculated from each path’s saved before-and-after
+                  states. Positive and negative values describe simulation
+                  variables, not quality scores.
+                </p>
+              </div>
+              {!comparison?.rows.length ? (
+                <p className="empty-comparison">
+                  No different decisions have been recorded yet.
+                </p>
+              ) : (
+                comparison.rows.map((row) => (
+                  <section
+                    className="difference-row"
+                    key={row.turn}
+                    aria-label={`Recorded changes at turn ${row.turn}`}
+                  >
+                    <h3>Turn {row.turn}</h3>
+                    <div className="difference-pair">
+                      {row.paths.map((record, index) => (
+                        <RecordedChange
+                          key={index}
+                          record={record}
+                          index={index}
+                          name={views[index].branch.name}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                ))
+              )}
+            </section>
             <div className="comparison-bottom">
               <h3>Different words. A different possibility.</h3>
               <p>
@@ -290,5 +358,65 @@ function CompareSession({ sessionId }: { sessionId: string }) {
         )}
       </main>
     </Shell>
+  );
+}
+
+function RecordedChange({
+  record,
+  index,
+  name,
+}: {
+  record: ReturnType<typeof turnRecord>;
+  index: number;
+  name: string;
+}) {
+  const signed = (n: number) => (n > 0 ? `+${n}` : String(n));
+  return (
+    <div className={`recorded-change ${index === 1 ? "alternative" : ""}`}>
+      <span className="change-path">
+        Path {index === 0 ? "A" : "B"} · {name}
+      </span>
+      {!record ? (
+        <p className="muted">No decision recorded at this turn.</p>
+      ) : (
+        <>
+          <a
+            className="evidence-link"
+            href={`#compare-${index}-${record.user.id}`}
+          >
+            View response · turn {record.user.turn}
+          </a>
+          <p>
+            {record.event?.type === "POLICY_GUARANTEE_FLAGGED"
+              ? "Guarantee phrase flagged"
+              : record.event
+                ? "Turn committed"
+                : "Event unavailable"}
+          </p>
+          {record.delta ? (
+            <dl className="change-values">
+              <div>
+                <dt>Trust</dt>
+                <dd>{signed(record.delta.trust)}</dd>
+              </div>
+              <div>
+                <dt>Frustration</dt>
+                <dd>{signed(record.delta.frustration)}</dd>
+              </div>
+              <div>
+                <dt>Interest</dt>
+                <dd>{signed(record.delta.interest)}</dd>
+              </div>
+              <div>
+                <dt>Guarantee flags</dt>
+                <dd>{signed(record.delta.violations)}</dd>
+              </div>
+            </dl>
+          ) : (
+            <p className="muted">Saved state unavailable for this turn.</p>
+          )}
+        </>
+      )}
+    </div>
   );
 }
