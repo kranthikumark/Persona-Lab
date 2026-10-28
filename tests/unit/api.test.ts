@@ -1,5 +1,61 @@
-import { expect, it } from "vitest";
-import { ApiError, handle, jsonBody } from "@/lib/api";
+import { afterEach, expect, it, vi } from "vitest";
+import { ApiError, assertOrigin, handle, jsonBody } from "@/lib/api";
+
+afterEach(() => vi.unstubAllEnvs());
+
+function originRequest(origin?: string) {
+  return new Request("http://127.0.0.1:3100/api/sessions", {
+    headers: origin ? { origin } : {},
+  });
+}
+
+it("accepts configured origins and same-port loopback aliases in development", () => {
+  vi.stubEnv("NODE_ENV", "development");
+  vi.stubEnv("APP_ORIGIN", "http://127.0.0.1:3100");
+  for (const origin of [
+    "http://127.0.0.1:3100",
+    "http://localhost:3100",
+    "http://[::1]:3100",
+  ]) {
+    expect(() => assertOrigin(originRequest(origin))).not.toThrow();
+  }
+});
+
+it("rejects foreign, malformed, missing and wrong-port origins in development", () => {
+  vi.stubEnv("NODE_ENV", "development");
+  vi.stubEnv("APP_ORIGIN", "http://127.0.0.1:3100");
+  for (const origin of [
+    undefined,
+    "null",
+    "https://foreign.example",
+    "http://localhost:3101",
+    "https://localhost:3100",
+    "http://localhost.evil.test:3100",
+    "http://localhost:3100/path",
+    "http://user@localhost:3100",
+  ]) {
+    expect(() => assertOrigin(originRequest(origin))).toThrow(ApiError);
+  }
+});
+
+it("keeps production and non-loopback development origins exact", () => {
+  vi.stubEnv("NODE_ENV", "production");
+  vi.stubEnv("APP_ORIGIN", "http://127.0.0.1:3100");
+  expect(() => assertOrigin(originRequest("http://localhost:3100"))).toThrow(
+    ApiError,
+  );
+  expect(() =>
+    assertOrigin(originRequest("http://127.0.0.1:3100")),
+  ).not.toThrow();
+  vi.stubEnv("NODE_ENV", "development");
+  vi.stubEnv("APP_ORIGIN", "http://192.168.1.7:3104");
+  expect(() => assertOrigin(originRequest("http://localhost:3104"))).toThrow(
+    ApiError,
+  );
+  expect(() =>
+    assertOrigin(originRequest("http://192.168.1.7:3104")),
+  ).not.toThrow();
+});
 
 it("rejects a chunked multibyte body by bytes even without content length", async () => {
   let cancelled = false;

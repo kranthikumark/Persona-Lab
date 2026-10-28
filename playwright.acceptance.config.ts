@@ -3,7 +3,12 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "tests/e2e",
-  testMatch: ["polish.spec.ts", "manual-acceptance.spec.ts"],
+  testMatch: [
+    "polish.spec.ts",
+    "manual-acceptance.spec.ts",
+    "theme.spec.ts",
+    "report-card.spec.ts",
+  ],
   workers: 1,
   timeout: 60000,
   use: { baseURL: "http://127.0.0.1:3101", trace: "retain-on-failure" },

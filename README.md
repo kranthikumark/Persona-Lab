@@ -6,7 +6,7 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 
 ## Current implementation
 
-- Dark scenario studio, practice workspace, original AI-generated fictional portrait, responsive layout, keyboard-accessible drawers, and locally bundled fonts.
+- Light and dark scenario studio, practice workspace, original AI-generated fictional portrait, responsive layout, keyboard-accessible drawers, and locally bundled fonts. Use the sun/moon toggle in the top bar to change themes; the browser remembers your choice. Dark is the default.
 - PostgreSQL-backed sessions, ordered messages/events, saved state, browser-scoped access, 30-day session expiry, draft recovery, and session deletion.
 - Server-validated bounded state, transactional turn writes, optimistic concurrency, and idempotent turn retries.
 - Fork from a saved pre-decision snapshot, preserve shared message IDs, and keep parent and child turns independent.
@@ -26,6 +26,8 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 **Phase 7 localhost release checks:** shared usage admission, atomic creation quotas and expiry cleanup implemented; 47 unit, 26 integration and 19 mock browser checks plus a seven-generation live Meta journey passed. AWS Ubuntu deployment is pending local review. See [local release results and AWS handoff](docs/PHASE_7_LOCAL_RELEASE.md).
 
 **Phase 6 visual upgrade and local acceptance:** portrait-led studio, editorial workspace headings, prominent evaluation, repaired evidence focus, 320px reflow, larger-text and forced-colors checks. Native zoom, audible screen-reader and physical-device release checks remain open. See [Phase 6 acceptance](docs/PHASE_6_ACCEPTANCE.md).
+
+**Session report cards:** every session receives a score, evidence-linked positives, observed concerns and practical improvements when Field notes opens. Partial evidence is labeled provisional; historical reports are preserved. See [scoring and report behavior](docs/REPORT_CARD.md).
 
 ## Local setup
 
@@ -56,7 +58,7 @@ npm run build
 
 Persistence integration and end-to-end tests use the local database and create fictional test sessions. One API test deletes only the session it creates; browser journey sessions remain visible only to their isolated browser contexts. Locally, Playwright uses installed Google Chrome to avoid downloading another browser. In CI, run `npx playwright install --with-deps chromium` before testing. Browser tests start an isolated mock development server on 3101, using `.next-dev`; they do not reuse or change the Meta application running on 3100.
 
-For production use `npm run build` and `npm start`, and set `APP_ORIGIN` to the exact HTTPS origin. Production cookies use `Secure`. The localhost development origin is deliberately `http://127.0.0.1:3100`; using another origin requires matching `APP_ORIGIN`.
+For production use `npm run build` and `npm start`, and set `APP_ORIGIN` to the exact HTTPS origin. Production cookies use `Secure`. Local development defaults to `http://127.0.0.1:3100` and also accepts `localhost` or IPv6 loopback on the same protocol and port. Other development addresses, including a phone's LAN review address, require matching `APP_ORIGIN`. Production always requires the exact configured origin.
 
 Live checks are separate and opt-in because they make real provider requests: `PERSONA_LIVE_VERIFY=1 npm run verify:live`. They require the Meta application on 3100 and an isolated invalid-credential server on 3102. Setup, evidence, and cleanup are documented in [Phase 2 acceptance](docs/PHASE_2_ACCEPTANCE.md). Routine tests stay in mock mode.
 
@@ -72,7 +74,7 @@ Private personal knowledge is withheld from model input until explicit rules rev
 
 ## Limits and interpretation
 
-All policy facts and people are fictional. Outcomes are model-generated possibilities, not predictions of human behavior or causal effects. Visible confidence indicators are simulation variables. The deterministic guarantee check recognizes a narrow set of phrases; absence of a flag does not prove compliance or factual accuracy. The five-category rubric uses ten versioned phrase checks with actual message/event evidence. Missing checks remain unscored; results are limited rule coverage rather than a complete quality assessment. See [evaluation rules](docs/EVALUATION_RULES.md).
+All policy facts and people are fictional. Outcomes are model-generated possibilities, not predictions of human behavior or causal effects. Visible confidence indicators are simulation variables. The deterministic guarantee check recognizes a narrow set of phrases; absence of a flag does not prove compliance or factual accuracy. The five-category rubric uses ten versioned phrase checks with actual message/event evidence. Every practice report now displays a numeric rubric score; missing evidence earns no points, with coverage and limitations shown separately. Results are limited rule coverage rather than a complete quality assessment. See [report cards](docs/REPORT_CARD.md). See [evaluation rules](docs/EVALUATION_RULES.md).
 
 Session access expires after 30 days. `npm run db:purge` physically deletes a bounded batch of expired aggregates; deployment must schedule and monitor it. Explicit deletion remains available in history. PostgreSQL-backed generation/creation admission and transactional session/branch quotas are implemented; browser ownership can be reset, so AWS edge abuse controls and deployed acceptance remain pending. See [Phase 7 localhost-to-AWS handoff](docs/PHASE_7_LOCAL_RELEASE.md).
 

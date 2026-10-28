@@ -173,7 +173,7 @@ test("keyboard rehearsal: guarantee, evidence, rewind, alternative and compariso
     await notes.press("Enter");
     const dialog = page.getByRole("dialog");
     await dialog
-      .getByRole("button", { name: "Evaluate this path" })
+      .getByRole("button", { name: "Refresh report card" })
       .press("Enter");
     await expect(
       dialog.getByText("Strengths with evidence", { exact: true }),
@@ -266,7 +266,7 @@ test("practice, branching and report reflow at 320px and larger text", async ({
   await page.keyboard.press("Escape");
   await expect(rewind).toBeFocused();
   await page.getByRole("button", { name: /Field notes/ }).click();
-  await page.getByRole("button", { name: "Evaluate this path" }).click();
+  await page.getByRole("button", { name: "Refresh report card" }).click();
   await expect(
     page
       .getByRole("dialog")

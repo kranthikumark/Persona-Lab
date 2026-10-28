@@ -181,3 +181,38 @@ it("refuses to apply fixed phrase rules to a changed pinned policy", async () =>
   });
   expect(await db.evaluation.count({ where: { branchId: branch } })).toBe(0);
 });
+
+it("upgrades an existing v1 session report without rewriting the saved original", async () => {
+  const { evaluate: evaluateLegacy } =
+    await import("@/lib/evaluation/legacy-rubric");
+  const { historyFor } = await import("@/lib/simulation/service");
+  await turn(
+    "Have you had a previous claim experience that caused these concerns?",
+    0,
+  );
+  const history = await historyFor(branch);
+  const report = evaluateLegacy(history, {
+    branchId: branch,
+    revision: 1,
+    forkTurn: null,
+  });
+  const original = await db.evaluation.create({
+    data: {
+      branchId: branch,
+      branchRevision: 1,
+      rubricVersion: "insurance-rubric-v1",
+      findings: report as unknown as Prisma.InputJsonValue,
+    },
+  });
+  expect((await latestEvaluation(branch, owner))?.report.overall).toBeNull();
+  const upgraded = await createEvaluation(branch, owner, 1);
+  expect(upgraded.id).not.toBe(original.id);
+  expect(upgraded.report.rubricVersion).toBe("insurance-rubric-v2");
+  expect(upgraded.report.overall).toEqual(expect.any(Number));
+  expect(upgraded.report.categories[1].checks[1].status).toBe("demonstrated");
+  expect(
+    (await db.evaluation.findUniqueOrThrow({ where: { id: original.id } }))
+      .findings,
+  ).toEqual(report);
+  expect((await latestEvaluation(branch, owner))?.id).toBe(upgraded.id);
+});

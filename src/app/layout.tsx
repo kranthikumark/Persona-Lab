@@ -15,7 +15,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <script
+          id="theme-initializer"
+          dangerouslySetInnerHTML={{
+            __html: `try{document.documentElement.dataset.theme=localStorage.getItem("persona-lab-theme")==="light"?"light":"dark"}catch{document.documentElement.dataset.theme="dark"}`,
+          }}
+        />
+      </head>
       <body>
         <SkipLink />
         <div id="main-content">{children}</div>

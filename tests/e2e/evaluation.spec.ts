@@ -34,8 +34,10 @@ for (const size of [
       await page.goto(`/sessions/${id}`);
       await page.getByRole("button", { name: /Field notes/ }).click();
       const dialog = page.getByRole("dialog");
-      await dialog.getByRole("button", { name: "Evaluate this path" }).click();
-      await expect(dialog.getByText("10 / 10 checks assessed")).toBeVisible();
+      await dialog.getByRole("button", { name: "Refresh report card" }).click();
+      await expect(
+        dialog.getByText("10 / 10 checks with recognized evidence"),
+      ).toBeVisible();
       await expect(dialog.locator(".evaluation-number")).toContainText("100");
       await expect(
         dialog.getByText(/Revision 3 · through turn 3/),
@@ -61,9 +63,9 @@ for (const size of [
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
-      await mkdir("docs/screenshots/phase-5", { recursive: true });
+      await mkdir("docs/screenshots/report-card", { recursive: true });
       await page.screenshot({
-        path: `docs/screenshots/phase-5/evaluation-${size.name}.png`,
+        path: `docs/screenshots/report-card/evaluation-${size.name}.png`,
         fullPage: true,
         animations: "disabled",
       });
@@ -75,7 +77,9 @@ for (const size of [
       ).toBeInViewport();
       await page.reload();
       await page.getByRole("button", { name: /Field notes/ }).click();
-      await expect(dialog.getByText("10 / 10 checks assessed")).toBeVisible();
+      await expect(
+        dialog.getByText("10 / 10 checks with recognized evidence"),
+      ).toBeVisible();
       const restored: SavedEvaluation = await (
         await page.request.get(`/api/branches/${branchId}/evaluation`)
       ).json();
@@ -131,9 +135,9 @@ for (const size of [
           })
         ).status(),
       ).toBe(400);
-      await mkdir("docs/verification/phase-5", { recursive: true });
+      await mkdir("docs/verification/report-card", { recursive: true });
       await writeFile(
-        `docs/verification/phase-5/${size.name}.json`,
+        `docs/verification/report-card/${size.name}.json`,
         `${JSON.stringify(
           {
             verifiedAt: new Date().toISOString(),
@@ -206,11 +210,11 @@ test("comparison evaluates each full path and distinguishes shared evidence from
         .click();
       await columns
         .nth(index)
-        .getByRole("button", { name: "Evaluate this path" })
+        .getByRole("button", { name: "Refresh report card" })
         .click();
       await expect(
         columns.nth(index).locator(".evaluation-number"),
-      ).toContainText("Insufficient evidence");
+      ).toContainText("/ 100");
     }
     const right = columns.last();
     await expect(right.locator(".report-scope").first()).toContainText(

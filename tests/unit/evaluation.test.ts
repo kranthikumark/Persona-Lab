@@ -27,17 +27,17 @@ function history(texts: string[]): EvaluationHistory {
   };
 }
 describe("versioned evidence-grounded rubric", () => {
-  it("leaves empty and partial conversations unscored instead of awarding missing skills", () => {
+  it("scores empty and partial conversations without awarding missing skills", () => {
     const empty = evaluate(history([]), { ...scope, revision: 0 });
-    expect(empty.overall).toBeNull();
+    expect(empty.overall).toBe(0);
     expect(empty.assessedChecks).toBe(0);
-    expect(empty.categories.every((c) => c.score === null)).toBe(true);
+    expect(empty.categories.every((c) => c.score === 0)).toBe(true);
     const partial = evaluate(history(["Hello"]), { ...scope, revision: 1 });
     expect(partial.assessedChecks).toBe(1);
-    expect(partial.overall).toBeNull();
+    expect(partial.overall).toBe(8);
     expect(
       partial.categories.find((c) => c.id === "communication")!.score,
-    ).toBeNull();
+    ).toBe(50);
   });
   it("uses the documented five weights and ten supported checks", () => {
     const report = evaluate(history(completeInputs), scope);
@@ -130,4 +130,47 @@ it("does not count an explicitly negated checked term as positive evidence", () 
     revision: 1,
   });
   expect(report.categories[0].checks[1].status).toBe("concern");
+});
+
+it("recognizes the real session's equivalent wording with exact evidence", () => {
+  const data = history([
+    "Priya, that's a very valid concern. I understand why you'd be skeptical.",
+    "Have you had a previous claim experience that caused these concerns?",
+    "Approval still depends on eligibility and policy terms.",
+  ]);
+  const report = evaluate(data, scope);
+  for (const id of [
+    "acknowledgement",
+    "experience-question",
+    "claim-boundaries",
+  ]) {
+    const check = report.categories
+      .flatMap((c) => c.checks)
+      .find((c) => c.id === id)!;
+    expect(check.status).toBe("demonstrated");
+    expect(check.evidence).toHaveLength(1);
+    expect(
+      data.messages.find((m) => m.id === check.evidence[0].messageId),
+    ).toBeDefined();
+  }
+});
+
+it("does not manufacture a strength or an actual concern when evidence is missing", () => {
+  const report = evaluate(history(["Hello"]), { ...scope, revision: 1 });
+  const budget = report.categories[1].checks[0];
+  expect(budget.status).toBe("insufficient");
+  expect(budget.evidence).toEqual([]);
+  expect(report.categories[1].score).toBe(0);
+  expect(report.overall).toBeGreaterThanOrEqual(0);
+  expect(report.overall).toBeLessThanOrEqual(100);
+});
+
+it("keeps legacy saved reports verifiable under their original scoring", async () => {
+  const { evaluate: oldEvaluate } =
+    await import("@/lib/evaluation/legacy-rubric");
+  const data = history(["Hello"]);
+  const old = oldEvaluate(data, { ...scope, revision: 1 });
+  expect(old.overall).toBeNull();
+  expect(validateEvidence(old, data, { ...scope, revision: 1 })).toEqual(old);
+  expect(evaluate(data, { ...scope, revision: 1 }).overall).toBe(8);
 });

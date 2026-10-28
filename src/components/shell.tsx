@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   ArrowUpRight,
   BookOpen,
@@ -117,13 +118,16 @@ export function Shell({
             <span>/</span>
             <strong>{page}</strong>
           </div>
-          <div className={`mode-badge ${mode === "meta" ? "live" : ""}`}>
-            <span />
-            {mode === "meta"
-              ? "Meta · Live model"
-              : mode === "mock"
-                ? "Mock mode · Local practice"
-                : "Connecting studio…"}
+          <div className="topbar-actions">
+            <div className={`mode-badge ${mode === "meta" ? "live" : ""}`}>
+              <span />
+              {mode === "meta"
+                ? "Meta · Live model"
+                : mode === "mock"
+                  ? "Mock mode · Local practice"
+                  : "Connecting studio…"}
+            </div>
+            <ThemeToggle />
           </div>
         </header>
         <nav className="compact-nav" aria-label="Workspace navigation">

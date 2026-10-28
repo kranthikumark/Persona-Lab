@@ -16,7 +16,9 @@ async function scopeFor(branchId: string, ownerHash: string | null) {
     approvedFacts?: { id: string; detail: string }[];
   };
   if (
-    scenario.rubricVersion !== RUBRIC_VERSION ||
+    !["insurance-rubric-v1", RUBRIC_VERSION].includes(
+      scenario.rubricVersion ?? "",
+    ) ||
     scenario.slug !== "the-trust-conversation" ||
     scenario.version !== 1 ||
     !Object.entries(publicScenario.rubric).every(
@@ -81,8 +83,15 @@ export async function latestEvaluation(
 ) {
   await scopeFor(branchId, ownerHash);
   const latest = await db.evaluation.findFirst({
-    where: { branchId, rubricVersion: RUBRIC_VERSION },
-    orderBy: [{ branchRevision: "desc" }, { createdAt: "desc" }],
+    where: {
+      branchId,
+      rubricVersion: { in: ["insurance-rubric-v1", RUBRIC_VERSION] },
+    },
+    orderBy: [
+      { branchRevision: "desc" },
+      { rubricVersion: "desc" },
+      { createdAt: "desc" },
+    ],
   });
   return latest ? present(branchId, ownerHash, latest) : null;
 }

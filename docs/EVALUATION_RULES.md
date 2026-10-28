@@ -1,4 +1,14 @@
-# Evaluation rules — insurance-rubric-v1
+# Evaluation rules
+
+## Current report card: insurance-rubric-v2
+
+Engine: `practice-report-v2`. Every session receives a numeric score, including a 0/100 not-started card for an empty conversation. Each demonstrated check earns 50 category points; concerns and checks without recognized evidence earn zero. The overall score is the rounded fixed-weight sum across all five categories, with evidence coverage shown separately. Partial coverage is provisional, and an unrecognized skill is not described as observed negative behavior.
+
+The v2 rules add bounded recognition of conditional claim approval, previous claim experience questions, and acknowledgement wording. Evidence links still point to exact trainee messages and their recorded events. Original concerns continue to override positive matches.
+
+See [report-card behavior, weights, limitations and verification](REPORT_CARD.md). The rules below document the frozen historical v1 evaluator; old reports are validated with that version and remain unchanged when a separate v2 report is created.
+
+## Historical report: insurance-rubric-v1
 
 Engine: `phrase-evaluation-v1`. This deterministic evaluator makes no model requests. It checks recorded trainee phrases against ten finite rules for the fictional scenario; it is not a general assessment of factual correctness, empathy, legal compliance, or sales ability.
 

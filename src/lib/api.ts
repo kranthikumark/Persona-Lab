@@ -32,8 +32,28 @@ export async function owner(create = false) {
 }
 export function assertOrigin(request: Request) {
   const expected = process.env.APP_ORIGIN ?? "http://127.0.0.1:3100";
-  if (request.headers.get("origin") !== expected)
-    throw new ApiError(403, "This request must come from the application.");
+  const received = request.headers.get("origin");
+  if (received === expected) return;
+  // Local browser URLs may use either loopback spelling. Keep this exception
+  // development-only, on the configured protocol and port, with no wildcard hosts.
+  if (received && process.env.NODE_ENV === "development") {
+    try {
+      const configured = new URL(expected);
+      const incoming = new URL(received);
+      const loopback = new Set(["localhost", "127.0.0.1", "[::1]"]);
+      if (
+        received === incoming.origin &&
+        loopback.has(configured.hostname) &&
+        loopback.has(incoming.hostname) &&
+        incoming.protocol === configured.protocol &&
+        incoming.port === configured.port
+      )
+        return;
+    } catch {
+      // Missing, malformed, and foreign origins fail closed below.
+    }
+  }
+  throw new ApiError(403, "This request must come from the application.");
 }
 export async function jsonBody(request: Request) {
   if (Number(request.headers.get("content-length") ?? 0) > 12000)

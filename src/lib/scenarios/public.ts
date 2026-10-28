@@ -62,7 +62,7 @@ export const publicScenario = {
   ],
   opening:
     "I've looked at a few policies, but they all sound reassuring until you actually need to make a claim. How do I know this one will be any different?",
-  rubricVersion: "insurance-rubric-v1",
+  rubricVersion: "insurance-rubric-v2",
   rubric: {
     accuracy: 30,
     discovery: 20,

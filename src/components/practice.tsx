@@ -597,7 +597,7 @@ function PracticeSession({
         description={
           panel === "facts"
             ? "Use only these approved facts. Be clear about the limits and never promise claim approval."
-            : "A versioned review of the recorded conversation. Every assessed check links to its evidence; missing evidence remains unscored."
+            : "Your score, positives, concerns and next improvements. Recognized evidence links to your conversation; gaps earn no points yet."
         }
       >
         {panel === "facts" ? (

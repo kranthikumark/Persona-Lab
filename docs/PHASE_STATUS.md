@@ -1,6 +1,6 @@
 # PERSONA LAB — Actual implementation status
 
-Updated October 27, 2026. This is local evidence, not public-release acceptance.
+Updated October 28, 2026. This is local evidence, not public-release acceptance.
 
 ## Phase progress
 
@@ -15,6 +15,15 @@ Updated October 27, 2026. This is local evidence, not public-release acceptance.
 | 6 — Polish/accessibility   | Local implementation accepted | Portrait-led studio and editorial workspace redesign, prominent evaluation, focus transfer, recovery states, 320px reflow, larger text and forced colors verified. Native zoom, audible screen-reader, physical devices and human rehearsal remain release checks: `PHASE_6_ACCEPTANCE.md`. |
 | 7 — Deployment/release     | Local release checks passed   | Shared PostgreSQL admission, atomic creation quotas, streamed request bounds, expiry cleanup command, build/privacy scan and full localhost live Meta journey passed. AWS Ubuntu deployment and scheduled cleanup remain pending.                                                           |
 | 8 — Demo/submission        | Not started                   | No demonstration video or organizer submission.                                                                                                                                                                                                                                             |
+
+## October 28 product updates
+
+- Light theme and persistent accessible theme toggle added, preserving the original dark palette. Nine theme checks passed across Chrome, Firefox and WebKit.
+- Localhost and 127.0.0.1 aliases work on the configured development protocol/port; production origin matching remains exact. Both browser journeys and origin rejection cases passed.
+- Every session can generate a numeric v2 report card, including empty and partial conversations, with evidence-linked positives, observed concerns, separate evidence gaps and an improvement plan. Historical v1 reports remain verifiable and unchanged. Selected wording false negatives were corrected.
+- PDF and editable Word exports include scores, feedback, scope and selected evidence. The reviewed exports were rendered and visually inspected. Email/WhatsApp summaries and native attachment sharing are available with a download-and-attach fallback; no server-side sending is configured. Actual recipient delivery remains manual acceptance.
+- Latest checks: 55 unit tests passed. The report-card change passed 27 database tests and the full 28-test Chrome suite. Export changes passed nine targeted browser checks plus a final export regression. Lint, TypeScript, production build and client privacy checks passed. See `REPORT_CARD.md` for scoring, sharing behavior and evidence boundaries.
+- Open product findings: repetitive character questions and heuristic conversation-stage transitions. Native zoom, audible screen-reader, physical-phone and sharing delivery acceptance remain pending. AWS deployment has not been performed.
 
 ## October 28 Phase 6 review follow-up
 
@@ -65,7 +74,7 @@ The first seed attempt exposed ESM configuration and environment-loading issues;
 - Seven generated responses were verified as Meta Muse Spark 1.3, including a resumed sixth turn and an independent alternative. Genuine upstream 401 handling passed on an isolated server. These checks establish local acceptance for the tested scenario, not public deployment.
 - Character budget/history facts are available to the model only after explicit reveal rules. Public client components import a separate public scenario definition.
 - Saved scenario context versions do not select historical executable reducers; old snapshots are replayed as stored, while new turns use the current code.
-- Evaluation uses ten limited English phrase rules. Category/overall scores stay unscored until their evidence requirements are met; scored results represent rule coverage, not a complete skill/compliance assessment.
+- Evaluation uses ten limited English phrase rules. V2 category and overall practice scores are always numeric; missing recognized evidence earns zero, with coverage and provisional status shown separately. Historical v1 reports retain their original nullable scores. Neither version is a complete skill/compliance assessment.
 - Guarantee detection uses a narrow transparent phrase heuristic. No claim of exhaustive accuracy, psychological measurement, real-world prediction, or proven causality is made.
 - Session access expires after 30 days. The bounded physical purge command is implemented and tested; scheduling and monitoring remain pending for AWS. Clearing the browser ownership cookie loses access.
 - PostgreSQL-backed global/browser generation admission and shared creation admission are implemented, as are transactionally enforced session/branch quotas. Browser identity can be reset; AWS edge abuse controls and deployed limits still require acceptance.
