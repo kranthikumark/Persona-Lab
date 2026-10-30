@@ -15,7 +15,7 @@ const Payload = z
     id: z.uuid(),
     branchId: z.string().min(1).max(100),
     revision: z.number().int().nonnegative(),
-    locale: z.literal("en-IN"),
+    locale: z.enum(["en-IN", "hi-IN", "te-IN"]),
     model: z.literal(SPEECH_MODEL),
     rawText: z.string().min(1).max(2000),
     audioDurationMs: z.number().finite().min(0).max(65000),
@@ -43,6 +43,7 @@ export function issueSpeechReceipt(
   rawText: string,
   audioDurationMs: number,
   consent: SpeechConsent,
+  locale: "en-IN" | "hi-IN" | "te-IN" = "en-IN",
 ) {
   if (rawText.length > 2000) return undefined;
   const payload = Payload.parse({
@@ -50,7 +51,7 @@ export function issueSpeechReceipt(
     id: randomUUID(),
     branchId,
     revision,
-    locale: "en-IN",
+    locale,
     model: SPEECH_MODEL,
     rawText,
     audioDurationMs,
@@ -65,6 +66,7 @@ export function verifiedVoiceSource(
   branchId: string,
   revision: number,
   text: string,
+  locale: "en-IN" | "hi-IN" | "te-IN" = "en-IN",
 ) {
   try {
     if (!token || token.length > 16000) throw new Error();
@@ -83,12 +85,16 @@ export function verifiedVoiceSource(
       JSON.parse(Buffer.from(parts[0], "base64url").toString("utf8")),
     );
     validConsent(payload.consent);
-    if (payload.branchId !== branchId || payload.revision !== revision)
+    if (
+      payload.branchId !== branchId ||
+      payload.revision !== revision ||
+      payload.locale !== locale
+    )
       throw new Error();
     return MessageSourceSchema.parse({
       version: "message-source-v1",
       modality: "voice",
-      originalLocale: "en-IN",
+      originalLocale: payload.locale,
       originalText: text,
       provenance: "confirmed_transcript",
       translations: [],

@@ -25,7 +25,7 @@ export default defineConfig({
       META_API_KEY: "synthetic-never-used-for-network",
       APP_ORIGIN: "http://127.0.0.1:3101",
       PERSONA_ACCEPTANCE_RUN: randomUUID(),
-      PERSONA_LOCALE_ACCEPTANCE: "0",
+      PERSONA_LOCALE_ACCEPTANCE: "1",
       PERSONA_PHONE_REVIEW: "1",
     },
   },

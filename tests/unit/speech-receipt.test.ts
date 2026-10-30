@@ -80,3 +80,24 @@ it("voice shares the exact word admission and length reporting contract", () => 
     lengthRecord({ content: text, metadata: { validation: voice } }).status,
   ).toBe("passed");
 });
+
+for (const locale of ["hi-IN", "te-IN"] as const)
+  it(`${locale}: receipts cannot be replayed in a different language`, () => {
+    vi.stubEnv("META_API_KEY", "synthetic-key-one");
+    const token = issueSpeechReceipt(
+      "owner",
+      "branch",
+      0,
+      "native text",
+      1000,
+      newConsent(),
+      locale,
+    );
+    expect(
+      verifiedVoiceSource(token, "owner", "branch", 0, "edited", locale)
+        .originalLocale,
+    ).toBe(locale);
+    expect(() =>
+      verifiedVoiceSource(token, "owner", "branch", 0, "edited", "en-IN"),
+    ).toThrow();
+  });

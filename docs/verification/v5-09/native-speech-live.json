@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-30",
+  "evidence": [
+    {
+      "locale": "hi-IN",
+      "provider": "meta",
+      "model": "muse-voice-transcribe-1.0",
+      "result": "provider_returned_transcript",
+      "sample": {
+        "dataset": "google/fleurs",
+        "license": "CC-BY-4.0",
+        "split": "dev",
+        "filename": "10003386135529782184.wav",
+        "source": "https://huggingface.co/datasets/google/fleurs/resolve/main/data/hi_in/audio/dev.tar.gz",
+        "inputSha256": "8538666a5ad99f99891bf1bab29914321877e661be4fc005947535dc78725f22",
+        "durationMs": 12240
+      },
+      "transcriptCharacters": 149,
+      "scriptPresent": true,
+      "latencyMs": 4606,
+      "normalizedWordEdits": 3,
+      "referenceWords": 30,
+      "wordErrorRate": 0.1,
+      "transcriptSha256": "1ce0cbb5607aac146cad0d68d9af3b037c2db8cbb91e8ac58e465cd1f9726cf8",
+      "humanMicrophone": "pending",
+      "nativeFluentReview": "pending",
+      "audiblePlayback": "pending",
+      "limitation": "One public read-speech sample; punctuation/symbols removed for comparison. Not broad accuracy or conversational acceptance."
+    },
+    {
+      "locale": "te-IN",
+      "provider": "meta",
+      "model": "muse-voice-transcribe-1.0",
+      "result": "provider_returned_transcript",
+      "sample": {
+        "dataset": "google/fleurs",
+        "license": "CC-BY-4.0",
+        "split": "dev",
+        "filename": "1011590415238839102.wav",
+        "source": "https://huggingface.co/datasets/google/fleurs/resolve/main/data/te_in/audio/dev.tar.gz",
+        "inputSha256": "30e86fcc03d594c0a3741b06cf46a6543c396fcaee305cb3eec587480935ab15",
+        "durationMs": 10980
+      },
+      "transcriptCharacters": 138,
+      "scriptPresent": true,
+      "latencyMs": 4192,
+      "normalizedWordEdits": 2,
+      "referenceWords": 19,
+      "wordErrorRate": 0.10526315789473684,
+      "transcriptSha256": "a4733c432cc78208c571de1873c7960db4aa461a46b5ddfdc2ffd1fba7925fbf",
+      "humanMicrophone": "pending",
+      "nativeFluentReview": "pending",
+      "audiblePlayback": "pending",
+      "limitation": "One public read-speech sample; punctuation/symbols removed for comparison. Not broad accuracy or conversational acceptance."
+    }
+  ]
+}

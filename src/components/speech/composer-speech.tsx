@@ -27,12 +27,14 @@ import {
 type Phase = "idle" | "permission" | "recording" | "transcribing";
 export function ComposerSpeech({
   branchId,
+  locale,
   revision,
   busy,
   onTranscript,
   onActivity,
 }: {
   branchId: string;
+  locale: "en-IN" | "hi-IN" | "te-IN";
   revision: number;
   busy: boolean;
   onTranscript: (text: string, receipt: string) => void;
@@ -69,10 +71,18 @@ export function ComposerSpeech({
   }, [onActivity]);
   useEffect(() => {
     let current = true;
-    api<{ speech: { checkAvailable: boolean } }>("/api/capabilities")
+    api<{ speech: { locales: { locale: string; transcription: string }[] } }>(
+      "/api/capabilities",
+    )
       .then((r) => {
         if (current) {
-          setAvailable(r.speech.checkAvailable);
+          setAvailable(
+            r.speech.locales.some(
+              (entry) =>
+                entry.locale === locale &&
+                entry.transcription === "acceptance_preview",
+            ),
+          );
           setAllowed(voiceAllowed());
         }
       })
@@ -80,7 +90,7 @@ export function ComposerSpeech({
     return () => {
       current = false;
     };
-  }, []);
+  }, [locale]);
   useEffect(() => {
     if (search.get("microphone") === "1") {
       const url = new URL(window.location.href);
@@ -211,6 +221,7 @@ export function ComposerSpeech({
       abort = new AbortController();
     controller.current = abort;
     setPhase("permission");
+    window.dispatchEvent(new Event("persona-microphone-start"));
     onActivity(true);
     try {
       const recording = await capturePcm(

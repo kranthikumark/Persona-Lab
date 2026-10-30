@@ -25,16 +25,14 @@ beforeEach(() => {
   vi.stubEnv("PERSONA_LOCALE_ACCEPTANCE", "1");
   vi.stubEnv("APP_ORIGIN", "http://127.0.0.1:3100");
   vi.stubEnv("PERSONA_ACCEPTANCE_RUN", randomUUID());
-  vi.mocked(transcribeMeta)
-    .mockReset()
-    .mockResolvedValue({
-      text: "What is your budget?",
-      locale: "en-IN",
-      provider: "meta",
-      model: "muse-voice-transcribe-1.0",
-      audioDurationMs: 1000,
-      latencyMs: 10,
-    });
+  vi.mocked(transcribeMeta).mockReset().mockResolvedValue({
+    text: "What is your budget?",
+    locale: "en-IN",
+    provider: "meta",
+    model: "muse-voice-transcribe-1.0",
+    audioDurationMs: 1000,
+    latencyMs: 10,
+  });
 });
 afterEach(async () => {
   vi.unstubAllEnvs();
@@ -99,9 +97,10 @@ it("rejects foreign ownership, stale revision, invalid consent, unsupported audi
   ).rejects.toMatchObject({ status: 400 });
   const native = await startSession(owner, { practiceLocale: "te-IN" });
   ids.push(native.sessionId);
+  vi.stubEnv("PERSONA_LOCALE_ACCEPTANCE", "0");
   await expect(
     transcribeForBranch(native.branchId, owner, request()),
-  ).rejects.toMatchObject({ status: 422 });
+  ).rejects.toMatchObject({ status: 503 });
   expect(transcribeMeta).not.toHaveBeenCalled();
 });
 it("a conversation revision changing during provider processing discards the result", async () => {
@@ -127,3 +126,47 @@ it("a conversation revision changing during provider processing discards the res
   ).rejects.toMatchObject({ status: 409 });
   expect((await historyFor(created.branchId)).messages).toHaveLength(3);
 });
+
+for (const locale of ["hi-IN", "te-IN"] as const)
+  it(`${locale}: native voice is reviewed, committed and reloaded with locale-bound provenance`, async () => {
+    const session = await startSession(owner, { practiceLocale: locale });
+    ids.push(session.sessionId);
+    const text =
+      locale === "hi-IN"
+        ? "आपका मासिक बजट क्या है?"
+        : "మీ నెలవారీ బడ్జెట్ ఎంత?";
+    vi.mocked(transcribeMeta).mockResolvedValueOnce({
+      text,
+      locale,
+      provider: "meta",
+      model: "muse-voice-transcribe-1.0",
+      audioDurationMs: 1000,
+      latencyMs: 10,
+    });
+    const result = await transcribeForBranch(
+      session.branchId,
+      owner,
+      request(),
+    );
+    expect(transcribeMeta).toHaveBeenCalledWith(
+      expect.any(Uint8Array),
+      expect.any(AbortSignal),
+      locale,
+    );
+    await sendTurn(session.branchId, owner, {
+      text,
+      revision: 0,
+      key: randomUUID(),
+      inputModality: "voice",
+      speechReceipt: result.receipt,
+    });
+    const history = await historyFor(session.branchId);
+    const user = history.messages.find((m) => m.role === "user")!;
+    expect(user.content).toBe(text);
+    expect(user.sourceMetadata).toMatchObject({
+      modality: "voice",
+      originalLocale: locale,
+      originalText: text,
+      transcript: { rawText: text },
+    });
+  });

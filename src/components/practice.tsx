@@ -29,6 +29,7 @@ import { Shell } from "./shell";
 import { Button } from "./ui/button";
 import { Drawer } from "./ui/drawer";
 import { Facts } from "./studio";
+import { ReplyPlayback } from "./speech/reply-playback";
 import { ComposerSpeech } from "./speech/composer-speech";
 import { TypingHelp } from "./typing-help";
 import { EvaluationPanel } from "./evaluation";
@@ -525,12 +526,22 @@ function PracticeSession({
                       </button>
                     </div>
                   )}
+                  <ReplyPlayback
+                    key={view.branch.id}
+                    locale={locale}
+                    message={
+                      view.messages.filter((m) => m.role !== "user").at(-1) ??
+                      null
+                    }
+                    blocked={busy || voiceActive}
+                  />
                   {locale !== "en-IN" && <TypingHelp locale={locale} />}
-                  {locale === "en-IN" && (
+                  {
                     <div className="composer-voice-actions">
                       <ComposerSpeech
                         key={`${view.branch.id}:${view.branch.revision}`}
                         branchId={view.branch.id}
+                        locale={locale}
                         revision={view.branch.revision}
                         busy={busy}
                         onActivity={setVoiceActive}
@@ -599,7 +610,7 @@ function PracticeSession({
                         </>
                       )}
                     </div>
-                  )}
+                  }
                   <div className="composer-box">
                     <label className="sr-only" htmlFor="response" lang={locale}>
                       {translated.labels.response}

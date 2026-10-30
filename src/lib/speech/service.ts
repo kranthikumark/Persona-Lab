@@ -1,14 +1,14 @@
 import "server-only";
 import { ApiError } from "@/lib/api";
 import { requireBranch } from "@/lib/simulation/service";
-import { effectiveSettings } from "@/lib/practice/metadata";
+import { branchSettings } from "@/lib/practice/server";
 import { reserveBudget } from "@/lib/release/limits";
 import {
   MAX_AUDIO_BYTES,
   validConsent,
   type SpeechTranscript,
 } from "./contracts";
-import { speechCapabilities } from "./capabilities";
+import { speechLocaleAvailable } from "./capabilities";
 import { validateWav } from "./wav";
 import { issueSpeechReceipt } from "./receipt";
 import { transcribeMeta } from "./provider";
@@ -61,15 +61,14 @@ export async function transcribeForBranch(
       409,
       "Conversation changed. Return to the current path before recording.",
     );
-  if (effectiveSettings(session.settings).practiceLocale !== "en-IN")
-    throw new ApiError(
-      422,
-      "Speech checks currently support English only. Continue in text for this language.",
-    );
-  if (!speechCapabilities().checkAvailable)
+  const locale = branchSettings(
+    session.settings,
+    branch.settings,
+  ).practiceLocale;
+  if (!speechLocaleAvailable(locale))
     throw new ApiError(
       503,
-      "Speech checks are available only in configured localhost acceptance preview. Text practice remains available.",
+      "Speech is unavailable for this language here. Native speech needs localhost language acceptance preview; continue with text.",
     );
   let consent;
   try {
@@ -92,7 +91,7 @@ export async function transcribeForBranch(
     { key: `speech:owner:${owner}`, limit: 20, windowSeconds: 3600 },
     { key: "speech:global", limit: 80, windowSeconds: 3600 },
   ]);
-  const result = await transcribeMeta(bytes, request.signal);
+  const result = await transcribeMeta(bytes, request.signal, locale);
   const current = await requireBranch(id, owner);
   if (current.branch.revision !== revision)
     throw new ApiError(
@@ -108,6 +107,7 @@ export async function transcribeForBranch(
       result.text,
       result.audioDurationMs,
       consent,
+      locale,
     ),
     consentId: consent.id,
     branchId: id,

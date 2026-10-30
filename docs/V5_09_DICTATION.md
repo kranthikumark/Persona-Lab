@@ -1,3 +1,5 @@
+> Update: opt-in automatic spoken replies and Hindi/Telugu local dictation preview are now implemented. See [spoken replies and native verification](V5_09_SPOKEN_REPLIES.md) for current acceptance and remaining human checks. The notes below preserve the earlier English dictation implementation history.
+
 # V5-09 first slice — speech dictation in the practice chat
 
 Implemented October 30, 2026 in response to the request for microphone → transcribe → send in the actual practice. This is the dictation slice of V5-09. Automatic character readback, the speaking 2D avatar, streaming and full spoken-conversation acceptance remain separate pending work.

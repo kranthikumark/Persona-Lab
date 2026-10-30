@@ -1,5 +1,5 @@
 import { verifiedVoiceSource } from "@/lib/speech/receipt";
-import { speechCapabilities } from "@/lib/speech/capabilities";
+import { speechLocaleAvailable } from "@/lib/speech/capabilities";
 import { presentationFor } from "@/lib/localization/content";
 import {
   CatalogSchema,
@@ -441,12 +441,11 @@ export async function sendTurn(
   const modality = input.inputModality ?? "text";
   if (
     modality === "voice" &&
-    (settings.practiceLocale !== "en-IN" ||
-      !speechCapabilities().checkAvailable)
+    !speechLocaleAvailable(settings.practiceLocale)
   )
     throw new ApiError(
       422,
-      "English voice dictation is unavailable here. Use keyboard text.",
+      "Voice dictation is unavailable for this language here. Use keyboard text.",
     );
   const source =
     modality === "voice"
@@ -456,6 +455,7 @@ export async function sendTurn(
           branchId,
           input.revision,
           input.text,
+          settings.practiceLocale,
         )
       : textSource(input.text, settings.practiceLocale, "typed");
   const validation = acceptedValidation(

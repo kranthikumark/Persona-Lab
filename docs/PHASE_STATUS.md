@@ -130,3 +130,13 @@ Local implementation and real Meta Muse Voice Transcribe access verified; [accep
 English practice now includes **Speak response** above the composer: one remembered browser approval, inline recording/Stop, automatic transcription into the existing response box, then explicit Send response. Cancellation preserves drafts and Voice settings revokes future capture approval. Short-lived owner/path-bound receipts protect voice provenance; normal atomic turn admission, retries, forks and evaluation apply. Live Meta transcription plus character-response persistence passed on a synthetic fixture. See [dictation acceptance](V5_09_DICTATION.md). This is partial V5-09: speaking 2D avatar, automatic readback, streaming and complete human voice-room acceptance remain pending.
 
 October 30, 2026: the user accepted all four V5-09 inline dictation checks on localhost (record/Stop, edit/send, remembered approval, Cancel/draft preservation). Full voice conversation remains pending.
+
+## V5-09 update — spoken AI replies and native speech preview
+
+October 30, 2026: implemented opt-in automatic device-local spoken replies, Stop/Replay and microphone interruption; Hindi/Telugu inline dictation and locale-bound provenance are available under localhost language acceptance preview. Live Meta public read-speech fixtures returned Hindi/Telugu scripts, with recognition differences recorded. Human microphone, fluent review and audible acceptance for the new three-language flow are pending; the user offered to arrange testing. See [spoken replies acceptance](V5_09_SPOKEN_REPLIES.md). This supersedes earlier statements that automatic readback is unimplemented; the 2D avatar, streaming and production voice release remain pending.
+
+October 30, 2026 playback acceptance update: Hindi and Telugu Auto speak replies and Replay passed by user report. Native microphone/transcription and recording-interruption results remain pending. See V5_09_SPOKEN_REPLIES.md.
+
+October 30, 2026 dictation acceptance update: the user also confirmed the Hindi/Telugu Speak response → Stop → edit → Send flow working. Native dictation/reviewed submission are user-reported passes; microphone interruption of active AI playback remains awaiting explicit human confirmation.
+
+October 30, 2026 interruption acceptance update: the user confirmed that starting recording stops Priya’s active playback. The requested localhost Hindi/Telugu playback, Replay, reviewed dictation and interruption checks are now accepted by user report. No separate locale/device breakdown was supplied for interruption. Production release and fluent translation-content approval remain separate.

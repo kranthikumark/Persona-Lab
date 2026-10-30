@@ -7,7 +7,12 @@ const ResponseSchema = z.object({
   audioDurationMs: z.number().finite().nonnegative(),
 });
 let active = 0;
-export async function transcribeMeta(bytes: Uint8Array, signal?: AbortSignal) {
+export async function transcribeMeta(
+  bytes: Uint8Array,
+  signal?: AbortSignal,
+  locale: "en-IN" | "hi-IN" | "te-IN" = "en-IN",
+) {
+  const language = z.enum(["en-IN", "hi-IN", "te-IN"]).parse(locale);
   const key = process.env.META_API_KEY?.trim();
   if (!key)
     throw new ApiError(
@@ -31,7 +36,11 @@ export async function transcribeMeta(bytes: Uint8Array, signal?: AbortSignal) {
             model: SPEECH_MODEL,
             audioEncoding: "WAV",
             mode: "PUSH_TO_TALK",
-            languageBias: ["English"],
+            languageBias: [
+              { "en-IN": "English", "hi-IN": "Hindi", "te-IN": "Telugu" }[
+                language
+              ],
+            ],
           }),
         ],
         { type: "application/json" },
@@ -93,7 +102,7 @@ export async function transcribeMeta(bytes: Uint8Array, signal?: AbortSignal) {
       latencyMs: Date.now() - started,
       model: SPEECH_MODEL as typeof SPEECH_MODEL,
       provider: "meta" as const,
-      locale: "en-IN" as const,
+      locale: language,
     };
   } catch (error) {
     if (error instanceof ApiError) throw error;

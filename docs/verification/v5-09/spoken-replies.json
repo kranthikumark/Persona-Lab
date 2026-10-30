@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-30",
+  "scope": "opt-in device-local automatic AI replies and Hindi/Telugu inline dictation preview",
+  "checks": {
+    "unitPassed": 134,
+    "targetedDatabasePassed": 8,
+    "uniqueBrowserChecksPassedAcrossRuns": 17,
+    "finalPlaybackRepeatPassed": 4,
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed",
+    "releaseClientPrivacy": "passed; 22 client files"
+  },
+  "liveNativeAsr": "one public Google FLEURS read-speech sample per locale; native scripts returned, recognition differences remain",
+  "humanAcceptance": {
+    "englishNewSpokenFlow": "pending",
+    "hindi": {
+      "automaticSpokenReplies": "user_reported_pass",
+      "replay": "user_reported_pass",
+      "microphoneTranscription": "user_reported_pass",
+      "recordingInterruptsPlayback": "user_reported_pass",
+      "reviewEditAndSend": "user_reported_pass"
+    },
+    "telugu": {
+      "automaticSpokenReplies": "user_reported_pass",
+      "replay": "user_reported_pass",
+      "microphoneTranscription": "user_reported_pass",
+      "recordingInterruptsPlayback": "user_reported_pass",
+      "reviewEditAndSend": "user_reported_pass"
+    },
+    "userResponse": "can arrange tests for all three languages",
+    "nativePlaybackReportDate": "2026-10-30",
+    "deviceBrowserInventory": "not supplied",
+    "nativeDictationReportDate": "2026-10-30",
+    "recordingInterruptionReportDate": "2026-10-30",
+    "recordingInterruptionScope": "User confirmed starting recording while Priya speaks stops playback; no separate locale/device breakdown supplied."
+  },
+  "productionNativeRelease": false,
+  "playback": "matching installed local voices only; runtime availability; no provider TTS",
+  "visualInspection": [
+    "inline-light-ready-390.png",
+    "inline-dark-ready-390.png"
+  ],
+  "localNativeVoiceAcceptance": "user_reported_pass_for_requested_playback_dictation_and_interruption_checks"
+}

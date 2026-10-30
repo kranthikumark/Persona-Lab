@@ -51,7 +51,7 @@ export function validConsent(input: unknown, now = Date.now()) {
 export type SpeechTranscript = {
   receipt?: string;
   text: string;
-  locale: "en-IN";
+  locale: "en-IN" | "hi-IN" | "te-IN";
   provider: "meta";
   model: typeof SPEECH_MODEL;
   audioDurationMs: number;

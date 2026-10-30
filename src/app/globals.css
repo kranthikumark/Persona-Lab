@@ -4345,3 +4345,12 @@ body {
 .inline-voice-permission>div {display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .inline-voice-error {flex-basis:100%;font-size:12px;line-height:1.7;color:var(--amber);}
 @media(max-width:440px){.inline-voice-note{flex-basis:100%;}}
+
+.reply-playback {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.reply-playback small { color: var(--muted); font-size: 12px; }

@@ -125,3 +125,7 @@ Run `npm run dev`, open English practice, and click **Speak response** above the
 The V5-08 diagnostic room remains at `/sessions/SESSION_ID/speech-check` for isolated device checks. Normal practice uses the inline control instead. See [practice dictation](docs/V5_09_DICTATION.md); complete character speech/animation remains subsequent V5-09 work.
 
 `npm run test:speech` uses synthetic browser audio and mocked transcription/playback. `verify:speech:live` requires an explicitly selected WAV and processing-consent argument. On a constrained workstation, `PERSONA_LOW_DISK_BUILD=1 npm run build` disables optional persistent build-cache writes; standard production cache behavior is unchanged.
+
+### Spoken replies and Hindi/Telugu voice preview
+
+Run `npm run dev:locales` for the localhost language acceptance preview. Select a language before starting a new practice. **Auto speak replies** enables matching installed-device playback; **Stop reply** and **Replay reply** stay inline. Beginning recording stops playback. If a matching voice is missing, install it in device settings; text and dictation remain available. Hindi/Telugu live ASR sample checks passed with recognition differences; human three-language listening/microphone acceptance is pending. See [current voice acceptance](docs/V5_09_SPOKEN_REPLIES.md).

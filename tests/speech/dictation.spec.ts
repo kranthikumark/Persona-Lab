@@ -9,6 +9,8 @@ async function installAsr(
   context: BrowserContext,
   branchId: string,
   onRequest: () => void = () => {},
+  locale: "en-IN" | "hi-IN" | "te-IN" = "en-IN",
+  text = "What is your budget",
 ) {
   await page.route("**/speech/transcribe", async (route) => {
     onRequest();
@@ -21,9 +23,9 @@ async function installAsr(
       id: randomUUID(),
       branchId,
       revision,
-      locale: "en-IN",
+      locale,
       model: "muse-voice-transcribe-1.0",
-      rawText: "What is your budget",
+      rawText: text,
       audioDurationMs: 1000,
       consent,
     };
@@ -42,7 +44,7 @@ async function installAsr(
       json: {
         text: payload.rawText,
         receipt: `${encoded}.${signature}`,
-        locale: "en-IN",
+        locale,
         provider: "meta",
         model: payload.model,
         audioDurationMs: 1000,
@@ -110,12 +112,10 @@ for (const theme of ["dark", "light"] as const)
       ).toBeDisabled();
       for (const width of [1440, 390]) {
         await page.setViewportSize({ width, height: 1000 });
-        await page
-          .locator(".composer-area")
-          .screenshot({
-            path: `docs/screenshots/v5-09/inline-${theme}-recording-${width}.png`,
-            animations: "disabled",
-          });
+        await page.locator(".composer-area").screenshot({
+          path: `docs/screenshots/v5-09/inline-${theme}-recording-${width}.png`,
+          animations: "disabled",
+        });
       }
       await stop(page);
       await expect(page.locator("#response")).toHaveValue(
@@ -124,12 +124,10 @@ for (const theme of ["dark", "light"] as const)
       expect(uploads).toBe(1);
       for (const width of [1440, 390]) {
         await page.setViewportSize({ width, height: 1000 });
-        await page
-          .locator(".composer-area")
-          .screenshot({
-            path: `docs/screenshots/v5-09/inline-${theme}-ready-${width}.png`,
-            animations: "disabled",
-          });
+        await page.locator(".composer-area").screenshot({
+          path: `docs/screenshots/v5-09/inline-${theme}-ready-${width}.png`,
+          animations: "disabled",
+        });
       }
       const edited = "What is your monthly budget?";
       await page.locator("#response").fill(Array(71).fill("word").join(" "));
@@ -363,3 +361,54 @@ test("failed automatic transcription preserves words and can be retried inline",
     });
   }
 });
+
+for (const locale of ["hi-IN", "te-IN"] as const)
+  test(`${locale}: native dictation appends, edits, sends and reloads in original script`, async ({
+    page,
+    context,
+  }) => {
+    await context.grantPermissions(["microphone"]);
+    await page.addInitScript(
+      ({ choiceKey, choiceValue }) =>
+        localStorage.setItem(choiceKey, choiceValue),
+      { choiceKey, choiceValue },
+    );
+    await page.goto("/");
+    const session = await (
+      await page.request.post("/api/sessions", {
+        headers,
+        data: { practiceLocale: locale },
+      })
+    ).json();
+    const text =
+      locale === "hi-IN"
+        ? "आपका मासिक बजट क्या है?"
+        : "మీ నెలవారీ బడ్జెట్ ఎంత?";
+    try {
+      await installAsr(page, context, session.branchId, () => {}, locale, text);
+      await page.goto(`/sessions/${session.sessionId}`);
+      await page
+        .getByRole("button", { name: "Speak response", exact: true })
+        .click();
+      await stop(page);
+      await expect(page.locator("#response")).toHaveValue(text);
+      await page.locator("#response").fill(text + " ");
+      await page.locator('button[type="submit"]').click();
+      await expect(page.locator("#response")).toHaveValue("");
+      await page.reload();
+      const saved = await (
+        await page.request.get(`/api/sessions/${session.sessionId}`)
+      ).json();
+      expect(
+        saved.messages.find((m: { role: string }) => m.role === "user").source,
+      ).toMatchObject({
+        originalLocale: locale,
+        modality: "voice",
+        originalText: text + " ",
+      });
+    } finally {
+      await page.request.delete(`/api/sessions/${session.sessionId}`, {
+        headers,
+      });
+    }
+  });

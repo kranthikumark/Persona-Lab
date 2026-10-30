@@ -93,17 +93,15 @@ it("local acceptance gate does not enable full voice or unverified native speech
 });
 it("Meta adapter sends documented multipart only to the fixed host and returns bounded text", async () => {
   vi.stubEnv("META_API_KEY", "test-server-only-key");
-  const mock = vi
-    .fn()
-    .mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          transcript: "What is your budget?",
-          audioDurationMs: 1000,
-          turns: [],
-        }),
-      ),
-    );
+  const mock = vi.fn().mockResolvedValue(
+    new Response(
+      JSON.stringify({
+        transcript: "What is your budget?",
+        audioDurationMs: 1000,
+        turns: [],
+      }),
+    ),
+  );
   vi.stubGlobal("fetch", mock);
   const result = await transcribeMeta(
     encodeWav(new Float32Array(24000), 24000),
@@ -138,3 +136,41 @@ it("provider failure, blank output, malformed output and cancellation return saf
     transcribeMeta(new Uint8Array(44), abort.signal),
   ).rejects.toMatchObject({ status: 408 });
 });
+
+for (const [locale, language] of [
+  ["hi-IN", "Hindi"],
+  ["te-IN", "Telugu"],
+] as const)
+  it(`${locale}: uses documented language bias and remains gated outside local language preview`, async () => {
+    const env = {
+      NODE_ENV: "development",
+      APP_ORIGIN: "http://127.0.0.1:3100",
+      META_API_KEY: "synthetic",
+      PERSONA_LOCALE_ACCEPTANCE: "1",
+    };
+    expect(
+      speechCapabilities(env).locales.find((l) => l.locale === locale)
+        ?.transcription,
+    ).toBe("acceptance_preview");
+    expect(
+      speechCapabilities({ ...env, NODE_ENV: "production" }).locales.find(
+        (l) => l.locale === locale,
+      )?.transcription,
+    ).toBe("not_verified");
+    vi.stubEnv("META_API_KEY", "synthetic");
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue(
+        new Response(
+          JSON.stringify({ transcript: "native text", audioDurationMs: 1000 }),
+        ),
+      );
+    vi.stubGlobal("fetch", fetcher);
+    expect(
+      (await transcribeMeta(new Uint8Array(44), undefined, locale)).locale,
+    ).toBe(locale);
+    expect(
+      JSON.parse(await fetcher.mock.calls[0][1].body.get("request").text())
+        .languageBias,
+    ).toEqual([language]);
+  });

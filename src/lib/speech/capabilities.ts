@@ -1,4 +1,5 @@
 import "server-only";
+import { acceptancePreview } from "@/lib/localization/release";
 import { SPEECH_MODEL } from "./contracts";
 function localSpeechPreview(env: Record<string, string | undefined>) {
   try {
@@ -12,6 +13,17 @@ function localSpeechPreview(env: Record<string, string | undefined>) {
   } catch {
     return false;
   }
+}
+export function speechLocaleAvailable(
+  locale: string,
+  env: Record<string, string | undefined> = process.env,
+) {
+  return (
+    !!env.META_API_KEY?.trim() &&
+    localSpeechPreview(env) &&
+    (locale === "en-IN" ||
+      (["hi-IN", "te-IN"].includes(locale) && acceptancePreview(env)))
+  );
 }
 export function speechCapabilities(
   env: Record<string, string | undefined> = process.env,
@@ -35,12 +47,18 @@ export function speechCapabilities(
       },
       {
         locale: "hi-IN",
-        transcription: "not_verified",
+        transcription: speechLocaleAvailable("hi-IN", env)
+          ? "acceptance_preview"
+          : "not_verified",
+        liveAccess: "public_read_speech_fixture_verified",
         humanMicrophone: "pending",
       },
       {
         locale: "te-IN",
-        transcription: "not_verified",
+        transcription: speechLocaleAvailable("te-IN", env)
+          ? "acceptance_preview"
+          : "not_verified",
+        liveAccess: "public_read_speech_fixture_verified",
         humanMicrophone: "pending",
       },
     ],
@@ -48,7 +66,7 @@ export function speechCapabilities(
     playback: {
       providerTts: false,
       deviceLocalVoices: "runtime_dependent",
-      automaticPlayback: false,
+      automaticPlayback: "opt_in_device_local_voice",
       englishAudiblePlayback: "user_reported_pass",
     },
     audioRetention: "application_memory_only",
