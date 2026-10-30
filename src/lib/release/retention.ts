@@ -24,6 +24,17 @@ export async function purgeExpiredSessions(batchSize = 100) {
     const buckets = await tx.rateLimitBucket.deleteMany({
       where: { expiresAt: { lte: new Date() } },
     });
-    return { deletedSessions: ids.length, deletedRateBuckets: buckets.count };
+    const preferences = await tx.practicePreference.deleteMany({
+      where: { expiresAt: { lte: new Date() } },
+    });
+    const drafts = await tx.scenarioDraft.deleteMany({
+      where: { expiresAt: { lte: new Date() } },
+    });
+    return {
+      deletedDrafts: drafts.count,
+      deletedPreferences: preferences.count,
+      deletedSessions: ids.length,
+      deletedRateBuckets: buckets.count,
+    };
   });
 }

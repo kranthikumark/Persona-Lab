@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-29",
+  "backupRestoration": "all 1509 rows and schema matched before migration",
+  "migration": "20261029000200_scenario_studio",
+  "method": "Compare every original primary key and complete row against restored pre-migration backup; exclude newly added acceptance rows from original-row hashes",
+  "checks": [
+    {
+      "table": "Scenario",
+      "originalRows": 1,
+      "originalRowsStillPresent": 1,
+      "additionalRows": 0,
+      "unchanged": true
+    },
+    {
+      "table": "ScenarioLocalization",
+      "originalRows": 3,
+      "originalRowsStillPresent": 3,
+      "additionalRows": 0,
+      "unchanged": true
+    },
+    {
+      "table": "SimulationSession",
+      "originalRows": 66,
+      "originalRowsStillPresent": 66,
+      "additionalRows": 2,
+      "unchanged": true
+    },
+    {
+      "table": "Branch",
+      "originalRows": 96,
+      "originalRowsStillPresent": 96,
+      "additionalRows": 3,
+      "unchanged": true
+    },
+    {
+      "table": "Message",
+      "originalRows": 466,
+      "originalRowsStillPresent": 466,
+      "additionalRows": 14,
+      "unchanged": true
+    },
+    {
+      "table": "SimulationEvent",
+      "originalRows": 200,
+      "originalRowsStillPresent": 200,
+      "additionalRows": 6,
+      "unchanged": true
+    },
+    {
+      "table": "StateSnapshot",
+      "originalRows": 296,
+      "originalRowsStillPresent": 296,
+      "additionalRows": 9,
+      "unchanged": true
+    },
+    {
+      "table": "TurnRequest",
+      "originalRows": 200,
+      "originalRowsStillPresent": 200,
+      "additionalRows": 6,
+      "unchanged": true
+    },
+    {
+      "table": "Evaluation",
+      "originalRows": 30,
+      "originalRowsStillPresent": 30,
+      "additionalRows": 2,
+      "unchanged": true
+    },
+    {
+      "table": "PracticePreference",
+      "originalRows": 3,
+      "originalRowsStillPresent": 3,
+      "additionalRows": 0,
+      "unchanged": true
+    }
+  ],
+  "allOriginalProductRowsUnchanged": true
+}

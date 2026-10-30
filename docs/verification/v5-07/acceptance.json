@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-29",
+  "scope": "Verified English insurance template library and private operator-reviewed authoring",
+  "unit": {
+    "passed": 120
+  },
+  "existingPostgresIntegration": {
+    "passed": 50,
+    "catalogTestsSkippedByDefault": 3
+  },
+  "disposableCatalogIntegration": {
+    "passed": 3,
+    "databaseRemoved": true,
+    "syntheticReviewsOnly": true
+  },
+  "browser": {
+    "uniqueVerified": 43,
+    "englishFullRun": {
+      "passed": 36,
+      "failed": 1,
+      "finding": "Tablet icon-only brand lost its accessible name"
+    },
+    "affectedTestsAfterFix": {
+      "passed": 12,
+      "includes": "Failed tablet check, all polish/design checks and new studio checks"
+    },
+    "nativeRegression": {
+      "passed": 6
+    },
+    "newStudioChecks": 3,
+    "viewports": [
+      1440,
+      390,
+      320
+    ],
+    "newStudioAxeViolations": 0
+  },
+  "lint": "passed",
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "releasePrivacy": {
+    "passed": true,
+    "clientFilesScanned": 19
+  },
+  "preservation": "All 1361 pre-existing product rows in ten tables match restored pre-migration backup; additional acceptance rows are excluded from original-row comparison",
+  "visualInspection": [
+    "library-light-desktop.png",
+    "library-dark-desktop.png",
+    "creator-light-phone.png",
+    "creator-dark-phone.png"
+  ],
+  "notClaimed": [
+    "Human review approval",
+    "Generic new-character/fact/rubric authoring",
+    "Native-localization authoring",
+    "Personal role runtime",
+    "Live Meta call in this phase",
+    "AWS deployment",
+    "Native VoiceOver or physical-phone acceptance of new editor"
+  ]
+}

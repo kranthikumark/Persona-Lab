@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-28",
+  "phase": "V5-02",
+  "status": "complete locally",
+  "schemaMigrations": 0,
+  "unit": {
+    "total": 85,
+    "ordinaryPasses": 83,
+    "knownExpectedFailures": 2
+  },
+  "integration": {
+    "passed": 35
+  },
+  "browser": {
+    "fullRunExistingPassed": 30,
+    "newTestsInitiallyFailed": 2,
+    "finding": "Existing conversation-start label contrast was 3.81:1; repaired using accessible muted token and 9px text.",
+    "targetedRerunPassed": 3,
+    "distinctTestsCovered": 32,
+    "provider": "mock"
+  },
+  "lint": "passed",
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "privacyScan": {
+    "status": "passed",
+    "clientFilesScanned": 16
+  },
+  "wordCounting": "lexical-whitespace-v1",
+  "constraint": "response-70-v1",
+  "qualityRubric": "insurance-rubric-v3",
+  "qualityChecks": 9,
+  "preserved": [
+    "v1/v2 scores and reports",
+    "pre-rule long turns and retry keys",
+    "parent/child branch evidence"
+  ],
+  "pending": [
+    "V5-03 runtime dispatch and progression/repetition fixes",
+    "Audible/device acceptance of new counter and IME behavior",
+    "AWS deployment"
+  ],
+  "localhost": {
+    "url": "http://127.0.0.1:3100",
+    "overLimitDisabled": true,
+    "stabilityObservationSeconds": 20,
+    "unexpectedNavigations": 0,
+    "hmrReloadMessages": 0,
+    "providerRequestsMade": 0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "hi-IN": {
+    "sha256": "cbace09950085c5fc9d9ac600162e1bcb641ca7467b2a732153cdd6bf3ca1a91",
+    "nativeReview": "pending",
+    "reviewer": "unassigned"
+  },
+  "te-IN": {
+    "sha256": "cbf7d5669b4190e4d8795600f4c73057663e122b12a972ac47c2fb17edbe8008",
+    "nativeReview": "pending",
+    "reviewer": "user volunteered, review pending"
+  }
+}

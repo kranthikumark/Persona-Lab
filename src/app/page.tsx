@@ -1,3 +1,4 @@
+import { capabilities } from "@/lib/capabilities/server";
 import { Suspense } from "react";
 import { Studio } from "@/components/studio";
 import type { Metadata } from "next";
@@ -18,7 +19,10 @@ export default function Home() {
     <Suspense
       fallback={<div className="page-loading">Opening the studio…</div>}
     >
-      <Studio mode={process.env.AI_PROVIDER ?? "mock"} />
+      <Studio
+        mode={process.env.AI_PROVIDER ?? "mock"}
+        textPracticeAvailable={capabilities().englishText.available}
+      />
     </Suspense>
   );
 }

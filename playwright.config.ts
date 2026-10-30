@@ -20,6 +20,7 @@ export default defineConfig({
     reuseExistingServer: false,
     env: {
       AI_PROVIDER: "mock",
+      PERSONA_LOCALE_ACCEPTANCE: "0",
       APP_ORIGIN: "http://127.0.0.1:3101",
       PERSONA_ACCEPTANCE_RUN: randomUUID(),
     },

@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-30",
+  "cause": "disk_exhaustion_crashed_turbopack",
+  "recovery": "removed generated development/test caches and restarted localhost acceptance server",
+  "homeHttpStatus": 200,
+  "practiceHttpStatus": 200,
+  "microphoneRoomVisible": true,
+  "startDisabledWithoutConsent": true,
+  "pageErrors": [],
+  "unexpectedReloads": 0,
+  "observationSeconds": 10
+}

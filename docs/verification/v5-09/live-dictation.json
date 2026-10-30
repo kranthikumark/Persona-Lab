@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-30",
+  "fixture": "macOS synthesized English budget question; not human-device acceptance",
+  "transcriptionHttpStatus": 200,
+  "turnHttpStatus": 200,
+  "characterProvider": "meta",
+  "signedReceiptReturned": true,
+  "savedModality": "voice",
+  "originalTranscriptPreserved": true,
+  "reviewedTextPreserved": true,
+  "branchRevision": 1,
+  "messageCount": 3,
+  "exactReload": true,
+  "retrySameRevision": true
+}

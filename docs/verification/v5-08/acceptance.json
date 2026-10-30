@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-30",
+  "software": "verified_locally",
+  "humanMicrophoneAcceptance": "user_reported_pass",
+  "audibleDevicePlayback": "user_reported_pass",
+  "provider": "Meta Muse Voice Transcribe",
+  "realProviderRequests": 2,
+  "realProviderInput": "synthetic English WAV; not private user microphone audio",
+  "liveApplicationHttpStatus": 200,
+  "tests": {
+    "unitPassed": 126,
+    "postgresIntegrationPassed": 53,
+    "catalogIntegrationSkipped": 3,
+    "englishBrowserPassed": 37,
+    "nativeBrowserPassed": 6,
+    "speechBrowserPassed": 6,
+    "uniqueBrowserChecks": 49,
+    "visualRepeatPassed": 2
+  },
+  "lint": "passed",
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "releasePrivacy": "passed",
+  "screensInspected": [
+    "speech-dark-1440.png",
+    "speech-light-1440.png",
+    "speech-dark-390.png",
+    "speech-light-390.png"
+  ],
+  "noSchemaMigration": true,
+  "audioPersistence": "none in application",
+  "checkTranscriptPersistence": "none",
+  "conversationWritesFromTranscription": 0,
+  "documentPolicy": {
+    "default": "camera=(), microphone=()",
+    "speechRoom": "camera=(), microphone=(self)",
+    "fullDocumentEntryExit": "verified"
+  },
+  "disabled": [
+    "production speech check",
+    "full voice conversation",
+    "application streaming",
+    "Hindi speech",
+    "Telugu speech",
+    "camera",
+    "retained audio"
+  ],
+  "tts": "No Meta TTS; installed local English browser voices only, availability and audible quality require device acceptance",
+  "remaining": [
+    "V5-09 speaking character and authoritative confirmed-speech turns",
+    "AWS HTTPS/device deployment acceptance"
+  ],
+  "humanMicrophoneEvidence": {
+    "date": "2026-10-30",
+    "source": "direct user report",
+    "statement": "microphone testing worked",
+    "scope": "Microphone operation; exact device/browser, transcript accuracy, and stop/return behavior were not supplied"
+  },
+  "localAcceptance": "accepted_english_microphone_and_device_playback",
+  "audiblePlaybackEvidence": {
+    "date": "2026-10-30",
+    "source": "direct user report",
+    "statement": "Yes, playback was clear",
+    "scope": "Audible and clear playback after confirming the transcript"
+  },
+  "unrecordedManualDetails": [
+    "Device and browser versions",
+    "Detailed transcription accuracy",
+    "Explicit stop/return microphone-indicator observations"
+  ]
+}

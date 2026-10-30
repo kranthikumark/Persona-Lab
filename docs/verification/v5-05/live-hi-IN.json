@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-28T20:35:36.246Z",
+  "locale": "hi-IN",
+  "provider": "meta",
+  "originalTurns": 5,
+  "independentAlternativeTurns": 1,
+  "nativeScriptVerified": true,
+  "alternativeScriptVerified": true,
+  "exactReload": true,
+  "parentTraceUnchanged": true,
+  "settingsInherited": true,
+  "rubric": "insurance-rubric-v4",
+  "coachingFallback": "en-IN",
+  "literalDuplicateQuestions": 0,
+  "nativeHumanReview": "pending",
+  "exportRenderingAcceptance": "pending V5-06",
+  "limitations": "One synthetic journey; script detection is not native-speaker review or exhaustive semantic/factual validation."
+}

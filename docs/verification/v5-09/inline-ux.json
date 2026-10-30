@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-30",
+  "scope": "inline voice input simplicity update",
+  "flow": [
+    "Speak response",
+    "first approval remembered in this browser",
+    "record inline",
+    "Stop automatically transcribes",
+    "append into latest editable chat draft",
+    "explicit Send response"
+  ],
+  "approvalStorage": "versioned provider/purpose preference in localStorage; tab-memory fallback; revocable via Voice settings",
+  "perRecordingConsent": "renewed on explicit recording gesture under remembered choice; server lifetime unchanged",
+  "typedDraftSafety": "append to latest draft; atomic storage with rollback; cancellation and late results do not overwrite",
+  "serverVoiceValidation": "unchanged signed owner/path/revision receipt, word count and atomic turn commit",
+  "checks": {
+    "unitPassed": 129,
+    "speechBrowserPassed": 11,
+    "journeyPolishPassedAcrossRuns": 9,
+    "keyboardNativeNavigationRepeatPassed": 1,
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed with optional persistent build cache disabled",
+    "releasePrivacy": "passed"
+  },
+  "visualInspected": [
+    "inline-dark-recording-390.png",
+    "inline-dark-ready-390.png",
+    "inline-light-recording-1440.png",
+    "inline-light-ready-1440.png"
+  ],
+  "realMicrophoneOrNewLiveProviderCallThisUpdate": false,
+  "notes": [
+    "browser audio and ASR mocked in automated tests; prior real Meta pipeline evidence remains separate",
+    "earlier user-reported microphone/playback pass does not establish manual acceptance of this redesigned UI"
+  ]
+}

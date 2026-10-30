@@ -27,7 +27,7 @@ test("light theme persists through navigation and reload, reflows, and switches 
   page,
 }) => {
   await page.goto("/");
-  const toggle = page.getByRole("button", { name: "Light theme", exact: true });
+  const toggle = page.getByRole("button", { name: /^Light theme/ });
   await expect(toggle).toHaveAttribute("aria-pressed", "false");
   await expect(page.locator("body")).toHaveCSS(
     "background-color",
@@ -155,7 +155,7 @@ test("theme switching works when storage is blocked", async ({ page }) => {
     });
   });
   await page.goto("/");
-  const toggle = page.getByRole("button", { name: "Light theme", exact: true });
+  const toggle = page.getByRole("button", { name: /^Light theme/ });
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await toggle.click();

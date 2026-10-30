@@ -2,6 +2,7 @@
 import { useId, useRef, useState } from "react";
 import { Download, FileText, Mail, MessageCircle, Share2 } from "lucide-react";
 import type { EvaluationReport } from "@/lib/evaluation/rubric";
+import { nativeCopy } from "@/lib/reports/localized-copy";
 
 type Format = "pdf" | "docx";
 export function ReportActions({
@@ -15,6 +16,10 @@ export function ReportActions({
   report: EvaluationReport;
   stale: boolean;
 }) {
+  const localizedExportPending = report.rubricVersion === "insurance-rubric-v4";
+  const copy = nativeCopy(
+    "analysisLocale" in report ? report.analysisLocale : "en-IN",
+  );
   const [busy, setBusy] = useState(false),
     [message, setMessage] = useState(""),
     [error, setError] = useState("");
@@ -28,7 +33,20 @@ export function ReportActions({
   const panel = useId();
   const ready = attachment?.id === reportId ? attachment.file : null;
   const subject = "PERSONA LAB practice report";
-  const summary = `My PERSONA LAB practice report\nScore: ${report.overall ?? 0}/100\nEvidence coverage: ${report.assessedChecks}/10 checks\nThrough turn ${report.scope.throughTurn}, revision ${report.scope.revision}\nNext improvement: ${report.nextAction}\nThis is a limited practice rubric score, not a measure of real-world competence.`;
+  const lengthSummary =
+    "length" in report
+      ? `\nResponse length: ${report.length.filter((row) => row.status === "passed").length} passed; ${report.length.filter((row) => row.status === "accepted_before_rule").length} accepted before the rule. Separate from quality scoring.`
+      : "";
+  const gap =
+    report.categories
+      .flatMap((c) => c.checks)
+      .find((c) => c.status === "concern") ??
+    report.categories
+      .flatMap((c) => c.checks)
+      .find((c) => c.status === "insufficient");
+  const summary = copy
+    ? `${copy.title}\n${report.overall ?? 0}/100\n${copy.coverage}: ${report.assessedChecks}/${report.totalChecks}\n${copy.next}: ${gap ? (copy.checks[gap.id as keyof typeof copy.checks]?.[2] ?? report.nextAction) : copy.limitNote}\n${copy.limitNote}`
+    : `My PERSONA LAB practice report\nScore: ${report.overall ?? 0}/100\nEvidence coverage: ${report.assessedChecks}/${report.totalChecks} checks${lengthSummary}\nThrough turn ${report.scope.throughTurn}, revision ${report.scope.revision}\nNext improvement: ${report.nextAction}\nThis is a limited practice rubric score, not a measure of real-world competence.`;
   async function fileFor(kind: Format) {
     const key = `${reportId}:${kind}`;
     const existing = cache.current.get(key);
@@ -38,7 +56,11 @@ export function ReportActions({
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ format: kind, revision: report.scope.revision }),
+        body: JSON.stringify({
+          format: kind,
+          revision: report.scope.revision,
+          reportId,
+        }),
         cache: "no-store",
       },
     );
@@ -62,6 +84,12 @@ export function ReportActions({
     return file;
   }
   async function prepare(kind: Format, download: boolean) {
+    if (localizedExportPending) {
+      setError(
+        "Refresh this report card to use the corrected Indic evaluator before exporting.",
+      );
+      return;
+    }
     setBusy(true);
     setError("");
     setMessage("");
@@ -115,10 +143,17 @@ export function ReportActions({
   }
   return (
     <section className="report-actions" aria-label="Download and share report">
+      {localizedExportPending && (
+        <p className="language-note">
+          This saved report uses the earlier Indic evaluator. Refresh the report
+          card for corrected scoring and PDF/Word downloads. The original is
+          retained.
+        </p>
+      )}
       <div className="report-action-buttons">
         <button
           className="button button-secondary button-sm"
-          disabled={busy || stale}
+          disabled={busy || stale || localizedExportPending}
           onClick={() => prepare("pdf", true)}
         >
           <Download size={15} aria-hidden="true" />
@@ -126,7 +161,7 @@ export function ReportActions({
         </button>
         <button
           className="button button-secondary button-sm"
-          disabled={busy || stale}
+          disabled={busy || stale || localizedExportPending}
           onClick={() => prepare("docx", true)}
         >
           <FileText size={15} aria-hidden="true" />
@@ -134,7 +169,7 @@ export function ReportActions({
         </button>
         <button
           className="button button-secondary button-sm"
-          disabled={busy || stale}
+          disabled={busy || stale || localizedExportPending}
           aria-expanded={open}
           aria-controls={panel}
           onClick={() => setOpen(!open)}

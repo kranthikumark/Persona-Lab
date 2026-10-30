@@ -34,6 +34,7 @@ export type TranscriptMessage = {
   content: string;
   turn: number;
   sequence: number;
+  metadata?: unknown;
 };
 
 // Narrow, transparent heuristic, not an exhaustive language understanding check.

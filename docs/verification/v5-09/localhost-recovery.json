@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-30",
+  "practiceHttpStatus": 200,
+  "clientScriptCount": 24,
+  "allClientScriptsServed": true,
+  "composerIncludedInClientCode": true,
+  "dictationAvailable": true,
+  "persistentDevCacheDisabled": true,
+  "freshBrowserVisualCheck": "not run after disk exhaustion; automated theme/composer checks passed earlier"
+}

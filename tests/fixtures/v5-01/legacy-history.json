@@ -1,0 +1,309 @@
+{
+  "provenance": "Synthetic accepted pre-V5 long turn inherited by a child branch; never use as real user evidence.",
+  "parentBranchId": "fixture-parent",
+  "scope": {
+    "branchId": "fixture-child",
+    "revision": 1,
+    "forkTurn": 1
+  },
+  "history": {
+    "messages": [
+      {
+        "id": "fixture-message",
+        "role": "user",
+        "content": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+        "turn": 1,
+        "sequence": 1
+      }
+    ],
+    "events": [
+      {
+        "id": "fixture-event",
+        "turn": 1,
+        "payload": {
+          "messageId": "fixture-message"
+        }
+      }
+    ]
+  },
+  "reports": [
+    {
+      "rubricVersion": "insurance-rubric-v1",
+      "engineVersion": "phrase-evaluation-v1",
+      "scope": {
+        "branchId": "fixture-child",
+        "revision": 1,
+        "throughTurn": 1,
+        "forkTurn": 1,
+        "messageIds": [
+          "fixture-message"
+        ],
+        "eventIds": [
+          "fixture-event"
+        ]
+      },
+      "categories": [
+        {
+          "id": "accuracy",
+          "label": "Factual accuracy / compliance",
+          "weight": 30,
+          "score": null,
+          "checks": [
+            {
+              "id": "claim-boundaries",
+              "label": "Explain claim review without guarantees",
+              "status": "insufficient",
+              "feedback": "Explicitly explain that claims are reviewed or approval cannot be guaranteed. Any matched unsupported guarantee makes this check a concern, even after a correction.",
+              "evidence": []
+            },
+            {
+              "id": "approved-terms",
+              "label": "State a checked policy term",
+              "status": "insufficient",
+              "feedback": "State one checked fictional term: 30-day waiting period, cosmetic procedures excluded, or 24-month waiting period for pre-existing conditions. Matched contradictory phrases override positive evidence; other facts remain unverified.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "discovery",
+          "label": "Needs discovery",
+          "weight": 20,
+          "score": null,
+          "checks": [
+            {
+              "id": "budget-question",
+              "label": "Ask about budget",
+              "status": "insufficient",
+              "feedback": "Ask a direct question about budget, affordability or monthly cost; this rule requires a question mark.",
+              "evidence": []
+            },
+            {
+              "id": "experience-question",
+              "label": "Ask about prior concerns",
+              "status": "insufficient",
+              "feedback": "Ask about past/previous experience or why Priya is concerned, with a question mark.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "objections",
+          "label": "Objection handling",
+          "weight": 20,
+          "score": null,
+          "checks": [
+            {
+              "id": "acknowledgement",
+              "label": "Acknowledge the concern",
+              "status": "insufficient",
+              "feedback": "Acknowledge the concern explicitly, such as 'I understand your concern.' This check does not measure empathy.",
+              "evidence": []
+            },
+            {
+              "id": "limits-explained",
+              "label": "Address the policy limits",
+              "status": "insufficient",
+              "feedback": "Address the objection with a checked exclusion or waiting-period explanation, using the approved fictional terms.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "communication",
+          "label": "Communication",
+          "weight": 15,
+          "score": null,
+          "checks": [
+            {
+              "id": "concise-response",
+              "label": "Keep responses readable",
+              "status": "concern",
+              "feedback": "Every recorded trainee response must be 70 words or fewer. This measures length only, not the meaning or quality of the language.",
+              "evidence": [
+                {
+                  "messageId": "fixture-message",
+                  "eventId": "fixture-event",
+                  "turn": 1,
+                  "scope": "shared"
+                }
+              ]
+            },
+            {
+              "id": "collaborative-language",
+              "label": "Use collaborative language",
+              "status": "insufficient",
+              "feedback": "Use an explicit permission phrase such as 'may I' or 'could we'. Matched pressure phrases such as 'sign now' override positive evidence.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "nextStep",
+          "label": "Appropriate next step",
+          "weight": 15,
+          "score": null,
+          "checks": [
+            {
+              "id": "review-offer",
+              "label": "Offer review or a reasoned pause",
+              "status": "insufficient",
+              "feedback": "Offer a written summary/terms review, or explicitly decline to recommend until needs or terms are reviewed. No sale is required.",
+              "evidence": []
+            },
+            {
+              "id": "unpressured-choice",
+              "label": "Leave the next decision open",
+              "status": "insufficient",
+              "feedback": "Offer time or permission before the next step, or explicitly pause a recommendation pending review. Matched pressure language is a concern.",
+              "evidence": []
+            }
+          ]
+        }
+      ],
+      "overall": null,
+      "assessedChecks": 1,
+      "totalChecks": 10,
+      "nextAction": "Every recorded trainee response must be 70 words or fewer. This measures length only, not the meaning or quality of the language."
+    },
+    {
+      "rubricVersion": "insurance-rubric-v2",
+      "engineVersion": "practice-report-v2",
+      "scope": {
+        "branchId": "fixture-child",
+        "revision": 1,
+        "throughTurn": 1,
+        "forkTurn": 1,
+        "messageIds": [
+          "fixture-message"
+        ],
+        "eventIds": [
+          "fixture-event"
+        ]
+      },
+      "categories": [
+        {
+          "id": "accuracy",
+          "label": "Factual accuracy / compliance",
+          "weight": 30,
+          "score": 0,
+          "checks": [
+            {
+              "id": "claim-boundaries",
+              "label": "Explain claim review without guarantees",
+              "status": "insufficient",
+              "feedback": "Explicitly explain that claims are reviewed or approval cannot be guaranteed. Any matched unsupported guarantee makes this check a concern, even after a correction.",
+              "evidence": []
+            },
+            {
+              "id": "approved-terms",
+              "label": "State a checked policy term",
+              "status": "insufficient",
+              "feedback": "State one checked fictional term: 30-day waiting period, cosmetic procedures excluded, or 24-month waiting period for pre-existing conditions. Matched contradictory phrases override positive evidence; other facts remain unverified.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "discovery",
+          "label": "Needs discovery",
+          "weight": 20,
+          "score": 0,
+          "checks": [
+            {
+              "id": "budget-question",
+              "label": "Ask about budget",
+              "status": "insufficient",
+              "feedback": "Ask a direct question about budget, affordability or monthly cost; this rule requires a question mark.",
+              "evidence": []
+            },
+            {
+              "id": "experience-question",
+              "label": "Ask about prior concerns",
+              "status": "insufficient",
+              "feedback": "Ask about past/previous experience or why Priya is concerned, with a question mark.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "objections",
+          "label": "Objection handling",
+          "weight": 20,
+          "score": 0,
+          "checks": [
+            {
+              "id": "acknowledgement",
+              "label": "Acknowledge the concern",
+              "status": "insufficient",
+              "feedback": "Acknowledge the concern explicitly, such as 'I understand your concern.' This check does not measure empathy.",
+              "evidence": []
+            },
+            {
+              "id": "limits-explained",
+              "label": "Address the policy limits",
+              "status": "insufficient",
+              "feedback": "Address the objection with a checked exclusion or waiting-period explanation, using the approved fictional terms.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "communication",
+          "label": "Communication",
+          "weight": 15,
+          "score": 0,
+          "checks": [
+            {
+              "id": "concise-response",
+              "label": "Keep responses readable",
+              "status": "concern",
+              "feedback": "Every recorded trainee response must be 70 words or fewer. This measures length only, not the meaning or quality of the language.",
+              "evidence": [
+                {
+                  "messageId": "fixture-message",
+                  "eventId": "fixture-event",
+                  "turn": 1,
+                  "scope": "shared"
+                }
+              ]
+            },
+            {
+              "id": "collaborative-language",
+              "label": "Use collaborative language",
+              "status": "insufficient",
+              "feedback": "Use an explicit permission phrase such as 'may I' or 'could we'. Matched pressure phrases such as 'sign now' override positive evidence.",
+              "evidence": []
+            }
+          ]
+        },
+        {
+          "id": "nextStep",
+          "label": "Appropriate next step",
+          "weight": 15,
+          "score": 0,
+          "checks": [
+            {
+              "id": "review-offer",
+              "label": "Offer review or a reasoned pause",
+              "status": "insufficient",
+              "feedback": "Offer a written summary/terms review, or explicitly decline to recommend until needs or terms are reviewed. No sale is required.",
+              "evidence": []
+            },
+            {
+              "id": "unpressured-choice",
+              "label": "Leave the next decision open",
+              "status": "insufficient",
+              "feedback": "Offer time or permission before the next step, or explicitly pause a recommendation pending review. Matched pressure language is a concern.",
+              "evidence": []
+            }
+          ]
+        }
+      ],
+      "overall": 0,
+      "assessedChecks": 1,
+      "totalChecks": 10,
+      "nextAction": "Every recorded trainee response must be 70 words or fewer. This measures length only, not the meaning or quality of the language."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-30",
+  "httpStatus": 200,
+  "roomPolicy": "camera=(), microphone=(self)",
+  "startDisabledWithoutConsent": true,
+  "unexpectedReloads": 0,
+  "observedSeconds": 10,
+  "speechUploads": 0,
+  "speechPreview": true,
+  "fullVoiceConversation": false,
+  "mode": "localhost_acceptance_pending_human_microphone"
+}

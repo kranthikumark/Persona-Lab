@@ -1,0 +1,55 @@
+{
+  "reviewDate": "2026-10-29",
+  "rendering": {
+    "hi-IN": {
+      "pdfPages": 4,
+      "wordPagesInBundledLibreOffice": 5,
+      "allRenderedPagesVisuallyInspected": true,
+      "wordEmbeddedFonts": 3,
+      "wordMixedScriptUnicodePreserved": true,
+      "pdfRupeeAndAmountsExtracted": true,
+      "pdfSha256": "5e156a429a9265f9fd4a83689835266699885d61d13c5d3708ba2caaecbdd6f8",
+      "wordSha256": "27756b6395202ee29644df51bf47bbb8e4a666654b9f3754e4d5b61d69615109",
+      "humanReview": "pending"
+    },
+    "te-IN": {
+      "pdfPages": 4,
+      "wordPagesInBundledLibreOffice": 5,
+      "allRenderedPagesVisuallyInspected": true,
+      "wordEmbeddedFonts": 3,
+      "wordMixedScriptUnicodePreserved": true,
+      "pdfRupeeAndAmountsExtracted": true,
+      "pdfSha256": "6bf4d2bf02d40e223b68cdc6bbaf3d3983c49fcae04307ace767bc817846a3d6",
+      "wordSha256": "698a5169e15696a63a4bd19fa4fa99263ba8a91346ab326ddbcb9f9bb2f5b64c",
+      "humanReview": "pending"
+    }
+  },
+  "automated": {
+    "unit": 117,
+    "database": 50,
+    "englishBrowser": 34,
+    "nativeBrowser": 6,
+    "finalNativeExportRepeat": 2,
+    "productionBuild": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "privacyScan": "passed"
+  },
+  "limits": [
+    "Fluent-speaker approval pending for both languages; user volunteered for Telugu only.",
+    "Target Microsoft Word, Google Docs and physical-phone readers not yet accepted.",
+    "AWS Chromium provisioning remains pending.",
+    "Bounded phrase evaluation is not general semantic verification or cross-language score calibration."
+  ],
+  "productionTrace": {
+    "devanagari": true,
+    "telugu": true,
+    "latin": true,
+    "playwrightCore": true
+  },
+  "localhostSmoke": {
+    "hindiTeluguSelectable": true,
+    "unexpectedReloads": 0,
+    "providerRequestsMade": 0
+  }
+}

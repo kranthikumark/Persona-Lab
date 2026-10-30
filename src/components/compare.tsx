@@ -67,7 +67,7 @@ function CompareSession({ sessionId }: { sessionId: string }) {
   const prefix = comparison?.prefix ?? 0;
   return (
     <Shell page="Compare possibilities" mode={views?.[0].provider}>
-      <main className="compare-main" id="page-content" tabIndex={-1}>
+      <main lang="en" className="compare-main" id="page-content" tabIndex={-1}>
         <Link className="back-link" href={`/sessions/${sessionId}`}>
           <ArrowLeft size={15} /> Back to practice
         </Link>
@@ -240,7 +240,9 @@ function CompareSession({ sessionId }: { sessionId: string }) {
                             {message.role === "user" ? "YOU" : "PRIYA"} / TURN{" "}
                             {message.turn}
                           </span>
-                          <p>{message.content}</p>
+                          <p lang={view.settings?.practiceLocale ?? "en-IN"}>
+                            {message.content}
+                          </p>
                         </div>
                       ))
                     )}

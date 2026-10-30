@@ -1,0 +1,29 @@
+{
+  "originalSessionMessagesEventsSnapshotsRequestsUnchanged": true,
+  "originalV4ReportsUnchanged": true,
+  "oldReports": 1,
+  "newVersion": "insurance-rubric-v5",
+  "newScore": 60,
+  "newCoverage": 7,
+  "totalChecks": 9,
+  "corrections": [
+    {
+      "check": "approved-terms",
+      "earlier": [
+        3,
+        4,
+        5
+      ],
+      "corrected": [
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        18
+      ]
+    }
+  ]
+}

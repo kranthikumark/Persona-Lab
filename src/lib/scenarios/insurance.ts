@@ -13,4 +13,12 @@ export const insuranceScenario = {
     },
   },
 } as const;
-export type ScenarioDefinition = typeof insuranceScenario;
+export type ScenarioDefinition = Omit<
+  typeof insuranceScenario,
+  "contextVersion" | "rubricVersion"
+> & {
+  contextVersion: string;
+  rubricVersion: string;
+  evaluationVersion?: string;
+  localizedPresentation?: import("@/lib/localization/content").LocalePresentation;
+};

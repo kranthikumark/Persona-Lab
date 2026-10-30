@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-29",
+  "baseUrl": "http://127.0.0.1:3100",
+  "library": true,
+  "creator": true,
+  "unexpectedReloads": 0,
+  "observedSeconds": 10,
+  "turnRequests": 0,
+  "publishedEntries": 1,
+  "hindiPreview": true,
+  "teluguPreview": true
+}

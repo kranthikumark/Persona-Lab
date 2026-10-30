@@ -11,54 +11,70 @@ import {
   Layers3,
   ShieldCheck,
 } from "lucide-react";
-export function Brand() {
+export function Brand({
+  documentNavigation = false,
+}: { documentNavigation?: boolean } = {}) {
+  const NavigationLink = documentNavigation ? "a" : Link;
   return (
-    <Link href="/" className="brand" aria-label="PERSONA LAB home">
+    <NavigationLink
+      href="/"
+      className="brand"
+      aria-label="PERSONA LAB THE DECISION STUDIO home"
+    >
       <span className="brand-symbol">
         <GitBranch size={23} strokeWidth={1.8} />
       </span>
       <span>
-        PERSONA<span className="brand-lab">LAB</span>
+        PERSONA <span className="brand-lab">LAB</span>{" "}
         <small>THE DECISION STUDIO</small>
       </span>
-    </Link>
+    </NavigationLink>
   );
 }
 export function Shell({
   children,
   page,
   mode = "pending",
+  documentNavigation = false,
 }: {
   children: React.ReactNode;
   page: string;
   mode?: string;
+  documentNavigation?: boolean;
 }) {
+  const NavigationLink = documentNavigation ? "a" : Link;
   const pathname = usePathname();
   const historyActive = page === "Practice history";
   const studioActive = pathname === "/" && !historyActive;
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <Brand />
+        <Brand documentNavigation={documentNavigation} />
         <div className="workspace-label">
           <span className="workspace-dot" /> PERSONAL WORKSPACE
         </div>
         <nav aria-label="Main navigation">
-          <Link
+          <NavigationLink
             href="/"
             className={studioActive ? "nav-item active" : "nav-item"}
             aria-current={studioActive ? "page" : undefined}
           >
             <Layers3 size={18} /> Scenario studio{" "}
-            <span className="nav-count">01</span>
-          </Link>
-          <Link
+          </NavigationLink>
+          <NavigationLink
             href="/?view=history"
             className={historyActive ? "nav-item active" : "nav-item"}
             aria-current={historyActive ? "page" : undefined}
           >
             <History size={18} /> Practice history
-          </Link>
+          </NavigationLink>
+          <NavigationLink
+            href="/create"
+            className={pathname === "/create" ? "nav-item active" : "nav-item"}
+            aria-current={pathname === "/create" ? "page" : undefined}
+          >
+            <BookOpen size={18} /> Create a scenario
+          </NavigationLink>
           {pathname.startsWith("/sessions") && (
             <div className="nav-item active">
               <GitBranch size={18} /> Your simulation
@@ -107,12 +123,16 @@ export function Shell({
       </aside>
       <div className="main-shell">
         <header className="topbar">
-          <Link href="/" className="mobile-brand" aria-label="PERSONA LAB home">
+          <NavigationLink
+            href="/"
+            className="mobile-brand"
+            aria-label="PERSONA LAB home"
+          >
             <GitBranch size={18} />
             <span>
               PERSONA <b>LAB</b>
             </span>
-          </Link>
+          </NavigationLink>
           <div className="breadcrumb">
             <span>Workspace</span>
             <span>/</span>
@@ -131,22 +151,25 @@ export function Shell({
           </div>
         </header>
         <nav className="compact-nav" aria-label="Workspace navigation">
-          <Link href="/" aria-current={studioActive ? "page" : undefined}>
+          <NavigationLink
+            href="/"
+            aria-current={studioActive ? "page" : undefined}
+          >
             <Layers3 size={15} /> Studio
-          </Link>
-          <Link
+          </NavigationLink>
+          <NavigationLink
             href="/?view=history"
             aria-current={historyActive ? "page" : undefined}
           >
             <History size={15} /> History
-          </Link>
+          </NavigationLink>
           {pathname.startsWith("/sessions/") && (
-            <Link
+            <NavigationLink
               href={pathname.replace(/\/compare$/, "")}
               aria-current={page === "Practice workspace" ? "page" : undefined}
             >
               <GitBranch size={15} /> Practice
-            </Link>
+            </NavigationLink>
           )}
         </nav>
         {children}

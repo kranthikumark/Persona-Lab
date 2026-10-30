@@ -11,6 +11,7 @@ const opening = {
   turn: 0,
   sequence: 0,
   inherited: true,
+  length: null,
 };
 const snapshot = (n: number, trust: number, violations = 0) => ({
   id: `snapshot-${n}-${trust}`,
@@ -28,6 +29,7 @@ function path(id: string, trust: number): Path {
         turn: 1,
         sequence: 1,
         inherited: false,
+        length: null,
       },
     ],
     snapshots: [snapshot(0, 35), snapshot(1, trust)],

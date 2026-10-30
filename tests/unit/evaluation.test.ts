@@ -3,7 +3,7 @@ import {
   evaluate,
   validateEvidence,
   type EvaluationHistory,
-} from "@/lib/evaluation/rubric";
+} from "@/lib/evaluation/v2-rubric";
 const scope = { branchId: "branch", revision: 3, forkTurn: null };
 export const completeInputs = [
   "I understand your concern. Claims are reviewed; approval is never guaranteed. A 30-day waiting period applies.",

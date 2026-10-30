@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-30",
+  "fixture": "macOS synthetic English sample; no human microphone or listening acceptance",
+  "httpStatus": 200,
+  "applicationLatencyMs": 7095,
+  "providerLatencyMs": 6469,
+  "audioDurationMs": 3840,
+  "recognizedBudgetQuestion": true,
+  "recognizedAmount": true,
+  "transcriptSha256": "a5834b2cad1236274de4aca5ed5d2fce849a826e45cb96a70ca54a790de56280",
+  "conversationUnchanged": true,
+  "branchRevision": 0,
+  "messageCount": 1,
+  "retention": "ephemeral",
+  "model": "muse-voice-transcribe-1.0"
+}

@@ -12,27 +12,29 @@ The card includes:
 - Five category scores with progress bars, evidence details, and a next practice action.
 - Revision and scope information, including shared and post-fork evidence. Older revision cards remain marked outdated.
 
-## Scoring
+## Current scoring (v3)
 
-| Category | Weight | Checks |
+| Category | Weight | Quality checks |
 | --- | ---: | --- |
 | Factual accuracy / compliance | 30% | Claim boundaries; checked fictional terms |
 | Needs discovery | 20% | Budget; prior experience or concerns |
 | Objection handling | 20% | Acknowledgement; checked limits |
-| Communication | 15% | Response length; collaborative language |
+| Communication | 15% | Collaborative language |
 | Appropriate next step | 15% | Review or reasoned pause; unpressured choice |
 
-Each category has two checks. A demonstrated check earns 50 category points. An observed concern or a check without recognized evidence earns zero. The overall score is the rounded sum of category score multiplied by weight. The weights are never renormalized over only the recognized checks.
+The current rubric has nine quality checks. Category points are demonstrated checks divided by that category's check count, multiplied by 100. The overall score is the rounded weighted sum. Concerns and missing evidence earn zero; a concern still counts toward evidence coverage. A greeting with no recognized quality evidence scores 0/100, 0/9 assessed. Length compliance awards no quality points.
 
-Evidence coverage remains separate. For example, a short greeting demonstrates only the response-length check and scores **8/100**, with **1/10** checks supported. A complete rubric with only the response-length check marked as a concern scores **93/100**, with **10/10** checks supported. A concern counts toward coverage but does not earn points.
+New submissions must contain 1–70 words. The composer shows a shared browser/server counter, and the API rejects invalid new input before provider admission or writes. Reports include a separate response-length section. Historical responses are preserved and labeled accepted before the rule. See [V5-02 admission and scoring](V5_02_ACCEPTANCE.md).
+
+Historical v2 examples remain valid for their saved reports: a short greeting scored 8/100 from its length check, and a complete conversation with length as its only concern scored 93/100. Those are previous-version calculations, not the current quality formula.
 
 Partial coverage is labeled **Provisional**. Missing matches are not presented as observed negative behavior. If nothing negative is matched, the card says so instead of inventing criticism. If nothing positive is matched, it asks the learner to record a response instead of inventing praise.
 
 ## Language and versioning
 
-`insurance-rubric-v2` / `practice-report-v2` recognizes additional bounded wording for conditional approval, previous claim experiences, and acknowledgement. It covers the false negatives found in the reviewed localhost conversation. This remains a limited, deterministic English phrase rubric, not unrestricted semantic understanding, complete policy verification, an empathy measure, or proof of real-world competence. The response-length rule remains 70 words per response.
+`insurance-rubric-v3` / `quality-report-v3` uses the bounded English quality phrase checks from v2, with length removed from scoring. It remains a limited rubric, not unrestricted semantic understanding or a measure of empathy or real-world competence.
 
-Historical v1 reports retain their original nullable scores and validation rules in `legacy-rubric.ts`. Opening a legacy report creates a separate v2 record at the current revision. No existing report, transcript, or state snapshot is rewritten. Existing v1 scenario definitions remain eligible when their pinned facts and weights match the supported scenario.
+Frozen v1/v2 evaluators retain their saved scores and validators. Existing v2 cards display their original result; refreshing writes a separate v3 record. Opening a v1 legacy card creates a separate current numeric card. No existing report, transcript or snapshot is rewritten. Exports identify the displayed report to preserve its rubric version and score. Historical pinned scenario facts and weights must match supported evaluation contracts.
 
 ## Verification
 
@@ -62,3 +64,8 @@ Use **Download PDF** or **Download Word** in Field notes. Both formats contain t
 Exports require the browser's existing session ownership and a matching application origin. Foreign owners receive 404, foreign origins 403, malformed inputs 400 and outdated revisions 409. Export responses are private and not cached. Evidence excerpts exclude owner tokens, branch/message access identifiers and unrelated conversation history. Generated local examples are ignored by Git under `output/reports/`.
 
 Export acceptance on October 28: 55 unit tests passed; nine targeted browser checks passed for report cards, keyboard/reflow/accessibility and export/sharing behavior. A final export regression passed after layout revisions. Production build, lint, TypeScript and client privacy checks passed, and the export route's production trace includes the bundled font assets. The reviewed session's final five-page PDF and four-page Word report were rendered and every page visually inspected. Native share behavior was stubbed for software testing; actual email/WhatsApp delivery on a physical device remains user acceptance, not a claimed automated result.
+
+
+### User acceptance update
+
+On October 28 the user reported the VoiceOver, native zoom, physical-phone and sharing checks complete and working. These are user-reported passes; no device inventory, recipient identity or automated delivery proof is implied. The V5 plan introduces new locale/media acceptance separately and keeps the existing Phase 8 demo/submission deferred.

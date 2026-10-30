@@ -73,7 +73,7 @@ test("PDF and Word downloads are owned, revision-bound and ready for native shar
     expect(email).toMatch(/^mailto:/);
     expect(whatsapp).toMatch(/^https:\/\/wa.me\/\?text=/);
     for (const link of [email, whatsapp]) {
-      expect(decodeURIComponent(link!)).toContain("Score: 8/100");
+      expect(decodeURIComponent(link!)).toContain("Score: 0/100");
       expect(link).not.toContain(sessionId);
       expect(link).not.toContain("localhost");
       expect(link).not.toContain("127.0.0.1");

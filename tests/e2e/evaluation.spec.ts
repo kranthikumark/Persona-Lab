@@ -36,7 +36,7 @@ for (const size of [
       const dialog = page.getByRole("dialog");
       await dialog.getByRole("button", { name: "Refresh report card" }).click();
       await expect(
-        dialog.getByText("10 / 10 checks with recognized evidence"),
+        dialog.getByText("9 / 9 checks with recognized evidence"),
       ).toBeVisible();
       await expect(dialog.locator(".evaluation-number")).toContainText("100");
       await expect(
@@ -78,7 +78,7 @@ for (const size of [
       await page.reload();
       await page.getByRole("button", { name: /Field notes/ }).click();
       await expect(
-        dialog.getByText("10 / 10 checks with recognized evidence"),
+        dialog.getByText("9 / 9 checks with recognized evidence"),
       ).toBeVisible();
       const restored: SavedEvaluation = await (
         await page.request.get(`/api/branches/${branchId}/evaluation`)

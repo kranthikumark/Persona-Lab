@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-30",
+  "environment": "localhost",
+  "source": "user_report",
+  "result": "all four steps working well",
+  "checks": {
+    "record_and_stop": "passed",
+    "editable_chat_transcript_and_send": "passed",
+    "repeat_capture_remembers_app_approval": "passed",
+    "cancel_stops_recording_and_preserves_draft": "passed"
+  },
+  "deviceBrowserInventory": "not supplied",
+  "scope": "inline English practice dictation; full voice conversation remains pending"
+}

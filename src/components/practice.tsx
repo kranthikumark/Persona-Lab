@@ -1,4 +1,5 @@
 "use client";
+import { localizedContent } from "@/lib/localization/content";
 import {
   useCallback,
   useEffect,
@@ -28,9 +29,15 @@ import { Shell } from "./shell";
 import { Button } from "./ui/button";
 import { Drawer } from "./ui/drawer";
 import { Facts } from "./studio";
+import { ComposerSpeech } from "./speech/composer-speech";
+import { TypingHelp } from "./typing-help";
 import { EvaluationPanel } from "./evaluation";
 import { api, requestKey, type SessionView } from "@/lib/client";
-import { publicScenario as scenario } from "@/lib/scenarios/public";
+import {
+  responseLength,
+  WORD_LIMIT,
+  CHARACTER_LIMIT,
+} from "@/lib/response-length";
 
 export function Practice({ sessionId }: { sessionId: string }) {
   const search = useSearchParams();
@@ -58,6 +65,8 @@ function PracticeSession({
   const [view, setView] = useState<SessionView | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [voiceActive, setVoiceActive] = useState(false);
+  const [composing, setComposing] = useState(false);
   const [contextOpen, setContextOpen] = useState(false);
   const [panel, setPanel] = useState<"facts" | "coach" | null>(null);
   const [decision, setDecision] = useState<number | null>(null);
@@ -66,13 +75,24 @@ function PracticeSession({
   const composer = useRef<HTMLTextAreaElement>(null);
   const evidenceHandled = useRef(false);
   const evidenceFocus = useRef<HTMLElement | null>(null);
-  const pending = useRef<{ text: string; key: string } | null>(null);
+  const pending = useRef<{
+    text: string;
+    key: string;
+    inputModality?: "voice";
+    speechReceipt?: string;
+  } | null>(null);
   const storageKey = `persona-draft:${sessionId}:${branchId ?? "original"}`;
   const draft = useSyncExternalStore(
     subscribeDraft,
     () => sessionStorage.getItem(storageKey) ?? "",
     () => "",
   );
+  const speechReceipt = useSyncExternalStore(
+    subscribeDraft,
+    () => sessionStorage.getItem(`${storageKey}:speech`) ?? "",
+    () => "",
+  );
+  const length = responseLength(draft);
   const load = useCallback(async () => {
     try {
       const result = await api<SessionView>(
@@ -119,19 +139,28 @@ function PracticeSession({
   }, [view?.messages.length, busy]);
   function updateDraft(value: string) {
     sessionStorage.setItem(storageKey, value);
+    if (!value) sessionStorage.removeItem(`${storageKey}:speech`);
     window.dispatchEvent(new Event("persona-draft"));
   }
   async function send(event: React.FormEvent) {
     event.preventDefault();
-    if (!view || !draft.trim() || busy) return;
+    if (!view || busy || voiceActive || composing) return;
+    if (length.error) return;
     const restoreComposer = event.currentTarget.contains(
       document.activeElement,
     );
     setBusy(true);
     setError("");
-    const text = draft.trim();
-    if (pending.current?.text !== text)
-      pending.current = { text, key: requestKey() };
+    const text = draft;
+    if (
+      pending.current?.text !== text ||
+      (pending.current?.speechReceipt ?? "") !== speechReceipt
+    )
+      pending.current = {
+        text,
+        key: requestKey(),
+        ...(speechReceipt ? { inputModality: "voice", speechReceipt } : {}),
+      };
     try {
       const next = await api<SessionView>(
         `/api/branches/${view.branch.id}/turns`,
@@ -173,6 +202,8 @@ function PracticeSession({
       setBusy(false);
     }
   }
+  const locale = view?.settings?.practiceLocale ?? "en-IN";
+  const translated = view?.presentation ?? localizedContent[locale];
   const originalDecision = view?.messages.find(
     (m) => m.role === "user" && m.turn === (decision ?? -1) + 1,
   );
@@ -190,8 +221,8 @@ function PracticeSession({
             <span className="eyebrow accent-secondary practice-kicker">
               THE CONVERSATION ROOM
             </span>
-            <h1>The trust conversation</h1>
-            <p>A careful customer. An honest conversation.</p>
+            <h1 lang={locale}>{translated.title}</h1>
+            <p lang={locale}>{translated.description}</p>
           </div>
           <div className="practice-heading-actions">
             <Button
@@ -326,8 +357,8 @@ function PracticeSession({
                     <br />
                     Keep it honest.
                   </h3>
-                  <ul className="session-objectives">
-                    {scenario.objectives.map((objective) => (
+                  <ul className="session-objectives" lang={locale}>
+                    {translated.objectives.map((objective) => (
                       <li key={objective}>
                         <span />
                         {objective}
@@ -352,6 +383,12 @@ function PracticeSession({
                     Revisit a decision <CornerUpLeft size={13} />
                   </a>
                 </div>
+                {locale !== "en-IN" && (
+                  <p className="language-note language-session-note">
+                    {translated.labels.fallback} ·{" "}
+                    {locale === "hi-IN" ? "Hindi" : "Telugu"} acceptance preview
+                  </p>
+                )}
                 <div className="conversation-top">
                   <div>
                     <span className="presence-dot" />
@@ -374,6 +411,13 @@ function PracticeSession({
                     <small>YOUR PRACTICE BEGINS HERE</small>
                     <span />
                   </div>
+                  {view.legacyRules && (
+                    <div className="branch-notice">
+                      This saved conversation uses earlier progression rules.{" "}
+                      <Link href="/">Start a new practice</Link> to use the
+                      improved conversation flow.
+                    </div>
+                  )}
                   {view.branch.parentBranchId && (
                     <div className="branch-notice">
                       <GitBranch size={14} /> A new possibility. Your original
@@ -400,9 +444,31 @@ function PracticeSession({
                               ? "Opening"
                               : `Turn ${message.turn}`}
                             {message.inherited ? " · Shared history" : ""}
+                            {message.source?.modality === "voice"
+                              ? " · Voice, reviewed"
+                              : ""}
                           </span>
                         </div>
-                        <div className="message-bubble">{message.content}</div>
+                        <div
+                          className="message-bubble"
+                          lang={message.source?.originalLocale ?? locale}
+                        >
+                          {message.content}
+                        </div>
+                        {message.source?.translations.map((translation, i) => (
+                          <details
+                            className="message-translation"
+                            key={`${translation.locale}-${i}`}
+                          >
+                            <summary>
+                              Translation · {translation.locale} ·{" "}
+                              {translation.reviewStatus === "reviewed"
+                                ? "Reviewed"
+                                : "Draft, not reviewed"}
+                            </summary>
+                            <p lang={translation.locale}>{translation.text}</p>
+                          </details>
+                        ))}
                         {message.role === "user" && (
                           <button
                             className="message-rewind"
@@ -459,24 +525,111 @@ function PracticeSession({
                       </button>
                     </div>
                   )}
+                  {locale !== "en-IN" && <TypingHelp locale={locale} />}
+                  {locale === "en-IN" && (
+                    <div className="composer-voice-actions">
+                      <ComposerSpeech
+                        key={`${view.branch.id}:${view.branch.revision}`}
+                        branchId={view.branch.id}
+                        revision={view.branch.revision}
+                        busy={busy}
+                        onActivity={setVoiceActive}
+                        onTranscript={(text, receipt) => {
+                          const previous =
+                            sessionStorage.getItem(storageKey) ?? "";
+                          const previousReceipt = sessionStorage.getItem(
+                            `${storageKey}:speech`,
+                          );
+                          const next = previous.trim()
+                            ? `${previous.trimEnd()}\n${text}`
+                            : text;
+                          try {
+                            sessionStorage.setItem(storageKey, next);
+                            sessionStorage.setItem(
+                              `${storageKey}:speech`,
+                              receipt,
+                            );
+                          } catch {
+                            try {
+                              sessionStorage.setItem(storageKey, previous);
+                              if (previousReceipt)
+                                sessionStorage.setItem(
+                                  `${storageKey}:speech`,
+                                  previousReceipt,
+                                );
+                              else
+                                sessionStorage.removeItem(
+                                  `${storageKey}:speech`,
+                                );
+                            } catch {
+                              /* Keep the original draft if browser storage is unavailable. */
+                            }
+                            throw new Error(
+                              "Couldn’t save the transcript in this browser. Your existing draft is preserved.",
+                            );
+                          }
+                          pending.current = null;
+                          window.dispatchEvent(new Event("persona-draft"));
+                          if (
+                            document.activeElement === document.body ||
+                            document.activeElement?.closest(
+                              ".inline-voice-input",
+                            )
+                          )
+                            requestAnimationFrame(() =>
+                              composer.current?.focus({ preventScroll: true }),
+                            );
+                        }}
+                      />
+                      {speechReceipt && error && (
+                        <>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            disabled={busy}
+                            onClick={() => {
+                              sessionStorage.removeItem(`${storageKey}:speech`);
+                              pending.current = null;
+                              window.dispatchEvent(new Event("persona-draft"));
+                            }}
+                          >
+                            Use keyboard text
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  )}
                   <div className="composer-box">
-                    <label className="sr-only" htmlFor="response">
-                      Your response to Priya
+                    <label className="sr-only" htmlFor="response" lang={locale}>
+                      {translated.labels.response}
                     </label>
                     <textarea
                       ref={composer}
                       id="response"
-                      placeholder="What would you say to Priya?"
+                      lang={locale}
+                      autoCapitalize="off"
+                      placeholder={
+                        locale === "en-IN"
+                          ? "What would you say to Priya?"
+                          : translated.labels.response
+                      }
                       value={draft}
                       onChange={(e) => updateDraft(e.target.value)}
-                      maxLength={2000}
+                      maxLength={CHARACTER_LIMIT}
+                      aria-describedby="response-length response-hint"
+                      aria-invalid={Boolean(draft && length.error)}
+                      onCompositionStart={() => setComposing(true)}
+                      onCompositionEnd={() => setComposing(false)}
                       rows={3}
                       readOnly={busy}
                       onKeyDown={(e) => {
                         if (
                           e.key === "Enter" &&
                           !e.shiftKey &&
-                          !e.nativeEvent.isComposing
+                          !e.nativeEvent.isComposing &&
+                          !composing &&
+                          e.keyCode !== 229
                         ) {
                           e.preventDefault();
                           e.currentTarget.form?.requestSubmit();
@@ -489,24 +642,47 @@ function PracticeSession({
                       </span>
                       <Button
                         type="submit"
+                        lang={locale}
                         size="sm"
-                        disabled={busy || !draft.trim()}
+                        disabled={
+                          busy ||
+                          voiceActive ||
+                          composing ||
+                          Boolean(length.error)
+                        }
                       >
                         {busy ? (
                           <LoaderCircle size={14} className="spin" />
                         ) : (
                           <Send size={14} />
                         )}{" "}
-                        Send response
+                        {translated.labels.send}
                       </Button>
                     </div>
                   </div>
-                  <div className="composer-hint">
+                  <p
+                    id="response-length"
+                    className={`response-length ${length.error && draft ? "response-length-error" : ""}`}
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    <strong>
+                      {new Intl.NumberFormat(locale).format(length.wordCount)} /{" "}
+                      {WORD_LIMIT} {translated.labels.words}
+                    </strong>
+                    {" · "}
+                    {draft && length.error
+                      ? length.error
+                      : `${length.remaining} ${translated.labels.remaining}`}
+                  </p>
+                  <div className="composer-hint" id="response-hint">
                     <span>
                       Enter to send <span className="footer-dot">·</span> Shift
                       + Enter for a new line
                     </span>
-                    <span>{draft.length}/2000</span>
+                    <span>
+                      {draft.length}/{CHARACTER_LIMIT} characters
+                    </span>
                   </div>
                 </form>
               </section>
@@ -601,7 +777,7 @@ function PracticeSession({
         }
       >
         {panel === "facts" ? (
-          <Facts />
+          <Facts locale={locale} facts={translated.facts} />
         ) : (
           view &&
           panel === "coach" && (

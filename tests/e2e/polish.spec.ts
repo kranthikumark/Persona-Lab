@@ -150,12 +150,11 @@ test("keyboard rehearsal: guarantee, evidence, rewind, alternative and compariso
   await expect(page.getByRole("button", { name: "Close panel" })).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(brief).toBeFocused();
-  const created = page.waitForResponse(
-    (r) => r.url().endsWith("/api/sessions") && r.request().method() === "POST",
-  );
   await begin.focus();
   await page.keyboard.press("Enter");
-  const { sessionId: id } = await (await created).json();
+  // Practice entry creates a new document to apply its microphone policy.
+  await expect(page).toHaveURL(/\/sessions\/[^/?]+$/);
+  const id = new URL(page.url()).pathname.split("/")[2];
   try {
     const input = page.getByLabel("Your response to Priya");
     await expect(input).toBeVisible();

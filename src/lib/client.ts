@@ -45,6 +45,7 @@ export async function api<T>(
   return result as T;
 }
 export type SessionSummary = {
+  title?: string;
   id: string;
   createdAt: string;
   branches: { id: string; name: string; revision: number }[];
@@ -53,6 +54,12 @@ export type SessionView = {
   id: string;
   createdAt: string;
   provider: "mock" | "meta";
+  legacyRules?: boolean;
+  presentation?: import("./localization/content").LocalePresentation;
+  settings?: import("./practice/metadata").PracticeSettings;
+  catalog?: import("zod").infer<
+    typeof import("./practice/metadata").CatalogSchema
+  >;
   branch: {
     id: string;
     name: string;
@@ -67,6 +74,9 @@ export type SessionView = {
     turn: number;
     sequence: number;
     inherited: boolean;
+    source?: import("./practice/metadata").MessageSource;
+    sourceInferred?: boolean;
+    length: ReturnType<typeof import("./response-length").lengthRecord> | null;
   }[];
   snapshots: {
     id: string;

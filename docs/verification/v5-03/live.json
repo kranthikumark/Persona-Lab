@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-28T18:18:19.750Z",
+  "provider": "meta",
+  "runtime": "insurance-v1-rules-v2",
+  "generatedTurns": 5,
+  "phases": [
+    "clarification",
+    "clarification",
+    "clarification",
+    "next_step",
+    "next_step"
+  ],
+  "repeatedLiteralQuestions": 0,
+  "exactReload": true,
+  "limitations": "Literal duplicate detection is deterministic; semantic repetition requires review of the returned fictional dialogue. This is one synthetic five-turn journey, not universal model-behavior proof."
+}

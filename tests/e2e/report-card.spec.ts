@@ -51,13 +51,13 @@ for (const theme of ["light", "dark"]) {
       await dialog
         .getByRole("button", { name: "Evaluate current revision" })
         .click();
-      await expect(dialog.locator(".evaluation-number")).toContainText("8");
+      await expect(dialog.locator(".evaluation-number")).toContainText("0");
       await expect(dialog.locator(".report-readiness")).toContainText(
         "Provisional",
       );
       await expect(
         dialog.getByRole("region", { name: "Positives" }),
-      ).toContainText("Your responses stayed within the length guideline.");
+      ).toContainText("No strengths evidenced yet");
       await expect(
         dialog.getByRole("region", { name: "Needs attention" }),
       ).toContainText("Explain claim review without guarantees");
@@ -88,10 +88,10 @@ for (const theme of ["light", "dark"]) {
       const saved = await (
         await page.request.get(`/api/branches/${branchId}/evaluation`)
       ).json();
-      expect(saved.report.overall).toBe(8);
+      expect(saved.report.overall).toBe(0);
       await page.reload();
       await page.getByRole("button", { name: /Field notes/ }).click();
-      await expect(dialog.locator(".evaluation-number")).toContainText("8");
+      await expect(dialog.locator(".evaluation-number")).toContainText("0");
       const restored = await (
         await page.request.get(`/api/branches/${branchId}/evaluation`)
       ).json();

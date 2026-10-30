@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-30",
+  "normalDevelopmentSpeechAvailable": true,
+  "nativeTextStillGated": true,
+  "iconPresent": true,
+  "widths": [
+    {
+      "width": 1440,
+      "microphoneVisible": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "microphoneVisible": true,
+      "noOverflow": true
+    },
+    {
+      "width": 320,
+      "microphoneVisible": true,
+      "noOverflow": true
+    }
+  ],
+  "microphoneRoomLoaded": true,
+  "recordingRequiresConsent": true
+}

@@ -4,6 +4,7 @@ import { exportData } from "@/lib/reports/data";
 export const runtime = "nodejs";
 const input = z
   .object({
+    reportId: z.string().min(1).max(100).optional(),
     format: z.enum(["pdf", "docx"]),
     revision: z.number().int().nonnegative(),
   })
@@ -14,9 +15,9 @@ export async function POST(
 ) {
   try {
     assertOrigin(request);
-    const { format, revision } = input.parse(await jsonBody(request));
+    const { format, revision, reportId } = input.parse(await jsonBody(request));
     const { id } = await context.params;
-    const data = await exportData(id, await owner(), revision);
+    const data = await exportData(id, await owner(), revision, reportId);
     const bytes =
       format === "pdf"
         ? await (await import("@/lib/reports/pdf")).reportPDF(data)

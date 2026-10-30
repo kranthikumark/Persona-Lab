@@ -1,3 +1,4 @@
+import { resolveRuntime, progressFor } from "@/lib/simulation/progression";
 import { randomUUID } from "node:crypto";
 import { loadEnvFile } from "node:process";
 import {
@@ -12,7 +13,7 @@ import {
 import { db } from "@/lib/db";
 import { hash } from "@/lib/api";
 import { mockProvider } from "@/lib/ai/providers";
-import { initialState, transition } from "@/lib/simulation/domain";
+import { initialState } from "@/lib/simulation/domain";
 import {
   forkBranch,
   historyFor,
@@ -101,7 +102,17 @@ describe("Phase 3 PostgreSQL acceptance", () => {
     for (const [revision, text] of inputs.entries()) {
       view = await turn(text, revision);
       const result = await generated.mock.results[revision].value;
-      const expected = transition(previous, result.proposal, text);
+      const progress = progressFor(
+        view.messages.filter((m) => m.turn <= revision),
+        text,
+        revision + 1,
+      );
+      const expected = resolveRuntime(pinned.contextVersion).transition(
+        previous,
+        result.proposal,
+        text,
+        progress,
+      );
       expect(view.state).toEqual(expected.state);
       expect(view.snapshots.at(-1)!.state).toEqual(expected.state);
       const event = view.events.at(-1)!;
@@ -111,6 +122,7 @@ describe("Phase 3 PostgreSQL acceptance", () => {
         )!.id,
         newlyRevealed: expected.newlyRevealed,
         ruleVersion: pinned.contextVersion,
+        progress,
       });
       previous = structuredClone(expected.state);
     }

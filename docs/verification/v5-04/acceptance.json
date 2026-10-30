@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-29",
+  "phase": "V5-04",
+  "status": "complete locally",
+  "migration": "20261029000100_locale_modality_metadata",
+  "appliedMigrations": 5,
+  "pendingMigrations": 0,
+  "schemaDiff": "empty",
+  "preservation": {
+    "originalProductTables": 8,
+    "originalRows": 1059,
+    "allOriginalIdsAndColumnsMatched": true,
+    "historicalFindingsAndContentRewritten": false
+  },
+  "backups": {
+    "before": {
+      "tables": 10,
+      "rows": 1244,
+      "restoreVerified": true
+    },
+    "after": {
+      "tables": 12,
+      "rows": 1221,
+      "restoreVerified": true
+    },
+    "privateArchivesGitIgnored": true,
+    "temporaryDatabasesRemoved": true
+  },
+  "freshSetup": {
+    "migrationsPassed": 5,
+    "seedPassed": true,
+    "idempotentSeedPassed": true,
+    "scenarios": 1,
+    "englishLocalizations": 1,
+    "sessions": 0,
+    "temporaryDatabaseRemoved": true
+  },
+  "checks": {
+    "unitPassed": 100,
+    "integrationPassed": 47,
+    "fullBrowserPassed": 34,
+    "targetedPreferencesRerunPassed": 1,
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "clientPrivacyFilesScanned": 16
+  },
+  "availablePractice": {
+    "locale": "en-IN",
+    "mode": "text"
+  },
+  "notEnabled": [
+    "Hindi/Telugu practice",
+    "voice",
+    "camera",
+    "media upload/transcription/analysis",
+    "enterprise tenancy"
+  ],
+  "providerRequestsMade": 0,
+  "deployment": "localhost only",
+  "next": "V5-05: reviewed multilingual text practice",
+  "localhost": {
+    "pinnedEnglishTextVerified": true,
+    "originalSourceVerified": true,
+    "observationSeconds": 20,
+    "unexpectedNavigations": 0,
+    "hmrReloadMessages": 0,
+    "providerRequestsMade": 0
+  }
+}

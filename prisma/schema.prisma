@@ -11,9 +11,12 @@ model Scenario {
   id         String   @id @default(cuid())
   slug       String
   version    Int
+  catalogMetadata Json?
+  localizations ScenarioLocalization[]
   definition Json
   createdAt  DateTime @default(now())
   sessions   SimulationSession[]
+  publication ScenarioPublication?
   @@unique([slug, version])
 }
 
@@ -22,6 +25,7 @@ model SimulationSession {
   ownerHash    String
   scenarioId   String
   scenario     Scenario @relation(fields: [scenarioId], references: [id])
+  settings     Json?
   scenarioData Json
   createdAt    DateTime @default(now())
   expiresAt    DateTime
@@ -43,6 +47,7 @@ model Branch {
   session        SimulationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   name           String
   revision       Int @default(0)
+  settings       Json?
   parentBranchId String?
   parentBranch   Branch? @relation("BranchTree", fields: [parentBranchId], references: [id])
   children       Branch[] @relation("BranchTree")
@@ -66,6 +71,7 @@ model Message {
   role      String
   content   String
   metadata  Json?
+  sourceMetadata Json?
   createdAt DateTime @default(now())
   @@unique([branchId, sequence])
 }
@@ -112,7 +118,53 @@ model Evaluation {
   branch         Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
   branchRevision Int
   rubricVersion  String
+  localeMetadata Json?
   findings       Json
   createdAt      DateTime @default(now())
   @@unique([branchId, branchRevision, rubricVersion])
+}
+
+model ScenarioLocalization {
+  id String @id @default(cuid())
+  scenarioId String
+  scenario Scenario @relation(fields: [scenarioId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  locale String
+  version Int
+  status String @default("baseline")
+  content Json
+  createdAt DateTime @default(now())
+  @@unique([scenarioId, locale, version])
+}
+
+model PracticePreference {
+  ownerHash String @id
+  settings Json
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime
+  @@index([expiresAt])
+}
+
+model ScenarioDraft {
+  id String @id @default(cuid())
+  ownerHash String
+  revision Int @default(1)
+  status String @default("draft")
+  content Json
+  review Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime
+  @@index([ownerHash, expiresAt])
+}
+
+model ScenarioPublication {
+  id String @id @default(cuid())
+  scenarioId String @unique
+  scenario Scenario @relation(fields: [scenarioId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  draftId String
+  draftRevision Int
+  contentHash String
+  review Json
+  createdAt DateTime @default(now())
+  @@unique([draftId, draftRevision])
 }

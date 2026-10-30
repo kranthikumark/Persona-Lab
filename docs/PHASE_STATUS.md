@@ -1,6 +1,20 @@
 # PERSONA LAB — Actual implementation status
 
-Updated October 28, 2026. This is local evidence, not public-release acceptance.
+Updated October 30, 2026. This is local evidence, not public-release acceptance.
+
+## V5 progress
+
+**V5-06 local implementation and export verification are complete; human acceptance remains pending.** Added the corrected, versioned Indic evaluator, native report companions, shaped PDF output, embedded Word fonts and native sharing summaries. Older reports are retained. The user volunteered to review Telugu; approval is not yet recorded and Hindi needs a reviewer. See [V5-06 acceptance](V5_06_ACCEPTANCE.md).
+
+**Historical V5-05 software/live verification passed; release acceptance is pending.** Added language selectors with explicit English interface/coaching fallback, Hindi/Telugu draft content, native rule/evaluation adapters, pinned translations and bundled Indic UI fonts. Validation: 108 unit, 50 database, 34 English browser and four native browser checks; final live run included five original plus one independent Meta alternative per locale. **Hindi/Telugu remain gated pending native-speaker review and V5-06 Indic export acceptance.** Read [V5-05 acceptance](V5_05_ACCEPTANCE.md) and [the translation review packet](reviews/V5_05_TRANSLATIONS.md).
+
+V5-04 is complete locally: additive metadata migration, immutable English localization reference, pinned settings/source/report locales, owned preferences and future consent/provenance contracts. All original columns across 1,059 product rows verified unchanged; backup/restore passed before and after migration. Validation: 100 unit, 47 database and 34 browser checks, clean install/idempotent seed, lint/typecheck/build/privacy scan. See [V5-04 acceptance](V5_04_ACCEPTANCE.md). Next: V5-05; only English text is enabled.
+
+V5-03 is complete locally: runtime/evaluation dispatch, explicit stage milestones, branch-specific answered-topic context, legacy rule preservation and five verified live Meta turns. Validation: 91 ordinary unit checks, 42 database checks, 33 browser checks across full/targeted runs, and passing lint/typecheck/build/privacy scan. See [V5-03 acceptance](V5_03_ACCEPTANCE.md). **Start a new practice to use the new conversation rules.** Next: V5-04.
+
+V5-02 is complete locally: shared 70-word admission, atomic validation metadata, preserved historical retries, v3 nine-check quality scoring and separate length in reports/exports. Validation: 85 unit checks including two known expected failures, 35 database checks, 32 distinct browser checks across baseline and targeted reruns, and passing lint/typecheck/build/privacy scan. See [V5-02 acceptance](V5_02_ACCEPTANCE.md). Next: V5-03 progression and versioned runtime.
+
+V5-01 is complete locally: verified isolated restore (10 tables, 873 snapshot rows), fail-closed capability gates and frozen legacy/regression fixtures. Refreshed validation: 68 ordinary unit passes plus two expected known-defect cases, 27 integration passes, 29 browser passes plus one cleanup connection reset that passed on isolated rerun, and passing lint/typecheck/build/privacy scan. No migrations or historical report rewrites. See [V5-01 evidence](V5_01_BASELINE.md). Next is V5-02.
 
 ## Phase progress
 
@@ -12,25 +26,29 @@ Updated October 28, 2026. This is local evidence, not public-release acceptance.
 | 3 — State/timeline         | Complete locally              | Bounded state, resolving evidence, exact saved-state previews, forced overlapping retries/stale writes, late-write rollback, and knowledge-boundary checks passed. Rule matching corrected. Acceptance: `PHASE_3_ACCEPTANCE.md`.                                                            |
 | 4 — Branching/comparison   | Complete locally              | Exact saved-state/prefix restoration, independent parent/sibling/nested paths, access isolation, evidence links, per-turn recorded state changes, unequal-length notices, and responsive replay/resumption. Acceptance: `PHASE_4_ACCEPTANCE.md`.                                            |
 | 5 — Evaluation             | Complete locally              | Versioned five-category phrase rubric, explicit insufficient evidence, message/event references, immutable revision-scoped reports, stale notices, inherited finding scope, strengths/next actions and comparison reports. Acceptance: `PHASE_5_ACCEPTANCE.md`.                             |
-| 6 — Polish/accessibility   | Local implementation accepted | Portrait-led studio and editorial workspace redesign, prominent evaluation, focus transfer, recovery states, 320px reflow, larger text and forced colors verified. Native zoom, audible screen-reader, physical devices and human rehearsal remain release checks: `PHASE_6_ACCEPTANCE.md`. |
+| 6 — Polish/accessibility   | Local implementation accepted | Portrait-led studio and editorial workspace redesign, prominent evaluation, focus transfer, recovery states, 320px reflow, larger text and forced colors verified. Native zoom, VoiceOver and physical-phone checks passed by user report; separate timing/platform details are not recorded. See: `PHASE_6_ACCEPTANCE.md`. |
 | 7 — Deployment/release     | Local release checks passed   | Shared PostgreSQL admission, atomic creation quotas, streamed request bounds, expiry cleanup command, build/privacy scan and full localhost live Meta journey passed. AWS Ubuntu deployment and scheduled cleanup remain pending.                                                           |
-| 8 — Demo/submission        | Not started                   | No demonstration video or organizer submission.                                                                                                                                                                                                                                             |
+| 8 — Demo/submission        | Not started                   | Deferred at the user's request while V5 requirements are planned; no demonstration video or organizer submission.                                                                                                                                                                                                                                             |
+
+## V5 planning handoff
+
+The supplied V5 brief has been analyzed against the current code. See [the step-by-step V5 gap analysis and migration plan](V5_IMPLEMENTATION_PLAN.md). This is a planning-only update: no V5 product code or database migration has been applied. Priorities are independent 70-word admission/quality scoring, versioned scenario behavior, English/Hindi/Telugu text and reports, then verified voice with a 2D avatar. Camera, additional languages, 3D and team administration remain gated later work. Existing Phase 8 remains deferred at the user's request; AWS remains pending.
 
 ## October 28 product updates
 
 - Light theme and persistent accessible theme toggle added, preserving the original dark palette. Nine theme checks passed across Chrome, Firefox and WebKit.
 - Localhost and 127.0.0.1 aliases work on the configured development protocol/port; production origin matching remains exact. Both browser journeys and origin rejection cases passed.
 - Every session can generate a numeric v2 report card, including empty and partial conversations, with evidence-linked positives, observed concerns, separate evidence gaps and an improvement plan. Historical v1 reports remain verifiable and unchanged. Selected wording false negatives were corrected.
-- PDF and editable Word exports include scores, feedback, scope and selected evidence. The reviewed exports were rendered and visually inspected. Email/WhatsApp summaries and native attachment sharing are available with a download-and-attach fallback; no server-side sending is configured. Actual recipient delivery remains manual acceptance.
+- PDF and editable Word exports include scores, feedback, scope and selected evidence. The reviewed exports were rendered and visually inspected. Email/WhatsApp summaries and native attachment sharing are available with a download-and-attach fallback; no server-side sending is configured. The user subsequently reported sharing acceptance working on October 28.
 - Latest checks: 55 unit tests passed. The report-card change passed 27 database tests and the full 28-test Chrome suite. Export changes passed nine targeted browser checks plus a final export regression. Lint, TypeScript, production build and client privacy checks passed. See `REPORT_CARD.md` for scoring, sharing behavior and evidence boundaries.
-- Open product findings: repetitive character questions and heuristic conversation-stage transitions. Native zoom, audible screen-reader, physical-phone and sharing delivery acceptance remain pending. AWS deployment has not been performed.
+- Open product findings: repetitive character questions and heuristic conversation-stage transitions. Native zoom, VoiceOver, physical-phone and sharing checks are now accepted by user report. Device/version details were not supplied. AWS deployment has not been performed.
 
 ## October 28 Phase 6 review follow-up
 
 - Page titles, composer focus, pointer-opened dialog focus and HTTP phone-review retry keys repaired.
 - Eight acceptance checks passed in each of Chrome, Firefox and WebKit (24 executions). 48 unit and 26 integration tests passed, including a real UTC window-duration assertion. Lint, typecheck, production build and client privacy checks passed. Four migrations are applied.
 - A dedicated temporary mock server is available for the user’s physical phone review; the live app remains on loopback port 3100. Automated runs have independent mock admission namespaces. Existing admission-window expiry was normalized without resetting counts.
-- The user agreed to provide human results; native zoom, audible VoiceOver, physical devices, native Safari and human comprehension remain pending. See `PHASE_6_MANUAL_REVIEW.md`.
+- At the original review these human results were pending. The user has now reported VoiceOver, native zoom and physical-phone checks working; sharing is also accepted by user report. Separate platform inventory and comprehension timing were not supplied. See `PHASE_6_MANUAL_REVIEW.md`.
 
 ## Latest Phase 7 local results
 
@@ -82,9 +100,9 @@ The first seed attempt exposed ESM configuration and environment-loading issues;
 
 ## Next implementation increment
 
-1. Review the validated local journey, then deploy to the user’s AWS Ubuntu instance and verify HTTPS, secure cookies, edge controls, scheduled cleanup, restart/backup recovery and the deployed live journey. See `PHASE_7_LOCAL_RELEASE.md`.
-2. Finish native zoom, audible screen-reader, physical-device/browser and human rehearsal release checks listed in Phase 6.
-3. Prepare Phase 8 demo/submission artifacts after release acceptance.
+1. Follow the V5 plan: refresh the preserved English baseline, then implement the shared 70-word admission rule and independent length metadata/quality scoring.
+2. Complete versioned runtime, locale, English/Hindi/Telugu text, coaching and export acceptance before voice or camera.
+3. Keep AWS deployment pending until the chosen local release slice is accepted. Existing Phase 8 demo/submission is deferred at the user's request.
 
 ## Visual evidence and assets
 
@@ -98,3 +116,17 @@ The first seed attempt exposed ESM configuration and environment-loading issues;
 - `public/images/priya.webp`: original fictional portrait generated with the built-in image tool; prompt/provenance in `docs/ASSETS.md`.
 
 The software is MIT-licensed. Git delivery status is reported in the final handoff; a local commit does not prove a push or deployment.
+
+## V5-07 — edition library and text authoring
+
+Local implementation: [acceptance and operator workflow](V5_07_ACCEPTANCE.md). Edition/goal/role/difficulty filters, private revisioned drafts and OS-operator review/publication extend the verified English insurance template. Published versions are immutable; existing sessions remain pinned. Personal templates, native-language authoring, voice/media and generic new-role runtimes remain unavailable. V5-06 human language/target-reader approvals and AWS deployment remain pending.
+
+## V5-08 — speech and consent
+
+Local implementation and real Meta Muse Voice Transcribe access verified; [acceptance](V5_08_ACCEPTANCE.md). English microphone check uses explicit consent, ephemeral PCM audio, editable/confirmed transcripts and optional local-device readback. Microphone operation and clear audible playback passed by direct user reports on October 30, 2026. V5-08’s English localhost check is accepted. Device/browser and detailed accuracy/stop behavior were not supplied. Meta supplies transcription only; full voice conversation, native-language speech and application streaming remain gated.
+
+## V5-09 — practice dictation slice
+
+English practice now includes **Speak response** above the composer: one remembered browser approval, inline recording/Stop, automatic transcription into the existing response box, then explicit Send response. Cancellation preserves drafts and Voice settings revokes future capture approval. Short-lived owner/path-bound receipts protect voice provenance; normal atomic turn admission, retries, forks and evaluation apply. Live Meta transcription plus character-response persistence passed on a synthetic fixture. See [dictation acceptance](V5_09_DICTATION.md). This is partial V5-09: speaking 2D avatar, automatic readback, streaming and complete human voice-room acceptance remain pending.
+
+October 30, 2026: the user accepted all four V5-09 inline dictation checks on localhost (record/Stop, edit/send, remembered approval, Cancel/draft preservation). Full voice conversation remains pending.

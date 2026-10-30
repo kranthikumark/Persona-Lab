@@ -13,11 +13,16 @@ import type { EvaluationReport } from "@/lib/evaluation/rubric";
 import { Button } from "./ui/button";
 import { ReportActions } from "./report-actions";
 import { positiveSummary } from "@/lib/evaluation/presentation";
+import { nativeCopy } from "@/lib/reports/localized-copy";
 
 export type SavedEvaluation = {
   id: string;
   createdAt: string;
   report: EvaluationReport;
+  locales?: import("zod").infer<
+    typeof import("@/lib/practice/metadata").EvaluationLocalesSchema
+  >;
+  localesInferred?: boolean;
   stale: boolean;
   currentRevision: number;
 };
@@ -87,6 +92,10 @@ export function EvaluationPanel({
       </p>
     );
   const report = saved?.report;
+  const native =
+    report && "analysisLocale" in report
+      ? nativeCopy(report.analysisLocale)
+      : null;
   const stale = saved && (saved.stale || report?.scope.revision !== revision);
   return (
     <div className={`evaluation-panel ${compact ? "compact-evaluation" : ""}`}>
@@ -124,6 +133,56 @@ export function EvaluationPanel({
         </p>
       ) : (
         <>
+          {report.engineVersion === "practice-report-v2" && (
+            <p className="evaluation-limits">
+              Saved report using the previous rubric, which included length in
+              scoring. Refresh the report card to create a separate v3 quality
+              report; the saved original is retained.
+            </p>
+          )}
+          {"analysisLocale" in report && (
+            <p className="evaluation-limits">
+              Practice: {report.analysisLocale === "hi-IN" ? "Hindi" : "Telugu"}
+              . Coaching uses an explicit English fallback. Evidence links
+              preserve the original script; matching uses bounded
+              locale-specific phrase rules. Downloaded Hindi/Telugu feedback is
+              a draft translation awaiting fluent-speaker approval. Scores
+              across languages are not validated as equivalent.
+            </p>
+          )}
+          {report.rubricVersion === "insurance-rubric-v4" && (
+            <p className="evaluation-stale" role="status">
+              This report used the earlier Indic matcher, which could miss
+              acknowledgements and misread exclusions. Refresh the report card
+              to create a corrected v5 report. Your original report and
+              conversation are retained.
+            </p>
+          )}
+          {"corrections" in report && report.corrections.length > 0 && (
+            <section
+              className="evaluation-limits"
+              aria-label="Later corrections"
+            >
+              <h3>Later corrections</h3>
+              <p>
+                Earlier contradictions remain in this full-history score. These
+                later responses provided corrected evidence:
+              </p>
+              <ul>
+                {report.corrections.map((c) => (
+                  <li key={c.checkId}>
+                    {
+                      report.categories
+                        .flatMap((category) => category.checks)
+                        .find((check) => check.id === c.checkId)?.label
+                    }
+                    : turns {c.correctedTurns.join(", ")} (earlier concern:{" "}
+                    {c.earlierTurns.join(", ")})
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           <div className="evaluation-overview">
             <span className="evaluation-number">
               {report.overall ?? 0}
@@ -136,11 +195,81 @@ export function EvaluationPanel({
             <span className="report-readiness">
               {report.scope.throughTurn === 0
                 ? "Not started · no responses yet"
-                : report.assessedChecks < 10
+                : report.assessedChecks < report.totalChecks
                   ? "Provisional · evidence gaps remain"
                   : "Full rubric evidence coverage"}
             </span>
           </div>
+          {native &&
+            "analysisLocale" in report &&
+            report.rubricVersion === "insurance-rubric-v5" && (
+              <details
+                className="translation-review"
+                lang={report.analysisLocale}
+              >
+                <summary>
+                  {native.title} ·{" "}
+                  {report.analysisLocale === "hi-IN"
+                    ? "अनुवाद का प्रारूप"
+                    : "అనువాద ముసాయిదా"}
+                </summary>
+                <p>{native.draft}</p>
+                {report.categories
+                  .flatMap((c) => c.checks)
+                  .map((check) => {
+                    const translated =
+                      native.checks[check.id as keyof typeof native.checks];
+                    return (
+                      <section key={check.id}>
+                        <h3>{translated?.[0] ?? check.label}</h3>
+                        <p>{native.statuses[check.status]}</p>
+                        <p>
+                          {check.status === "demonstrated"
+                            ? translated?.[1]
+                            : translated?.[2]}
+                        </p>
+                        {check.evidence.map((e) => (
+                          <a
+                            key={e.messageId}
+                            href={evidenceHref(e.messageId)}
+                            onClick={() => onEvidence?.(e.messageId)}
+                          >
+                            {native.turn} {e.turn}{" "}
+                          </a>
+                        ))}
+                      </section>
+                    );
+                  })}
+                <p>{native.limitNote}</p>
+              </details>
+            )}
+          {"length" in report && (
+            <section className="report-length" aria-label="Response length">
+              <h3>Response length</h3>
+              <p>70-word submission limit · separate from quality scores</p>
+              {report.length.length === 0 ? (
+                <p>No responses recorded yet.</p>
+              ) : (
+                <ul>
+                  {report.length.map((row) => (
+                    <li key={row.messageId}>
+                      <a
+                        href={evidenceHref(row.messageId)}
+                        onClick={() => onEvidence?.(row.messageId)}
+                      >
+                        Turn {row.turn}
+                      </a>
+                      {": "}
+                      {row.wordCount} words ·{" "}
+                      {row.status === "passed"
+                        ? "Passed"
+                        : "Accepted before this rule"}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          )}
           <ReportActions
             branchId={branchId}
             reportId={saved!.id}

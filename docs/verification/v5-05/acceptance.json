@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-29",
+  "phase": "V5-05",
+  "status": "implementation_and_automated_live_acceptance_passed_release_pending",
+  "unitPassed": 108,
+  "integrationPassed": 50,
+  "englishBrowserPassed": 34,
+  "nativeBrowserPassed": 4,
+  "nativeViewports": [
+    1440,
+    390
+  ],
+  "schemaMigrations": 0,
+  "liveVerification": {
+    "rounds": 2,
+    "totalGenerationCalls": 24,
+    "finalRound": {
+      "locales": [
+        "hi-IN",
+        "te-IN"
+      ],
+      "originalTurnsPerLocale": 5,
+      "independentAlternativeTurnsPerLocale": 1,
+      "originalAndAlternativeScriptVerified": true,
+      "exactReload": true,
+      "parentTraceUnchanged": true,
+      "syntheticSessionsRemoved": true
+    }
+  },
+  "release": {
+    "normalEnabledLocale": "en-IN",
+    "nativePractice": "local acceptance preview only",
+    "nativeHumanReview": "pending",
+    "coaching": "explicit en-IN fallback",
+    "indicPdfDocx": "blocked pending V5-06",
+    "voiceCamera": "disabled",
+    "currentLocalhostMode": "explicit acceptance preview; production gates unchanged"
+  },
+  "preservation": {
+    "originalRowsMatched": 1059,
+    "originalTablesMatched": 8,
+    "allOriginalColumnsMatched": true
+  },
+  "checks": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "privacy": "passed",
+    "clientFilesScanned": 16
+  },
+  "pending": [
+    "Native-speaker review of Hindi and Telugu drafts",
+    "Native keyboard and audible screen-reader acceptance",
+    "V5-06 localized coaching/report/export rendering acceptance"
+  ],
+  "deployment": "localhost only",
+  "localhost": {
+    "mode": "explicit acceptance preview",
+    "hindiTeluguSelectable": true,
+    "productionGatesUnchanged": true,
+    "normalModeNativeGatesClosedVerified": true,
+    "pinnedHindiSetupVerified": true,
+    "englishCoachingFallback": true,
+    "observationSeconds": 20,
+    "unexpectedNavigations": 0,
+    "hmrReloadMessages": 0,
+    "providerRequestsMadeDuringSmoke": 0
+  }
+}

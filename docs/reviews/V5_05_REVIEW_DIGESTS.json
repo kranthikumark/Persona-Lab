@@ -1,0 +1,12 @@
+{
+  "hi-IN": {
+    "revision": "insurance-hi-IN-v1-draft",
+    "sha256": "5a0f09466ac8bc823bb34a636ede6489f0418477bb6183d40ca9e561b80d84a2",
+    "nativeReview": "pending"
+  },
+  "te-IN": {
+    "revision": "insurance-te-IN-v1-draft",
+    "sha256": "8846c9fb405024e54345ad744efb99fd3dcc4344b51ed8b159379848158c4fad",
+    "nativeReview": "pending"
+  }
+}

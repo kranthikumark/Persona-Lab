@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-30",
+  "scope": "English dictation in text practice; partial V5-09",
+  "unitPassed": 129,
+  "postgresIntegrationPassed": 56,
+  "catalogTestsSkipped": 3,
+  "browser": {
+    "speechAndDictationPassed": 9,
+    "englishFullRunPassed": 36,
+    "englishTraceWriteFailure": 1,
+    "traceFailureCause": "ENOSPC while closing browser context; functional checks completed",
+    "affectedEnglishRepeatPassed": 1,
+    "nativePassed": 6,
+    "uniqueVerified": 52
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "productionBuild": "passed",
+  "releasePrivacy": "passed",
+  "liveMetaCoupledFlow": "transcription and character response both HTTP 200; voice provenance and original transcript retained; exact reload; no duplicate retry",
+  "noDatabaseMigration": true,
+  "audioRetention": "none",
+  "savedText": "reviewed final text plus original recognized text and consent/source metadata after explicit Send",
+  "pending": [
+    "Human device acceptance of new composer flow",
+    "Automatic character speech and speaking 2D avatar",
+    "Application streaming",
+    "Production and native-language speech release"
+  ]
+}

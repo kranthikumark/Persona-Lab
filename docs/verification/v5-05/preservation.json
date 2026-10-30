@@ -1,0 +1,48 @@
+{
+  "originalTablesMatched": 8,
+  "originalRowsMatched": 1059,
+  "allOriginalColumnsMatched": true,
+  "comparison": "Original IDs and columns restored from pre-migration archive; additional test fixtures excluded.",
+  "tables": {
+    "Scenario": {
+      "originalRowsMatched": 1,
+      "addedFixtureRows": 0,
+      "sha256": "b2ec4e363a30001ca824fe31574bf940f83dcf3977b1e70554980caeccd9cac0"
+    },
+    "SimulationSession": {
+      "originalRowsMatched": 54,
+      "addedFixtureRows": 5,
+      "sha256": "73b5b4225573989e5a14a71632c1e3022a0c8c3e977cbc49f6d1908732f30aa8"
+    },
+    "Branch": {
+      "originalRowsMatched": 80,
+      "addedFixtureRows": 7,
+      "sha256": "62a604eeaf79a22b5fb6d1535ceef29c8a68d68970d4295cd1d3fc5d199886c1"
+    },
+    "Message": {
+      "originalRowsMatched": 362,
+      "addedFixtureRows": 29,
+      "sha256": "43c40fe1e55850a47946fbe119541f537fd62b897deded74050bdb8d8d912d23"
+    },
+    "SimulationEvent": {
+      "originalRowsMatched": 154,
+      "addedFixtureRows": 12,
+      "sha256": "c09582c9f16cf05ca312849a22dfeb8230e73fd72653bd35bb0ac0e81770edd5"
+    },
+    "StateSnapshot": {
+      "originalRowsMatched": 234,
+      "addedFixtureRows": 19,
+      "sha256": "857a125c11b6199948fec68636e53f12189ddc6f8f4c3da6857fb61e0fd4d175"
+    },
+    "TurnRequest": {
+      "originalRowsMatched": 154,
+      "addedFixtureRows": 12,
+      "sha256": "8ec7babe69d9e33ae210106c0a7add105a2ae4cd60e14dc6dc8c1fc51713849a"
+    },
+    "Evaluation": {
+      "originalRowsMatched": 20,
+      "addedFixtureRows": 4,
+      "sha256": "f19f31d2b26037de2350520a8dc9736244683b2228f478d9bfbcee45e12f6da4"
+    }
+  }
+}

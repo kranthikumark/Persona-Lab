@@ -1,0 +1,20 @@
+{
+  "provenance": "Synthetic reproduction of the reported repetition; no personal transcript copied.",
+  "issue": "V5-03 resolved-topic memory",
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "Is the monthly premium fixed?"
+    },
+    {
+      "role": "user",
+      "content": "Yes. The fictional premium is fixed at ₹1,250 per month."
+    },
+    {
+      "role": "assistant",
+      "content": "Is the monthly premium fixed?"
+    }
+  ],
+  "futureAcceptance": "After a supported fact has been clearly answered, Priya should advance to an unresolved concern unless a contradiction or request for clarification warrants returning to it.",
+  "status": "known finding; provider-context fix and live acceptance deferred to V5-03"
+}

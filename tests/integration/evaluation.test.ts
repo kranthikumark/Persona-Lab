@@ -207,7 +207,7 @@ it("upgrades an existing v1 session report without rewriting the saved original"
   expect((await latestEvaluation(branch, owner))?.report.overall).toBeNull();
   const upgraded = await createEvaluation(branch, owner, 1);
   expect(upgraded.id).not.toBe(original.id);
-  expect(upgraded.report.rubricVersion).toBe("insurance-rubric-v2");
+  expect(upgraded.report.rubricVersion).toBe("insurance-rubric-v3");
   expect(upgraded.report.overall).toEqual(expect.any(Number));
   expect(upgraded.report.categories[1].checks[1].status).toBe("demonstrated");
   expect(

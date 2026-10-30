@@ -1,8 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { ScenarioLibrary } from "./scenario-library";
+import { LanguageControls } from "./language-controls";
+import {
+  localizedContent,
+  type PracticeLocale,
+} from "@/lib/localization/content";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -22,11 +27,22 @@ import { Drawer } from "./ui/drawer";
 import { api, type SessionSummary } from "@/lib/client";
 import { publicScenario as scenario } from "@/lib/scenarios/public";
 
-export function Studio({ mode }: { mode: string }) {
-  const router = useRouter();
+export function Studio({
+  mode,
+  textPracticeAvailable,
+}: {
+  mode: string;
+  textPracticeAvailable: boolean;
+}) {
   const search = useSearchParams();
   const historyOnly = search.get("view") === "history";
   const [sessions, setSessions] = useState<SessionSummary[]>([]);
+  const [locale, setLocale] = useState<PracticeLocale>("en-IN");
+  const localeRef = useRef<PracticeLocale>("en-IN");
+  const selectLocale = useCallback((value: PracticeLocale) => {
+    localeRef.current = value;
+    setLocale(value);
+  }, []);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [facts, setFacts] = useState(false);
@@ -49,12 +65,18 @@ export function Studio({ mode }: { mode: string }) {
       setSessionsLoading(false);
     }
   }
-  async function start() {
+  async function start(scenarioId?: string) {
     setBusy(true);
     setError("");
     try {
-      const result = await api<{ sessionId: string }>("/api/sessions", {});
-      router.push(`/sessions/${result.sessionId}`);
+      const result = await api<{ sessionId: string }>("/api/sessions", {
+        ...(scenarioId ? { scenarioId } : {}),
+        practiceLocale: localeRef.current,
+        characterLocale: localeRef.current,
+      });
+      // A new document applies the practice microphone Permissions-Policy.
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.assign(`/sessions/${result.sessionId}`);
     } catch (e) {
       setError((e as Error).message);
       setBusy(false);
@@ -109,13 +131,20 @@ export function Studio({ mode }: { mode: string }) {
                 could change.
               </p>
               <div className="hero-actions">
-                <Button onClick={start} disabled={busy}>
+                <Button
+                  onClick={() => start()}
+                  disabled={busy || !textPracticeAvailable}
+                >
                   {busy ? (
                     <LoaderCircle size={17} className="spin" />
                   ) : (
                     <Sparkles size={17} />
                   )}
-                  {busy ? "Opening your studio…" : "Begin practice"}
+                  {!textPracticeAvailable
+                    ? "Practice temporarily unavailable"
+                    : busy
+                      ? "Opening your studio…"
+                      : "Begin practice"}
                   <ArrowRight size={17} />
                 </Button>
                 <Button
@@ -174,6 +203,9 @@ export function Studio({ mode }: { mode: string }) {
             </div>
           </section>
         )}
+        {!historyOnly && (
+          <LanguageControls locale={locale} onChange={selectLocale} />
+        )}
         {error && (
           <div className="error-banner" role="alert">
             {error}
@@ -212,6 +244,12 @@ export function Studio({ mode }: { mode: string }) {
                 </ul>
               </div>
             </section>
+            <ScenarioLibrary
+              onStart={start}
+              busy={busy}
+              available={textPracticeAvailable}
+              locale={locale}
+            />
             <section className="how-section">
               <div className="section-heading">
                 <h2>A better way to learn by doing</h2>
@@ -285,7 +323,10 @@ export function Studio({ mode }: { mode: string }) {
                   Start a scenario and your saved conversations will appear
                   here.
                 </p>
-                <Button onClick={start} disabled={busy}>
+                <Button
+                  onClick={() => start()}
+                  disabled={busy || !textPracticeAvailable}
+                >
                   Begin practice <ArrowRight size={16} />
                 </Button>
               </div>
@@ -296,11 +337,12 @@ export function Studio({ mode }: { mode: string }) {
                     <MessageSquare size={18} />
                   </span>
                   <div>
-                    <Link href={`/sessions/${session.id}`}>
-                      The trust conversation <ChevronRight size={15} />
-                    </Link>
+                    <a href={`/sessions/${session.id}`}>
+                      {session.title ?? "The trust conversation"}{" "}
+                      <ChevronRight size={15} />
+                    </a>
                     <small>
-                      {new Date(session.createdAt).toLocaleDateString("en-IN", {
+                      {new Date(session.createdAt).toLocaleDateString(locale, {
                         day: "numeric",
                         month: "short",
                       })}{" "}
@@ -311,12 +353,9 @@ export function Studio({ mode }: { mode: string }) {
                       · Practice {sessions.length - i}
                     </small>
                   </div>
-                  <Link
-                    className="resume-link"
-                    href={`/sessions/${session.id}`}
-                  >
+                  <a className="resume-link" href={`/sessions/${session.id}`}>
                     Resume <ArrowRight size={15} />
-                  </Link>
+                  </a>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -355,14 +394,20 @@ export function Studio({ mode }: { mode: string }) {
     </Shell>
   );
 }
-export function Facts() {
+export function Facts({
+  locale = "en-IN",
+  facts,
+}: {
+  locale?: PracticeLocale;
+  facts?: readonly { id: string; title: string; detail: string }[];
+}) {
   return (
-    <div className="facts-list">
+    <div className="facts-list" lang={locale}>
       <div className="fictional-banner">
         <ShieldCheck size={16} /> Fictional training data. These are not real
         policy terms.
       </div>
-      {scenario.approvedFacts.map((fact, i) => (
+      {(facts ?? localizedContent[locale].facts).map((fact, i) => (
         <div className="fact" key={fact.id}>
           <span>0{i + 1}</span>
           <div>

@@ -21,11 +21,11 @@ A text-first decision practice studio. Meet Priya, a fictional insurance custome
 
 **Phase 5 evaluation complete locally:** versioned five-category reports, exact evidence, strengths/next actions, explicit insufficient evidence, saved revision scope and outdated-report notices. Open Field notes in practice or Rubric evaluation in comparison. See [Phase 5 acceptance](docs/PHASE_5_ACCEPTANCE.md).
 
-**October 28 acceptance follow-up:** page titles and composer/dialog focus repaired; eight checks pass in each of Chrome, Firefox and WebKit. Human zoom, VoiceOver, physical-device and comprehension results are awaited. See [manual review checklist](docs/PHASE_6_MANUAL_REVIEW.md).
+**October 28 acceptance follow-up:** page titles and composer/dialog focus repaired; eight checks pass in each of Chrome, Firefox and WebKit. The user subsequently reported VoiceOver, native zoom, physical-phone and sharing checks working; device details and separate comprehension timing were not supplied. See [manual review checklist](docs/PHASE_6_MANUAL_REVIEW.md).
 
 **Phase 7 localhost release checks:** shared usage admission, atomic creation quotas and expiry cleanup implemented; 47 unit, 26 integration and 19 mock browser checks plus a seven-generation live Meta journey passed. AWS Ubuntu deployment is pending local review. See [local release results and AWS handoff](docs/PHASE_7_LOCAL_RELEASE.md).
 
-**Phase 6 visual upgrade and local acceptance:** portrait-led studio, editorial workspace headings, prominent evaluation, repaired evidence focus, 320px reflow, larger-text and forced-colors checks. Native zoom, audible screen-reader and physical-device release checks remain open. See [Phase 6 acceptance](docs/PHASE_6_ACCEPTANCE.md).
+**Phase 6 visual upgrade and local acceptance:** portrait-led studio, editorial workspace headings, prominent evaluation, repaired evidence focus, 320px reflow, larger-text and forced-colors checks. The user subsequently reported native zoom, VoiceOver and physical-phone checks working; see the manual review record for the limits of that confirmation. See [Phase 6 acceptance](docs/PHASE_6_ACCEPTANCE.md).
 
 **Session report cards:** every session receives a score, evidence-linked positives, observed concerns and practical improvements when Field notes opens. Partial evidence is labeled provisional; historical reports are preserved. See [scoring and report behavior](docs/REPORT_CARD.md).
 
@@ -42,6 +42,10 @@ npm run dev
 ```
 
 Open http://127.0.0.1:3100. The database helper creates a dedicated `persona_lab` role/database and a mode-0600 ignored `.env`, without printing its generated password. It refuses to overwrite an existing `.env`. It assumes the current operating-system user can create a PostgreSQL role and database. If that is unavailable, create a database yourself and copy `.env.example` to `.env`, supplying its connection string.
+
+For Hindi/Telugu text practice on localhost, stop the existing server and run `npm run dev:locales`. This enables the labeled acceptance preview until you stop that process. Restart with the same command to keep the selectors available. Interface and coaching remain English; native-language review is pending; Indic exports are available for local acceptance. Normal `npm run dev` keeps those languages gated, and production cannot enable this preview.
+
+The chat’s **Type in Hindi/Telugu** helper links to the official Google Input Tools Chrome extension and online typing tool. Extension setup is manual; the in-app browser can use the online copy-and-paste option or a device keyboard. Persona Lab does not load Google typing scripts or automatically transmit drafts to Google. IME composition remains protected from accidental Enter-to-send.
 
 Keep `.env` private. Never put credentials in chat or source control. The app uses `AI_PROVIDER=mock` by default. To configure Meta, set `AI_PROVIDER=meta`, `META_API_KEY`, and optionally `META_MODEL` in `.env`, then restart. See [Meta integration](docs/META_INTEGRATION.md).
 
@@ -97,3 +101,27 @@ Session access expires after 30 days. `npm run db:purge` physically deletes a bo
 - [Meta adapter documentation](docs/META_INTEGRATION.md)
 
 Software is provided under the [MIT license](LICENSE). Current Git delivery is reported in the handoff. The application has not been publicly deployed.
+
+**V5-01:** baseline preservation, verified isolated database restore, frozen regression fixtures and fail-closed capability gates. See [V5-01 evidence](docs/V5_01_BASELINE.md) and the [V5 plan](docs/V5_IMPLEMENTATION_PLAN.md).
+
+**V5-02:** new responses require 1–70 words; v3 evaluates nine quality checks with length shown separately. Existing reports and committed historical retries are preserved. See [V5-02 acceptance](docs/V5_02_ACCEPTANCE.md).
+
+**V5-03:** new practices use versioned milestone progression and branch-specific answered-topic context. Existing sessions keep their saved rules and show a legacy notice. Five real Meta turns passed locally. See [V5-03 acceptance](docs/V5_03_ACCEPTANCE.md).
+
+**V5-04:** additive locale/modality metadata, immutable English baseline, pinned practice/branch settings, original message provenance and browser-owned preferences. Existing history and report JSON are preserved. Language selectors and Hindi/Telugu practice remain V5-05 work. See [V5-04 acceptance](docs/V5_04_ACCEPTANCE.md).
+
+**V5-05 implementation and live checks:** language selection, Hindi/Telugu drafts, native rule adapters, original-script histories and local UI fonts are implemented and verified in acceptance preview. English remains enabled normally. Native-speaker review and V5-06 Indic export acceptance are still pending. See [V5-05 evidence](docs/V5_05_ACCEPTANCE.md) and [translation review packet](docs/reviews/V5_05_TRANSLATIONS.md).
+
+**V5-06 local verification:** corrected versioned native evaluation, draft Hindi/Telugu coaching companions, original-script PDF/Word and sharing summaries. Refresh older native cards for the corrected report; originals are retained. `npm run verify:reports:indic` creates synthetic review samples. Indic PDF needs server Chromium (`PERSONA_PDF_BROWSER_PATH` on Linux). Fluent-speaker and target-reader acceptance remain pending. See [V5-06 acceptance](docs/V5_06_ACCEPTANCE.md).
+
+### Scenario library and private text drafts (V5-07)
+
+Use the home-page library filters, or open `/create` to author a private English insurance brief from the verified Priya template. Facts, character and scoring remain tied to its tested runtime. Draft editing never grants publication permission; a named local OS operator must inspect and approve the saved revision. See [V5-07 acceptance and operator commands](docs/V5_07_ACCEPTANCE.md). Personal and native-language authoring remain unavailable. `npm run test:catalog` runs publication acceptance in a disposable local database.
+
+### English speech in practice
+
+Run `npm run dev`, open English practice, and click **Speak response** above the response box. The first approval is remembered in your browser. Speak → **Stop recording** → text is automatically added to your draft → edit → **Send response**. Recording controls stay inline; existing draft text is kept. Use **Voice settings** to turn off the remembered approval. No audio files are retained by this application.
+
+The V5-08 diagnostic room remains at `/sessions/SESSION_ID/speech-check` for isolated device checks. Normal practice uses the inline control instead. See [practice dictation](docs/V5_09_DICTATION.md); complete character speech/animation remains subsequent V5-09 work.
+
+`npm run test:speech` uses synthetic browser audio and mocked transcription/playback. `verify:speech:live` requires an explicitly selected WAV and processing-consent argument. On a constrained workstation, `PERSONA_LOW_DISK_BUILD=1 npm run build` disables optional persistent build-cache writes; standard production cache behavior is unchanged.

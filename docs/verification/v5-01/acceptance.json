@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-28",
+  "phase": "V5-01",
+  "status": "complete locally",
+  "backup": {
+    "tables": 10,
+    "rows": 873,
+    "schemaMatched": true,
+    "allRowsMatched": true,
+    "temporaryDatabaseRemoved": true,
+    "existingArchiveReverification": "passed",
+    "privateArchiveGitIgnored": true,
+    "directoryMode": "0700",
+    "fileMode": "0600"
+  },
+  "migrations": {
+    "applied": 4,
+    "pending": 0,
+    "newMigrations": 0
+  },
+  "checks": {
+    "unit": {
+      "total": 70,
+      "ordinaryPasses": 68,
+      "expectedKnownFailures": 2
+    },
+    "integration": {
+      "passed": 27
+    },
+    "browser": {
+      "initialPassed": 29,
+      "initialFailed": 1,
+      "failure": "ECONNRESET during synthetic session cleanup in mobile design test",
+      "isolatedRerunPassed": 1,
+      "distinctTests": 30,
+      "provider": "mock",
+      "port": 3101
+    },
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "releasePrivacyScan": {
+      "status": "passed",
+      "clientFilesScanned": 16
+    },
+    "localhostCapabilities": "verified on 127.0.0.1:3100"
+  },
+  "knownFindings": [
+    "Premature next-step transition when reviewing documents",
+    "Farewell can regress next-step stage",
+    "Repeated resolved premium question; synthetic reproduction captured, provider fix deferred"
+  ],
+  "unchanged": [
+    "No schema migrations or reseed",
+    "No rewrite of saved v1/v2 reports",
+    "No 70-word admission rule yet",
+    "No paid Meta requests in this verification",
+    "No deployment"
+  ],
+  "next": "V5-02: word admission and independent quality scoring"
+}

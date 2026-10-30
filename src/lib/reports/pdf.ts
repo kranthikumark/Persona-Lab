@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
+import { needsIndic } from "./script-fonts";
 import { type ReportDocument, reportLimitations, statusLabel } from "./data";
 const color = (hex: string) =>
   rgb(
@@ -17,6 +18,8 @@ const ink = color("242033"),
   border = color("DDD6EA"),
   amber = color("895518");
 export async function reportPDF(data: ReportDocument) {
+  if ((data.locale && data.locale !== "en-IN") || needsIndic(data))
+    return (await import("./indic-pdf")).indicPDF(data);
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
   const [regular, bold] = await Promise.all(
@@ -171,7 +174,7 @@ export async function reportPDF(data: ReportDocument) {
   text(
     data.turns === 0
       ? "Not started"
-      : data.coverage < 10
+      : data.coverage < data.totalChecks
         ? "Provisional score"
         : "Practice rubric score",
     12,
@@ -181,7 +184,7 @@ export async function reportPDF(data: ReportDocument) {
     margin + 172,
   );
   text(
-    `${data.coverage} of 10 checks with evidence`,
+    `${data.coverage} of ${data.totalChecks} checks with evidence`,
     10,
     regular,
     muted,
@@ -197,6 +200,24 @@ export async function reportPDF(data: ReportDocument) {
     margin + 172,
   );
   y = scoreTop - 118;
+  if (data.length) {
+    heading("Response length");
+    text(
+      "70-word submission limit. Length is separate from quality scores.",
+      10,
+      regular,
+      muted,
+    );
+    if (!data.length.length)
+      text("No responses recorded yet.", 10, regular, muted);
+    for (const row of data.length)
+      text(
+        `Turn ${row.turn}: ${row.wordCount} words - ${row.status === "passed" ? "Passed" : "Accepted before this rule"}`,
+        10,
+        regular,
+        ink,
+      );
+  }
   heading("Your category scores");
   for (const c of data.categories) {
     room(43);
@@ -340,7 +361,7 @@ export async function reportPDF(data: ReportDocument) {
   heading("How to read this score");
   text(reportLimitations, 9, regular, muted);
   text(
-    "Category weights: 30 / 20 / 20 / 15 / 15. Each demonstrated check earns 50 category points. Scores are rounded to the nearest whole number.",
+    "Category weights: 30 / 20 / 20 / 15 / 15. Category score is demonstrated checks divided by category checks, multiplied by 100. The weighted total is rounded to the nearest whole number.",
     9,
     regular,
     muted,

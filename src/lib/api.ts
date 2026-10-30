@@ -55,8 +55,8 @@ export function assertOrigin(request: Request) {
   }
   throw new ApiError(403, "This request must come from the application.");
 }
-export async function jsonBody(request: Request) {
-  if (Number(request.headers.get("content-length") ?? 0) > 12000)
+export async function jsonBody(request: Request, maxBytes = 12000) {
+  if (Number(request.headers.get("content-length") ?? 0) > maxBytes)
     throw new ApiError(413, "Request is too large.");
   const reader = request.body?.getReader();
   const chunks: Uint8Array[] = [];
@@ -67,7 +67,7 @@ export async function jsonBody(request: Request) {
         const { done, value } = await reader.read();
         if (done) break;
         size += value.byteLength;
-        if (size > 12000) {
+        if (size > maxBytes) {
           await reader.cancel();
           throw new ApiError(413, "Request is too large.");
         }

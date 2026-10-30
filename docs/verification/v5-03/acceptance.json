@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-28",
+  "phase": "V5-03",
+  "status": "complete locally",
+  "runtime": "insurance-v1-rules-v2",
+  "schemaMigrations": 0,
+  "unit": {
+    "ordinaryPasses": 91,
+    "expectedFailures": 0
+  },
+  "integration": {
+    "passed": 42
+  },
+  "browser": {
+    "fullRunPassed": 32,
+    "initialTestAssertionFailures": 1,
+    "targetedRerunPassed": 1,
+    "distinctTestsCovered": 33,
+    "assertionCorrection": "Fork adds a branch catalog entry; compare exact parent trace/state separately."
+  },
+  "liveMeta": {
+    "generatedTurns": 5,
+    "literalDuplicateQuestions": 0,
+    "resolvedPremiumOrInitialWaitReasksObserved": 0,
+    "finalStages": [
+      "next_step",
+      "next_step"
+    ],
+    "providerMetadataVerified": true,
+    "syntheticSessionRemoved": true
+  },
+  "lint": "passed",
+  "typecheck": "passed",
+  "build": "passed",
+  "clientPrivacy": {
+    "status": "passed",
+    "scannedFiles": 16
+  },
+  "limitations": [
+    "Topic context and transitions are bounded English heuristics",
+    "Legacy sessions retain v1 rules; new practice required for v2",
+    "One five-turn live sample does not prove universal model behavior",
+    "AWS deployment remains pending"
+  ],
+  "next": "V5-04: additive locale/modality metadata",
+  "localhost": {
+    "legacyNoticeVerified": true,
+    "newRuntimeVerified": true,
+    "observationSeconds": 20,
+    "unexpectedNavigations": 0,
+    "hmrReloadMessages": 0,
+    "providerRequestsMadeDuringSmoke": 0
+  }
+}

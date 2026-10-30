@@ -1,4 +1,5 @@
 import "server-only";
+import { needsIndic } from "./script-fonts";
 import {
   AlignmentType,
   BorderStyle,
@@ -52,6 +53,8 @@ const cell = (children: Paragraph[], fill = "FFFFFF") =>
     margins: { top: 130, bottom: 130, left: 180, right: 180 },
   });
 export async function reportDOCX(data: ReportDocument) {
+  if ((data.locale && data.locale !== "en-IN") || needsIndic(data))
+    return (await import("./indic-docx")).indicDOCX(data);
   const checks = data.categories.flatMap((c) => c.checks),
     positives = checks.filter((c) => c.status === "demonstrated"),
     concerns = checks.filter((c) => c.status === "concern"),
@@ -91,16 +94,19 @@ export async function reportDOCX(data: ReportDocument) {
                 p(
                   data.turns === 0
                     ? "Not started"
-                    : data.coverage < 10
+                    : data.coverage < data.totalChecks
                       ? "Provisional practice score"
                       : "Practice rubric score",
                   { bold: true, size: 24, after: 70 },
                 ),
-                p(`${data.coverage} of 10 checks with recognized evidence`, {
-                  color: muted,
-                  size: 19,
-                  after: 0,
-                }),
+                p(
+                  `${data.coverage} of ${data.totalChecks} checks with recognized evidence`,
+                  {
+                    color: muted,
+                    size: 19,
+                    after: 0,
+                  },
+                ),
               ],
               pale,
             ),
@@ -121,6 +127,20 @@ export async function reportDOCX(data: ReportDocument) {
       "Review your strengths, observed concerns and evidence gaps, then choose one improvement for your next practice.",
       { color: muted, after: 100 },
     ),
+    ...(data.length
+      ? [
+          heading("Response length"),
+          p(
+            "70-word submission limit. Length is separate from quality scores.",
+            { color: muted },
+          ),
+          ...data.length.map((row) =>
+            p(
+              `Turn ${row.turn}: ${row.wordCount} words - ${row.status === "passed" ? "Passed" : "Accepted before this rule"}`,
+            ),
+          ),
+        ]
+      : []),
     heading("Category scores"),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
@@ -158,7 +178,7 @@ export async function reportDOCX(data: ReportDocument) {
       },
     }),
     p(
-      `Each demonstrated check earns 50 category points. Rubric: ${data.rubric}.`,
+      `Category score = demonstrated checks / category checks × 100. Weighted total rounded. Rubric: ${data.rubric}.`,
       { color: muted, size: 18 },
     ),
     heading("Next practice action"),
