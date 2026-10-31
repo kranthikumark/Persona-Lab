@@ -167,6 +167,8 @@ Local Meta transcription/consent implementation: [V5-08 acceptance](V5_08_ACCEPT
 
 ### V5-09 Build the live voice room and speaking 2D character
 
+**October 30 implementation update:** local push-to-talk practice now includes opt-in device speech, Hindi/Telugu dictation and an interchangeable 2D Priya/portrait renderer. Native audio flows are user-accepted; character states, captions, cancellation and reduced motion are software-verified. See [2D character acceptance](V5_09_2D_CHARACTER.md). Earlier first-slice notes below are historical. Streaming/full-duplex and production release remain separate.
+
 First local slice: [speech dictation in the practice composer](V5_09_DICTATION.md). English inline Speak/Stop automatically transcribes into the editable draft, with approval remembered in the browser and explicit Send connected to normal persisted turns. Automatic character readback, speaking 2D renderer, streaming and complete voice-room acceptance remain pending.
 
 **Priority:** P1. **Depends on:** V5-08.

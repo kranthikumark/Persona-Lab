@@ -4354,3 +4354,95 @@ body {
   margin-bottom: 10px;
 }
 .reply-playback small { color: var(--muted); font-size: 12px; }
+
+/* Voice activity indicators follow actual capture and playback events. */
+.priya-avatar { min-width: 0; }
+.priya-stage { overflow: hidden; background: #222437; }
+.priya-stage .portrait-shade { pointer-events: none; }
+.priya-stage .priya-name { pointer-events: none; }
+.priya-presence { padding: 12px 15px; border-bottom: 1px solid var(--border); }
+.priya-status { display: flex; gap: 8px; align-items: center; min-height: 28px; color: var(--text); font-size: 11px; font-weight: 600; }
+.priya-signal { display: inline-flex; align-items: center; justify-content: center; gap: 2px; width: 23px; height: 20px; flex-shrink: 0; color: var(--violet); }
+.priya-signal i { display: block; width: 2px; height: 5px; border-radius: 2px; background: currentColor; }
+.priya-signal i:nth-child(2), .priya-signal i:nth-child(4) { height: 9px; }
+.priya-signal i:nth-child(3) { height: 13px; }
+.priya-initials { position: absolute; inset: 0; display: grid; place-items: center; color: #eee6ff; font: 64px Georgia, serif; }
+.priya-avatar[data-stage="speaking"] .priya-signal i,
+.priya-avatar[data-stage="listening"] .priya-signal i { animation: priya-wave .65s ease-in-out infinite alternate; }
+.priya-avatar[data-stage="speaking"] .priya-signal i:nth-child(2n),
+.priya-avatar[data-stage="listening"] .priya-signal i:nth-child(2n) { animation-delay: -.3s; }
+.priya-avatar[data-stage="speaking"] .priya-signal i:nth-child(3),
+.priya-avatar[data-stage="listening"] .priya-signal i:nth-child(3) { animation-delay: -.15s; }
+.voice-caption { flex-basis: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); font-size: 12px; }
+.voice-caption summary { color: var(--muted); cursor: pointer; font-size: 10px; }
+.voice-caption p { color: var(--text); margin: 8px 0 0; max-height: 112px; overflow: auto; overflow-wrap: anywhere; line-height: 1.75; }
+@keyframes priya-wave { from { transform: scaleY(.6); } to { transform: scaleY(1.35); } }
+@media (prefers-reduced-motion: reduce) {
+  .priya-avatar .priya-mouth, .priya-avatar .priya-figure, .priya-avatar .priya-signal i { animation: none !important; transform: none !important; }
+}
+@media (forced-colors: active) {
+  .priya-signal i { background: CanvasText; }
+}
+
+
+/* A photographic conversation stage; real lip-sync will use a video renderer. */
+.practice-grid.photoreal-room { grid-template-columns: minmax(280px, .95fr) minmax(340px, 1.05fr); gap: 22px; }
+.photoreal-room .timeline-panel { grid-column: 1 / -1; }
+.photoreal-room .character-panel { display: block; }
+.photoreal-room .priya-avatar { width: 100%; border: 0; }
+.photoreal-room .priya-stage { width: 100%; height: clamp(320px, 46vh, 480px); border-radius: 16px 16px 0 0; }
+.photoreal-room .priya-stage img { object-fit: cover; object-position: 50% 39%; }
+.photoreal-room .portrait-shade { background: linear-gradient(180deg, #10131d12 40%, #10131d26 60%, #10131de6 100%); }
+.photoreal-room .priya-stage .priya-name { left: 25px; bottom: 24px; }
+.photoreal-room .priya-name h2 { font-size: 37px; margin: 4px 0; color: #fff; }
+.photoreal-room .priya-name .eyebrow { display: block; color: #e1dde9; font-size: 8px; letter-spacing: 2px; }
+.photoreal-room .priya-name p { display: block; color: #e1dde9; font-size: 12px; }
+.portrait-mode-label { position: absolute; top: 18px; left: 18px; padding: 8px 11px; border: 1px solid #ffffff30; border-radius: 7px; background: #161722b8; color: #fff; font-size: 8px; letter-spacing: 1.8px; backdrop-filter: blur(8px); }
+.photoreal-room .priya-presence { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--border); }
+.photoreal-room .priya-status { font-size: 12px; align-items: center; gap: 9px; }
+.portrait-mode-note { color: var(--muted); font-size: 10px; white-space: nowrap; }
+.photoreal-room .character-body { padding: 20px; }
+.photoreal-room .character-body > p { font-size: 12px; line-height: 1.8; margin: 12px 0; }
+.photoreal-room .character-details-toggle { display: flex; margin-top: 12px; }
+.photoreal-room .character-context:not(.expanded) { display: none; }
+@media (min-width: 761px) and (max-width: 1100px) {
+  .practice-grid.photoreal-room { grid-template-columns: minmax(230px, .8fr) minmax(300px, 1.2fr); gap: 16px; }
+}
+@media (max-width: 760px) {
+  .practice-grid.photoreal-room { display: flex; flex-direction: column; gap: 18px; }
+  .photoreal-room .character-panel { width: 100%; display: block; }
+  .photoreal-room .priya-stage { height: 240px; min-height: 0; }
+  .photoreal-room .priya-stage img { object-position: 50% 32%; }
+  .photoreal-room .priya-stage .priya-name { left: 18px; bottom: 17px; }
+  .photoreal-room .priya-name h2 { font-size: 29px; }
+  .photoreal-room .priya-name p { font-size: 11px; }
+  .photoreal-room .priya-presence { padding: 10px 14px; gap: 8px; }
+  .photoreal-room .priya-status { font-size: 11px; }
+  .portrait-mode-note { font-size: 9px; }
+  .photoreal-room .character-body { padding: 15px; }
+  .photoreal-room .character-body > p { font-size: 11px; }
+}
+@media (min-width: 761px) and (max-width: 900px) {
+  .practice-grid.photoreal-room { grid-template-columns: minmax(0, 1fr); }
+  .photoreal-room .priya-stage { height: 340px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .priya-avatar .priya-signal i { animation: none !important; transform: none !important; }
+}
+
+.simli-stage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.simli-stage video { width: 100%; height: 100%; object-fit: cover; visibility: hidden; }
+.simli-stage.connecting video, .simli-stage.ready video { visibility: visible; }
+.simli-stage audio { display: none; }
+.simli-controls { position: absolute; right: 15px; top: 15px; pointer-events: auto; }
+.simli-controls button { display: flex; align-items: center; gap: 7px; min-height: 36px; padding: 8px 11px; border: 1px solid #ffffff40; border-radius: 8px; background: #171923e8; color: #fff; font-size: 10px; cursor: pointer; }
+.simli-controls button:disabled { opacity: .7; cursor: default; }
+.simli-identity, .simli-disclosure, .simli-error { position: absolute; bottom: 16px; right: 15px; max-width: 220px; color: #fff; background: #171923e8; border-radius: 7px; padding: 8px 10px; font-size: 10px; line-height: 1.5; }
+.simli-error { bottom: 58px; }
+.simli-stage + .portrait-shade { z-index: 2; }
+.priya-stage .priya-name, .portrait-mode-label { z-index: 3; }
+.simli-controls, .simli-identity, .simli-disclosure, .simli-error { z-index: 4; }
+@media(max-width:760px) { .simli-controls { top: 12px; right: 12px; } .simli-controls button { font-size: 9px; padding: 7px; } .simli-disclosure, .simli-identity, .simli-error { max-width: 150px; font-size: 9px; right: 12px; } }
+
+.simli-wait { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 65px 25px; color: #fff; background: #10131dcc; font-size: 14px; text-align: center; z-index: 4; }
+.simli-controls { z-index: 5; display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }

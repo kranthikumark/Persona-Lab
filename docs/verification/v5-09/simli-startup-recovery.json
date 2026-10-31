@@ -1,0 +1,45 @@
+{
+  "localDate": "2026-10-31",
+  "timezone": "Asia/Kolkata",
+  "transport": "p2p",
+  "scope": "Live configured character plus software regressions; no human hearing claim",
+  "videoDimensions": {
+    "width": 768,
+    "height": 768,
+    "readyState": 4
+  },
+  "replyAudioOutput": {
+    "muted": false,
+    "paused": false,
+    "readyState": 4
+  },
+  "savedReplySpeaking": true,
+  "stopMutedAudio": true,
+  "automaticReplayAfterStop": "reached speaking in live check; subsequent new conversation check incomplete",
+  "fullNewConversationAcceptance": "pending",
+  "fullFaceScreenshot": "docs/screenshots/v5-09/simli-en-IN-speaking.png",
+  "unitChecksPassed": 146,
+  "speechBrowserChecksPassed": 24,
+  "targetedDatabaseChecksPassed": 1,
+  "productionBuild": "passed",
+  "typecheck": "passed",
+  "lint": "passed",
+  "clientPrivacy": "passed",
+  "diagnosticLocalAdmissionsRestored": 14,
+  "existingUserAdmissionsPreserved": true,
+  "userManualAcceptance": {
+    "localDate": "2026-10-31",
+    "source": "User confirmed the supplied four-step checklist all working",
+    "environment": "localhost",
+    "checks": {
+      "enableVideo": true,
+      "enableAutoSpeakWhileConnecting": true,
+      "waitingWithoutPrematureAudio": true,
+      "lipSync": true,
+      "stopReplay": true,
+      "recordingInterruption": true
+    },
+    "languageBrowserDevice": "not specified",
+    "scope": "Supplied manual checklist; does not overwrite incomplete automated new-conversation evidence"
+  }
+}

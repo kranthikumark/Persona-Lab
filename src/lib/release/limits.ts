@@ -15,7 +15,12 @@ function admissionKey(key: string) {
 // PostgreSQL admission counters are shared by all app instances. Failed provider
 // attempts consume admission too; successful retry replays never reach this gate.
 export async function reserveBudget(
-  budgets: { key: string; limit: number; windowSeconds: number }[],
+  budgets: {
+    key: string;
+    limit: number;
+    windowSeconds: number;
+    exceededMessage?: string;
+  }[],
 ) {
   await db.$transaction(async (tx) => {
     // A stable order prevents lock inversions when callers share several budgets.
@@ -37,7 +42,8 @@ export async function reserveBudget(
       if (!rows.length)
         throw new ApiError(
           429,
-          "The studio's usage limit has been reached. Try again later.",
+          budget.exceededMessage ??
+            "The studio's usage limit has been reached. Try again later.",
         );
     }
   });

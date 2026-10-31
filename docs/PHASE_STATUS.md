@@ -1,8 +1,10 @@
 # PERSONA LAB — Actual implementation status
 
-Updated October 30, 2026. This is local evidence, not public-release acceptance.
+Updated October 31, 2026. This is local evidence, not public-release acceptance.
 
 ## V5 progress
+
+**Latest: Simli photographic video preview integrated on localhost macOS.** The user selected Simli after the Meta-only API access investigation and configured both credentials. The avatar renders saved AI reply audio; Meta conversation/transcription and the portrait fallback remain. Provider/control acceptance details and platform limits are recorded in [Simli verification](V5_09_SIMLI.md). On October 31 the user accepted Enable video → Auto speak during connection → Wait without premature audio, lip-sync, Stop/Replay and recording interruption on localhost. Language/browser/device details were not specified. The independent new-turn live journey and AWS Ubuntu speech/deployment remain pending.
 
 **V5-06 local implementation and export verification are complete; human acceptance remains pending.** Added the corrected, versioned Indic evaluator, native report companions, shaped PDF output, embedded Word fonts and native sharing summaries. Older reports are retained. The user volunteered to review Telugu; approval is not yet recorded and Hindi needs a reviewer. See [V5-06 acceptance](V5_06_ACCEPTANCE.md).
 
@@ -140,3 +142,11 @@ October 30, 2026 playback acceptance update: Hindi and Telugu Auto speak replies
 October 30, 2026 dictation acceptance update: the user also confirmed the Hindi/Telugu Speak response → Stop → edit → Send flow working. Native dictation/reviewed submission are user-reported passes; microphone interruption of active AI playback remains awaiting explicit human confirmation.
 
 October 30, 2026 interruption acceptance update: the user confirmed that starting recording stops Priya’s active playback. The requested localhost Hindi/Telugu playback, Replay, reviewed dictation and interruption checks are now accepted by user report. No separate locale/device breakdown was supplied for interruption. Production release and fluent translation-content approval remain separate.
+
+## V5-09 — speaking 2D character implemented locally
+
+October 30, 2026: added illustrated Priya with portrait fallback, actual playback-start/stop-driven approximate motion, full-reply captions, ordered capture/transcription/thinking/preparation/speaking states, reduced motion and responsive layout. The renderer cannot modify simulation state. The local V5-09 implementation is complete; prior user audio acceptance is preserved, while human visual review of the new renderer is not yet reported. See [2D character acceptance](V5_09_2D_CHARACTER.md). Streaming/full-duplex, native translation release review and AWS deployment remain separate.
+
+October 30, 2026 Telugu voice availability fix: Geeta and Enhanced are installed. Added a development-loopback macOS fallback for browsers whose Web Speech voice catalog omits Telugu, with owned saved-reply-only WAV generation, transient-file cleanup and existing playback/character cancellation. Real Geeta synthesis and HTMLAudio playback checks passed; no new human hearing result is claimed. See [local Mac voice fallback](V5_09_LOCAL_MAC_VOICE.md).
+
+October 30, 2026 visual direction update: user requires photorealistic live characters and Meta Muse Realtime Avatar only. The cartoon is removed and the photo-based practice layout is delivered locally. Actual photo lip-sync is pending official developer/preview API access, not complete. Existing local audio/transcription behavior remains available.

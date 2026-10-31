@@ -1,3 +1,5 @@
+> Update: the 2D character and synchronized voice states are now implemented. See [2D character acceptance](V5_09_2D_CHARACTER.md). Earlier mentions of the avatar remaining pending are historical.
+
 # V5-09 — spoken replies and native-language voice preview
 
 Implemented October 30, 2026. Local implementation and provider checks are distinct from human language/device acceptance.

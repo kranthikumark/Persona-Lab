@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-30",
+  "provider": "simli",
+  "scope": "Live configured custom-face session; owned public-scenario test only; no human hearing claim",
+  "tokenHttpStatus": 200,
+  "firstFrameReady": true,
+  "videoDimensions": {
+    "width": 768,
+    "height": 768,
+    "readyState": 4
+  },
+  "savedReplySpeaking": true,
+  "stopReturnedReady": true,
+  "endVideoReturnedPortrait": true
+}

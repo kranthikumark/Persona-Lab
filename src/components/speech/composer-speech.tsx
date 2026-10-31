@@ -24,7 +24,7 @@ import {
   receiveVoiceChoice,
   VOICE_CHOICE_KEY,
 } from "@/lib/speech/choice";
-type Phase = "idle" | "permission" | "recording" | "transcribing";
+import type { CapturePhase as Phase } from "@/lib/speech/voice-stage";
 export function ComposerSpeech({
   branchId,
   locale,
@@ -32,6 +32,7 @@ export function ComposerSpeech({
   busy,
   onTranscript,
   onActivity,
+  onPhase,
 }: {
   branchId: string;
   locale: "en-IN" | "hi-IN" | "te-IN";
@@ -39,6 +40,7 @@ export function ComposerSpeech({
   busy: boolean;
   onTranscript: (text: string, receipt: string) => void;
   onActivity: (active: boolean) => void;
+  onPhase: (phase: Phase) => void;
 }) {
   const search = useSearchParams();
   const [available, setAvailable] = useState(false),
@@ -50,6 +52,10 @@ export function ComposerSpeech({
     [message, setMessage] = useState(""),
     [seconds, setSeconds] = useState(0),
     [retry, setRetry] = useState(false);
+  useEffect(() => {
+    onPhase(phase);
+  }, [phase, onPhase]);
+  useEffect(() => () => onPhase("idle"), [onPhase]);
   const capture = useRef<PcmCapture | null>(null),
     controller = useRef<AbortController | null>(null),
     job = useRef(0),

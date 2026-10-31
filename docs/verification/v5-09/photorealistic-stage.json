@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-30",
+  "scope": "user-requested photorealistic practice layout; Meta-only future live avatar",
+  "cartoonRemoved": true,
+  "currentRenderer": "static photograph with real speech activity and captions; no fabricated lip sync",
+  "checks": {
+    "unitPassed": 136,
+    "speechCharacterBrowserPassed": 21,
+    "journeyPolishPassed": 9,
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed",
+    "clientPrivacy": "passed; 22 client files"
+  },
+  "responsiveWidthsChecked": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "accessibility": "light/dark stage and composer audits; reduced motion and keyboard/failure journey checks passed",
+  "visualInspection": [
+    "photoreal-dark-1440.png",
+    "photoreal-dark-390.png",
+    "photoreal-light-1440.png",
+    "photoreal-light-390.png",
+    "photoreal-room-dark-1440.png"
+  ],
+  "avatarProviderChoice": "Meta Muse Realtime Avatar only",
+  "metaApiCatalogCheck": "HTTP 200; nine model IDs, no Realtime Avatar/Realtime Voice listed; see meta-avatar-access.json",
+  "realPhotoLipSync": "pending verified Meta developer/preview API access and contract; no generated video claimed",
+  "mediaUploadedToAvatarProvider": false,
+  "newHumanVisualAcceptance": "not yet reported"
+}

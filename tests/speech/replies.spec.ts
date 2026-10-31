@@ -129,6 +129,13 @@ for (const locale of ["en-IN", "hi-IN", "te-IN"] as const) {
 test("missing Telugu voice does not speak English or use a remote voice", async ({
   page,
 }) => {
+  await page.route("**/api/capabilities", async (route) => {
+    const response = await route.fetch();
+    const data = await response.json();
+    data.speech.nativePlayback = { voices: {} };
+    await route.fulfill({ json: data });
+  });
+
   await page.addInitScript(() => {
     Object.defineProperty(window, "speechSynthesis", {
       value: {

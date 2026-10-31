@@ -22,6 +22,8 @@ export default defineConfig({
     timeout: 120000,
     env: {
       AI_PROVIDER: "mock",
+      SIMLI_API_KEY: "",
+      SIMLI_FACE_ID: "",
       META_API_KEY: "synthetic-never-used-for-network",
       APP_ORIGIN: "http://127.0.0.1:3101",
       PERSONA_ACCEPTANCE_RUN: randomUUID(),

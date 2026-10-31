@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-30",
+  "scope": "Synthetic delayed provider and browser-frame regression; no real Simli starts consumed",
+  "queuedDuringConnection": true,
+  "deviceAudioSuppressedWhileVideoSelected": true,
+  "failureRequiresExplicitVoiceOnlyChoice": true,
+  "freshVideoFrameRequiredBeforeAudioRelease": true,
+  "abortedFrameCannotReleaseAudio": true,
+  "missingFrameDeadlineSeconds": 15,
+  "unitTestsPassed": 144,
+  "speechBrowserTestsPassed": 23,
+  "productionBuild": "passed",
+  "lint": "passed",
+  "typecheck": "passed",
+  "clientPrivacy": "passed",
+  "realLowBandwidthDeviceAcceptance": "pending user confirmation"
+}

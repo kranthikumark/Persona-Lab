@@ -319,9 +319,9 @@ test("provider failure announces progress, keeps a draft on reload and retries w
   const draft = "Could we review the exclusions?";
   await page.getByLabel("Your response to Priya").fill(draft);
   await page.getByRole("button", { name: "Send response" }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "Preparing Priya's response",
-  );
+  await expect(
+    page.getByRole("status").filter({ hasText: "Preparing Priya's response" }),
+  ).toBeVisible();
   await expect(page.getByLabel("Your response to Priya")).toHaveJSProperty(
     "readOnly",
     true,

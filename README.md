@@ -129,3 +129,15 @@ The V5-08 diagnostic room remains at `/sessions/SESSION_ID/speech-check` for iso
 ### Spoken replies and Hindi/Telugu voice preview
 
 Run `npm run dev:locales` for the localhost language acceptance preview. Select a language before starting a new practice. **Auto speak replies** enables matching installed-device playback; **Stop reply** and **Replay reply** stay inline. Beginning recording stops playback. If a matching voice is missing, install it in device settings; text and dictation remain available. Hindi/Telugu live ASR sample checks passed with recognition differences; human three-language listening/microphone acceptance is pending. See [current voice acceptance](docs/V5_09_SPOKEN_REPLIES.md).
+
+### Priya’s photographic practice view
+
+Practice uses Priya’s photograph in a larger stage with full-reply captions and Listening/Transcribing/Thinking/Speaking activity. The image is static; there is no simulated facial motion. Enable video avatar starts the configured Simli face, driven by saved reply audio. See [Simli preview setup and acceptance](docs/V5_09_SIMLI.md).
+
+### Installed Telugu voice not visible to the browser
+
+On localhost macOS, practice can use installed Geeta/Geeta Enhanced through local WAV playback when the browser does not expose a Telugu Web Speech voice. Refresh practice; Auto speak and Replay use the fallback automatically. It generates only saved AI replies, removes temporary generated files, and makes no cloud TTS request. This development-only Mac fallback is unavailable on AWS Ubuntu. See [local Mac voice verification](docs/V5_09_LOCAL_MAC_VOICE.md).
+
+### Simli live video preview
+
+The user-selected Simli key and face ID stay in the ignored server environment. On localhost macOS, run `npm run dev:locales`, open practice and click **Enable video avatar**. Then use **Replay reply** or **Auto speak replies** and send a response. The configured face renders reply audio as synchronized video; Meta still creates the saved conversation and handles dictation. Video is an explicit two-minute preview with bounded admissions; ending video restores the portrait and device speech. The current PCM speech source requires installed Mac voices and is not yet available on AWS Ubuntu. See [setup, verification and remaining acceptance](docs/V5_09_SIMLI.md).

@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-30",
+  "endpoint": "GET https://api.meta.ai/v1/models",
+  "httpStatus": 200,
+  "listedModelIds": [
+    "muse-wonder-1.0",
+    "sam-3.1",
+    "muse-spark-1.3-contributor",
+    "muse-voice-transcribe-1.0",
+    "muse-spark-1.3",
+    "muse-image-1.0",
+    "muse-spark-1.2-contributor",
+    "muse-spark-1.2",
+    "muse-spark-1.1"
+  ],
+  "avatarOrRealtimeVoiceListed": [
+    "muse-voice-transcribe-1.0"
+  ],
+  "scope": "Read-only catalog using existing server key; no media uploaded and no generation request sent. Catalog absence alone does not establish universal or private-preview availability."
+}

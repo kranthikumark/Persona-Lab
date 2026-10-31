@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-30",
+  "provider": "simli",
+  "locale": "hi-IN",
+  "scope": "Real configured face, native speech audio and WebRTC playback; no human hearing/lip-sync quality claim",
+  "videoDimensions": {
+    "width": 768,
+    "height": 768,
+    "readyState": 4
+  },
+  "step": "replay before recording interruption",
+  "savedReplySpeaking": true,
+  "stopMutedAudio": true,
+  "status": "incomplete",
+  "stage": "ready",
+  "playbackNotice": [
+    "Uses an installed device voice."
+  ],
+  "visibleError": [],
+  "controlSignals": [
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 4433
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SPEAK",
+      "at": 18690
+    },
+    {
+      "direction": "framesent",
+      "signal": "SKIP",
+      "at": 19998
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 27667
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 27667
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SPEAK",
+      "at": 27668
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 27668
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SPEAK",
+      "at": 27668
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SPEAK",
+      "at": 27668
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 33127
+    }
+  ]
+}

@@ -1,0 +1,1348 @@
+{
+  "date": "2026-10-30",
+  "provider": "simli",
+  "locale": "en-IN",
+  "scope": "Real configured face, native speech audio and WebRTC playback; no human hearing/lip-sync quality claim",
+  "videoDimensions": {
+    "width": 768,
+    "height": 768,
+    "readyState": 4
+  },
+  "step": "new conversation turn",
+  "savedReplySpeaking": true,
+  "replyAudioOutput": {
+    "muted": false,
+    "paused": false,
+    "readyState": 4
+  },
+  "stopMutedAudio": true,
+  "status": "incomplete",
+  "stage": "ready",
+  "playbackNotice": [
+    "Playback stopped."
+  ],
+  "visibleError": [],
+  "mediaSamples": [
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": false,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": false,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": false,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": false,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": false,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": []
+    },
+    {
+      "width": 0,
+      "readyState": 0,
+      "paused": true,
+      "time": 0,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 48,
+          "packetsLost": 0,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 79498,
+          "framesDecoded": 0,
+          "keyFramesDecoded": 0,
+          "framesReceived": 0,
+          "packetsLost": 5,
+          "pliCount": 1
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 0.670323,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 117,
+          "packetsLost": 28,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 300313,
+          "framesDecoded": 5,
+          "keyFramesDecoded": 1,
+          "framesReceived": 5,
+          "packetsLost": 214,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 1.674699,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 177,
+          "packetsLost": 62,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 550896,
+          "framesDecoded": 7,
+          "keyFramesDecoded": 2,
+          "framesReceived": 7,
+          "packetsLost": 524,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 2.682648,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 3335,
+          "packetsLost": 103,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 787566,
+          "framesDecoded": 7,
+          "keyFramesDecoded": 2,
+          "framesReceived": 7,
+          "packetsLost": 701,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 3.676614,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 6126,
+          "packetsLost": 143,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 1021797,
+          "framesDecoded": 14,
+          "keyFramesDecoded": 3,
+          "framesReceived": 14,
+          "packetsLost": 828,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 4.687344,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 6388,
+          "packetsLost": 168,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 1257033,
+          "framesDecoded": 21,
+          "keyFramesDecoded": 4,
+          "framesReceived": 21,
+          "packetsLost": 1134,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 5.687699,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 6430,
+          "packetsLost": 223,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 1494064,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 1269,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 6.690585,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 6472,
+          "packetsLost": 255,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 1704248,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 1528,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 7.688358,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 7128,
+          "packetsLost": 291,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 1941405,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 1640,
+          "pliCount": 1,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 8.696212,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 8052,
+          "packetsLost": 348,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 2186466,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 1831,
+          "pliCount": 2,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 9.699248,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 9317,
+          "packetsLost": 385,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 2436556,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 2167,
+          "pliCount": 4,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 10.700892,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 11271,
+          "packetsLost": 421,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 2669190,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 2395,
+          "pliCount": 4,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 11.699632,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 12691,
+          "packetsLost": 470,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 2901614,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 2536,
+          "pliCount": 5,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 12.70084,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15840,
+          "packetsLost": 512,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 3124836,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 2830,
+          "pliCount": 5,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 13.703633,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15873,
+          "packetsLost": 551,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 3360815,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 3053,
+          "pliCount": 5,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 14.698099,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15921,
+          "packetsLost": 575,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 3585502,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 3229,
+          "pliCount": 6,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 15.706067,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15933,
+          "packetsLost": 630,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 3822013,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 3475,
+          "pliCount": 6,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 16.708513,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15951,
+          "packetsLost": 650,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 4057325,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 3819,
+          "pliCount": 6,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 17.710978,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15981,
+          "packetsLost": 709,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 4290828,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 4066,
+          "pliCount": 9,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 18.712571,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 15996,
+          "packetsLost": 754,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 4528810,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 4280,
+          "pliCount": 9,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 19.714691,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16017,
+          "packetsLost": 804,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 4776340,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 4508,
+          "pliCount": 9,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 20.717038,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16053,
+          "packetsLost": 842,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 5014999,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 4698,
+          "pliCount": 10,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 21.719693,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16083,
+          "packetsLost": 882,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 5249480,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 5042,
+          "pliCount": 10,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 22.720827,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16152,
+          "packetsLost": 909,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 5484544,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 5219,
+          "pliCount": 10,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 23.721876,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16173,
+          "packetsLost": 947,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 5721782,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 5344,
+          "pliCount": 11,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 24.724028,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16215,
+          "packetsLost": 991,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 5959907,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 5771,
+          "pliCount": 13,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 25.72823,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16269,
+          "packetsLost": 1020,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 6197099,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 5968,
+          "pliCount": 13,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 26.728721,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16314,
+          "packetsLost": 1050,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 6433336,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 6212,
+          "pliCount": 14,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 27.73055,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16344,
+          "packetsLost": 1090,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 6670192,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 6470,
+          "pliCount": 14,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 28.732465,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16374,
+          "packetsLost": 1135,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 6908941,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 6731,
+          "pliCount": 14,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 29.734004,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16404,
+          "packetsLost": 1170,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 7147591,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 6877,
+          "pliCount": 15,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 30.736829,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16431,
+          "packetsLost": 1216,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 7383738,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 7171,
+          "pliCount": 15,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 31.739528,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16494,
+          "packetsLost": 1245,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 7609393,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 7532,
+          "pliCount": 17,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 32.740979,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16527,
+          "packetsLost": 1279,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 7846348,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 7671,
+          "pliCount": 18,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 33.742931,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16554,
+          "packetsLost": 1325,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 8080434,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 8011,
+          "pliCount": 18,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 34.744957,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16578,
+          "packetsLost": 1367,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 8317392,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 8205,
+          "pliCount": 18,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 35.745217,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16614,
+          "packetsLost": 1394,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 8556208,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 8316,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 36.746379,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 8795346,
+          "framesDecoded": 24,
+          "keyFramesDecoded": 5,
+          "framesReceived": 24,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 37.748524,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 9032245,
+          "framesDecoded": 30,
+          "keyFramesDecoded": 6,
+          "framesReceived": 30,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 38.749319,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 9274888,
+          "framesDecoded": 30,
+          "keyFramesDecoded": 6,
+          "framesReceived": 30,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 39.752603,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 9501192,
+          "framesDecoded": 30,
+          "keyFramesDecoded": 6,
+          "framesReceived": 30,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 40.751469,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 9738181,
+          "framesDecoded": 45,
+          "keyFramesDecoded": 7,
+          "framesReceived": 47,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 41.754361,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 9976526,
+          "framesDecoded": 50,
+          "keyFramesDecoded": 7,
+          "framesReceived": 52,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 42.755595,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 10207140,
+          "framesDecoded": 62,
+          "keyFramesDecoded": 8,
+          "framesReceived": 64,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "readyState": 4,
+      "paused": false,
+      "time": 43.758546,
+      "attached": true,
+      "visibility": "visible",
+      "hidden": false,
+      "stats": [
+        {
+          "kind": "audio",
+          "bytes": 16629,
+          "packetsLost": 1420,
+          "codec": "audio/opus"
+        },
+        {
+          "kind": "video",
+          "bytes": 10316480,
+          "framesDecoded": 66,
+          "keyFramesDecoded": 9,
+          "framesReceived": 68,
+          "packetsLost": 8598,
+          "pliCount": 19,
+          "codec": "video/H264"
+        }
+      ]
+    }
+  ],
+  "playbackRequests": [
+    {
+      "status": 200,
+      "at": 1793391145140
+    },
+    {
+      "status": 200,
+      "at": 1793391147583
+    }
+  ],
+  "controlSignals": [
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 5591
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SILENT",
+      "at": 5729
+    },
+    {
+      "direction": "framesent",
+      "signal": "SKIP",
+      "at": 11350
+    },
+    {
+      "direction": "framesent",
+      "signal": "SKIP",
+      "at": 12246
+    },
+    {
+      "direction": "framereceived",
+      "signal": "SPEAK",
+      "at": 14756
+    }
+  ]
+}

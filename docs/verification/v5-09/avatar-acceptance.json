@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-30",
+  "scope": "Priya 2D renderer, voice-stage presentation and full-reply captions",
+  "implementation": "complete_locally",
+  "checks": {
+    "unitPassed": 135,
+    "speechBrowserSuitePassed": 20,
+    "finalRendererFocusedPassed": 3,
+    "journeyPolishUniquePassedAcrossRuns": 9,
+    "journeyInitialPassed": 8,
+    "providerFailureFocusedRepeatPassed": 1,
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed; optional persistent cache disabled",
+    "clientPrivacy": "passed; 22 client files"
+  },
+  "testCorrection": "Provider-failure test now targets the conversation progress status; the new avatar introduces a separate voice status region. No partial-write behavior change.",
+  "renderer": "inline original SVG with approximate playback-lifecycle motion, existing portrait fallback and initials on portrait failure",
+  "speechSync": "native utterance start/end/error/pause; cancellation invalidates old callbacks including already-ended speech",
+  "testedLifecycle": [
+    "queued versus actually started",
+    "end then late start",
+    "cancel then late start",
+    "Stop and Replay",
+    "playback error and device pause",
+    "recording interrupts playback",
+    "capture and transcription",
+    "generation pending",
+    "pagehide",
+    "branch switch; old callback ignored",
+    "history unchanged",
+    "reduced motion; status retained",
+    "320/390/1440 reflow",
+    "light/dark accessibility"
+  ],
+  "realNativePlayback": "English installed-device start event observed with visible speaking and captions; Stop returned ready. See avatar-native-playback.json. No human hearing claim.",
+  "visualInspection": [
+    "avatar-dark-1440.png",
+    "avatar-dark-390.png",
+    "avatar-light-1440.png",
+    "avatar-light-390.png"
+  ],
+  "previousHumanAudioAcceptance": "Hindi/Telugu playback, Replay, reviewed submission and interruption accepted in earlier slice",
+  "newCharacterHumanVisualReview": "not_yet_reported",
+  "streamingFullDuplex": "not implemented; separate work",
+  "productionNativeRelease": false
+}

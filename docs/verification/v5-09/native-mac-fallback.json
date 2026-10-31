@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-30",
+  "scope": "local installed Mac playback fallback when Web Speech omits Telugu",
+  "installedVoices": [
+    "Geeta",
+    "Geeta (Enhanced)"
+  ],
+  "checks": {
+    "unitPassed": 136,
+    "otherSpeechCharacterBrowserPassed": 20,
+    "realNativeFallbackBrowserPassed": 1,
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed",
+    "clientPrivacy": "passed; 22 client files"
+  },
+  "browserCatalogInFallbackTest": "empty Web Speech list simulated; real installed Geeta synthesis and real HTMLAudio playing/ended lifecycle",
+  "securityChecks": [
+    "foreign origin rejected",
+    "foreign owner rejected",
+    "stale revision rejected",
+    "foreign message rejected",
+    "arbitrary text rejected",
+    "saved history and revision unchanged"
+  ],
+  "actualWavProbe": {
+    "bytes": 458228,
+    "durationSeconds": 9.461083,
+    "prefix": "RIFF"
+  },
+  "lifecycle": [
+    "real playing sets speaking",
+    "captions",
+    "Stop returns ready",
+    "Replay",
+    "microphone-start interrupts audio"
+  ],
+  "storage": "private temporary generated WAV deleted before response in normal cleanup; no-store/private response; blob URL revoked on completion/cancel",
+  "deployment": "development-only loopback macOS; disabled in production and Ubuntu",
+  "newHumanHearingAcceptance": "pending",
+  "visualInspection": "native-telugu-ready.png"
+}

@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-30",
+  "provider": "simli",
+  "locale": "te-IN",
+  "scope": "Real configured face, native speech audio and WebRTC playback; no human hearing/lip-sync quality claim",
+  "videoDimensions": {
+    "width": 768,
+    "height": 768,
+    "readyState": 4
+  },
+  "savedReplySpeaking": true,
+  "stopMutedAudio": true,
+  "recordingSignalMutedAudio": true,
+  "closedMediaTracks": true,
+  "historyUnchanged": true,
+  "status": "passed"
+}

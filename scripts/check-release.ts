@@ -37,6 +37,7 @@ async function check() {
     throw new Error("Missing credential");
   const forbidden = [
     process.env.META_API_KEY,
+    process.env.SIMLI_API_KEY,
     process.env.DATABASE_URL,
     "META_API_KEY",
     "privateKnowledge",

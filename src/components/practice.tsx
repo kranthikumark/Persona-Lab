@@ -7,7 +7,6 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -29,6 +28,13 @@ import { Shell } from "./shell";
 import { Button } from "./ui/button";
 import { Drawer } from "./ui/drawer";
 import { Facts } from "./studio";
+import type { SimliHandle } from "./speech/simli-avatar";
+import { PriyaAvatar } from "./speech/priya-avatar";
+import {
+  voiceStage,
+  type CapturePhase,
+  type PlaybackPhase,
+} from "@/lib/speech/voice-stage";
 import { ReplyPlayback } from "./speech/reply-playback";
 import { ComposerSpeech } from "./speech/composer-speech";
 import { TypingHelp } from "./typing-help";
@@ -66,7 +72,13 @@ function PracticeSession({
   const [view, setView] = useState<SessionView | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [turnPending, setTurnPending] = useState(false);
+  const [avatarReady, setAvatarReady] = useState(false);
+  const [videoMode, setVideoMode] = useState(false);
+  const avatar = useRef<SimliHandle | null>(null);
   const [voiceActive, setVoiceActive] = useState(false);
+  const [capturePhase, setCapturePhase] = useState<CapturePhase>("idle");
+  const [playbackPhase, setPlaybackPhase] = useState<PlaybackPhase>("idle");
   const [composing, setComposing] = useState(false);
   const [contextOpen, setContextOpen] = useState(false);
   const [panel, setPanel] = useState<"facts" | "coach" | null>(null);
@@ -151,6 +163,7 @@ function PracticeSession({
       document.activeElement,
     );
     setBusy(true);
+    setTurnPending(true);
     setError("");
     const text = draft;
     if (
@@ -174,6 +187,7 @@ function PracticeSession({
       setError((e as Error).message);
     } finally {
       setBusy(false);
+      setTurnPending(false);
       if (restoreComposer) {
         requestAnimationFrame(() => {
           // Restore a submit button's lost focus, without interrupting someone
@@ -314,23 +328,18 @@ function PracticeSession({
                 )}
               </Button>
             </div>
-            <div className="practice-grid">
+            <div className="practice-grid photoreal-room">
               <aside className="character-panel">
-                <div className="character-photo">
-                  <Image
-                    src="/images/priya.webp"
-                    alt="Priya, your fictional conversation partner"
-                    fill
-                    sizes="250px"
-                    priority
-                  />
-                  <div className="portrait-shade" />
-                  <div>
-                    <span className="eyebrow">YOUR COUNTERPART</span>
-                    <h2>Priya</h2>
-                    <p>Prospective customer</p>
-                  </div>
-                </div>
+                <PriyaAvatar
+                  stage={voiceStage(capturePhase, turnPending, playbackPhase)}
+                  branchId={view.branch.id}
+                  revision={view.branch.revision}
+                  locale={locale}
+                  avatarRef={avatar}
+                  onAvatarReady={setAvatarReady}
+                  onVideoMode={setVideoMode}
+                  videoReady={avatarReady}
+                />
                 <div className="character-body">
                   <span className="pill neutral">Thoughtful & skeptical</span>
                   <p>
@@ -534,6 +543,12 @@ function PracticeSession({
                       null
                     }
                     blocked={busy || voiceActive}
+                    onPhase={setPlaybackPhase}
+                    avatarRef={avatar}
+                    avatarReady={avatarReady}
+                    videoMode={videoMode}
+                    branchId={view.branch.id}
+                    revision={view.branch.revision}
                   />
                   {locale !== "en-IN" && <TypingHelp locale={locale} />}
                   {
@@ -545,6 +560,7 @@ function PracticeSession({
                         revision={view.branch.revision}
                         busy={busy}
                         onActivity={setVoiceActive}
+                        onPhase={setCapturePhase}
                         onTranscript={(text, receipt) => {
                           const previous =
                             sessionStorage.getItem(storageKey) ?? "";
