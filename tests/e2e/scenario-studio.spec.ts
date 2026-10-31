@@ -30,7 +30,10 @@ for (const theme of ["dark", "light"] as const)
       .selectOption("advanced");
     await expect(page.getByText("No matching scenarios yet.")).toBeVisible();
     await page.getByRole("button", { name: "Reset filters" }).click();
-    await page.getByRole("link", { name: "Create a text draft" }).click();
+    await page
+      .getByRole("main")
+      .getByRole("link", { name: "Create a scenario" })
+      .click();
     await expect(
       page.getByRole("heading", { name: "Make room for a new brief." }),
     ).toBeVisible();

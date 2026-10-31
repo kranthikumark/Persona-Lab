@@ -14,3 +14,4 @@ test-results/
 *.log
 output/reports/
 .backups/
+.private-media/

@@ -4,6 +4,15 @@ const config: NextConfig = {
   poweredByHeader: false,
   devIndicators: false,
   serverExternalPackages: ["playwright-core"],
+  outputFileTracingExcludes: {
+    "/*": [
+      "./.private-media/**/*",
+      "./.backups/**/*",
+      "./output/reports/**/*",
+      "./.env",
+      "./.env.*",
+    ],
+  },
   outputFileTracingIncludes: {
     "/api/branches/*/evaluation/export": [
       "./assets/report-fonts/*",

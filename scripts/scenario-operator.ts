@@ -1,6 +1,7 @@
 import { loadEnvFile } from "node:process";
 import { db } from "../src/lib/db";
 import { reviewDraft, publishDraft } from "../src/lib/catalog/service";
+import { sourceList } from "../src/lib/media/service";
 loadEnvFile(".env");
 // Execution is authorized by access to this server's OS account. This command
 // is deliberately absent from HTTP routes; never expose it as a web shell.
@@ -23,6 +24,7 @@ try {
           status: row.status,
           content: row.content,
           review: row.review,
+          privateSources: (await sourceList(id, row.ownerHash)).sources,
         },
         null,
         2,

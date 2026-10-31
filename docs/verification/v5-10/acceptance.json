@@ -1,0 +1,51 @@
+{
+  "localDate": "2026-10-31",
+  "scope": "V5-10 localhost implementation; own-clip human acceptance pending",
+  "migration": "20261031014000_private_scenario_sources",
+  "migrationKind": "additive tables and transcript update guard",
+  "beforeBackupRestore": {
+    "tables": 14,
+    "rows": 2163,
+    "schemaMatched": true,
+    "allRowsMatched": true
+  },
+  "afterBackupRestore": {
+    "tables": 16,
+    "rows": 2171,
+    "schemaMatched": true,
+    "allRowsMatched": true
+  },
+  "unitPassed": 149,
+  "isolatedMediaDatabasePassed": 5,
+  "existingIsolatedCatalogDatabasePassed": 3,
+  "newMediaBrowserPassed": 3,
+  "existingScenarioStudioBrowserPassed": 3,
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "reflowWidths": [
+    1440,
+    390,
+    320
+  ],
+  "automatedAccessibilityViolations": 0,
+  "liveMetaVideoTranscription": "passed with authored synthetic English fixture",
+  "foreignFileAccess": 404,
+  "privateRangeRead": 206,
+  "fileAfterDeletion": 404,
+  "mainFixtureCleanup": {
+    "sourceRows": 0,
+    "transcriptRows": 0,
+    "privateStoreEntries": 0
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "productionBuild": "passed",
+  "clientPrivacy": "passed",
+  "privateServerFileTracing": "passed",
+  "sourceStorage": "private local filesystem; no S3 deployment",
+  "humanOwnClipAcceptance": "not yet reported",
+  "awsDeployment": "not performed",
+  "repositoryDelivery": "Commit and push requested by user October 31, 2026"
+}

@@ -4,7 +4,9 @@ Updated October 31, 2026. This is local evidence, not public-release acceptance.
 
 ## V5 progress
 
-**Latest: Simli photographic video preview integrated on localhost macOS.** The user selected Simli after the Meta-only API access investigation and configured both credentials. The avatar renders saved AI reply audio; Meta conversation/transcription and the portrait fallback remain. Provider/control acceptance details and platform limits are recorded in [Simli verification](V5_09_SIMLI.md). On October 31 the user accepted Enable video → Auto speak during connection → Wait without premature audio, lip-sync, Stop/Replay and recording interruption on localhost. Language/browser/device details were not specified. The independent new-turn live journey and AWS Ubuntu speech/deployment remain pending.
+**Latest: V5-10 private audio/video reference sources implemented locally.** Scenario Studio now supports private short-clip upload, Meta audio transcription or manual entry, immutable transcript review/history, reviewed source attachment, operator publication checks, owner-only playback and retention/deletion cleanup. Additive migration and backup/restore passed; current software/live evidence is in [V5-10 acceptance](V5_10_ACCEPTANCE.md). Own-clip human acceptance and AWS deployment remain pending.
+
+**V5-09 Simli localhost controls accepted by the user on October 31.** Enable video → Auto speak during connection → Wait without premature audio, lip-sync, Stop/Replay and recording interruption passed by user report. Language/browser/device details were not specified. The independent new-turn live journey and AWS Ubuntu speech/deployment remain pending. See [Simli verification](V5_09_SIMLI.md).
 
 **V5-06 local implementation and export verification are complete; human acceptance remains pending.** Added the corrected, versioned Indic evaluator, native report companions, shaped PDF output, embedded Word fonts and native sharing summaries. Older reports are retained. The user volunteered to review Telugu; approval is not yet recorded and Hindi needs a reviewer. See [V5-06 acceptance](V5_06_ACCEPTANCE.md).
 

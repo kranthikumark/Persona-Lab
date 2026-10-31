@@ -184,6 +184,8 @@ First local slice: [speech dictation in the practice composer](V5_09_DICTATION.m
 
 ### V5-10 Add private audio and video authoring sources
 
+**October 31 local implementation:** [V5-10 acceptance](V5_10_ACCEPTANCE.md) records delivered private sources, reviewed/versioned transcripts, publication gating and deletion. Own-clip human review and deployment remain separate.
+
 **Priority:** P2, optional. **Depends on:** verified voice slice and media consent/storage design.
 
 - Add private object storage, source provenance, locale, processing status and versioned transcripts.

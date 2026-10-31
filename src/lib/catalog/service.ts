@@ -6,6 +6,8 @@ import { reserveBudget } from "@/lib/release/limits";
 import { insuranceScenario } from "@/lib/scenarios/insurance";
 import { CatalogSchema, DEFAULT_CATALOG } from "@/lib/practice/metadata";
 import { DraftContentSchema, initialDraft, type CatalogEntry } from "./schema";
+import { reviewedSources } from "@/lib/media/review";
+import { eraseSourceObject } from "@/lib/media/service";
 
 export const contentHash = (content: unknown) =>
   hash(JSON.stringify(DraftContentSchema.parse(content)));
@@ -91,6 +93,18 @@ export async function saveDraft(
 ) {
   requireOwner(owner);
   const content = DraftContentSchema.parse(input);
+  const current = await db.scenarioDraft.findFirst({
+    where: { id, ownerHash: owner, revision, expiresAt: { gt: new Date() } },
+  });
+  if (
+    current &&
+    JSON.stringify(content.sources ?? []) !==
+      JSON.stringify(DraftContentSchema.parse(current.content).sources ?? [])
+  )
+    throw new ApiError(
+      400,
+      "Use the source review controls to attach or remove sources.",
+    );
   const result = await db.scenarioDraft.updateMany({
     where: { id, ownerHash: owner, revision, expiresAt: { gt: new Date() } },
     data: {
@@ -115,11 +129,28 @@ export async function saveDraft(
 }
 export async function deleteDraft(id: string, owner: string | null) {
   requireOwner(owner);
-  const result = await db.scenarioDraft.deleteMany({
-    where: { id, ownerHash: owner },
+  const assets = await db.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "ScenarioDraft" WHERE "id"=${id} AND "ownerHash"=${owner} FOR UPDATE`;
+    const row = await tx.scenarioDraft.findFirst({
+      where: { id, ownerHash: owner },
+    });
+    if (!row) throw new ApiError(404, "Draft not found on this browser.");
+    const assets = await tx.scenarioSourceAsset.findMany({
+      where: { draftId: id },
+      select: { id: true },
+    });
+    await tx.scenarioSourceAsset.updateMany({
+      where: { draftId: id },
+      data: {
+        status: "deleting",
+        revision: { increment: 1 },
+        processingUntil: null,
+      },
+    });
+    await tx.scenarioDraft.delete({ where: { id } });
+    return assets;
   });
-  if (!result.count)
-    throw new ApiError(404, "Draft not found on this browser.");
+  for (const asset of assets) await eraseSourceObject(asset.id);
   return { deleted: true };
 }
 // Only imported by the local OS-operator CLI and integration tests. No HTTP
@@ -131,28 +162,33 @@ export async function reviewDraft(
 ) {
   if (!reviewer.trim() || reviewer.length > 120)
     throw new ApiError(400, "A named operator review is required.");
-  const row = await db.scenarioDraft.findFirst({
-    where: { id, revision, expiresAt: { gt: new Date() } },
+  return db.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "ScenarioDraft" WHERE "id"=${id} FOR UPDATE`;
+    const row = await tx.scenarioDraft.findFirst({
+      where: { id, revision, expiresAt: { gt: new Date() } },
+    });
+    if (!row) throw new ApiError(409, "Draft missing, expired or changed.");
+    const content = DraftContentSchema.parse(row.content);
+    const sources = await reviewedSources(tx, row);
+    const review = {
+      role: "local_operator",
+      reviewer: reviewer.trim(),
+      revision,
+      contentHash: contentHash(content),
+      reviewedAt: new Date().toISOString(),
+      locale: "en-IN",
+      translationStatus: "reviewed",
+      runtime: "insurance-v1-rules-v2",
+      rubric: "insurance-rubric-v3",
+      ...(sources.length ? { sources } : {}),
+    };
+    const changed = await tx.scenarioDraft.updateMany({
+      where: { id, revision, expiresAt: { gt: new Date() } },
+      data: { status: "reviewed", review },
+    });
+    if (!changed.count) throw new ApiError(409, "Draft changed during review.");
+    return review;
   });
-  if (!row) throw new ApiError(409, "Draft missing, expired or changed.");
-  const content = DraftContentSchema.parse(row.content);
-  const review = {
-    role: "local_operator",
-    reviewer: reviewer.trim(),
-    revision,
-    contentHash: contentHash(content),
-    reviewedAt: new Date().toISOString(),
-    locale: "en-IN",
-    translationStatus: "reviewed",
-    runtime: "insurance-v1-rules-v2",
-    rubric: "insurance-rubric-v3",
-  };
-  const changed = await db.scenarioDraft.updateMany({
-    where: { id, revision, expiresAt: { gt: new Date() } },
-    data: { status: "reviewed", review },
-  });
-  if (!changed.count) throw new ApiError(409, "Draft changed during review.");
-  return review;
 }
 export async function publishDraft(id: string, revision: number) {
   return db.$transaction(async (tx) => {
@@ -185,6 +221,7 @@ export async function publishDraft(id: string, revision: number) {
       },
     });
     if (existing) return { scenarioId: existing.scenarioId };
+    await reviewedSources(tx, row);
     const latest = await tx.scenario.findFirst({
       where: { slug: insuranceScenario.slug },
       orderBy: { version: "desc" },

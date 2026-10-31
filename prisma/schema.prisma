@@ -154,7 +154,48 @@ model ScenarioDraft {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   expiresAt DateTime
+  sourceAssets ScenarioSourceAsset[]
   @@index([ownerHash, expiresAt])
+}
+
+model ScenarioSourceAsset {
+  id String @id @default(uuid())
+  ownerHash String
+  draftId String?
+  draft ScenarioDraft? @relation(fields: [draftId], references: [id], onDelete: SetNull)
+  revision Int @default(1)
+  status String @default("uploading")
+  originalName String
+  kind String
+  contentType String
+  byteSize Int
+  sha256 String?
+  durationMs Int?
+  locale String
+  consent Json
+  failureReason String?
+  processingUntil DateTime?
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  transcripts SourceTranscript[]
+  @@index([ownerHash, draftId])
+  @@index([expiresAt, status])
+}
+
+model SourceTranscript {
+  id String @id @default(cuid())
+  assetId String
+  asset ScenarioSourceAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  version Int
+  text String
+  translation String?
+  locale String
+  provider String
+  model String?
+  basedOnVersion Int?
+  reviewedAt DateTime?
+  createdAt DateTime @default(now())
+  @@unique([assetId, version])
 }
 
 model ScenarioPublication {

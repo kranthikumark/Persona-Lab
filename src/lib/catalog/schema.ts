@@ -20,6 +20,19 @@ export const DraftContentSchema = z
     }),
     objectives: z.array(z.string().trim().min(5).max(240)).min(1).max(5),
     character: z.literal("priya-insurance-v1"),
+    // Optional preserves hashes of legacy drafts and immutable publications.
+    sources: z
+      .array(
+        z
+          .object({
+            assetId: z.uuid(),
+            transcriptVersion: z.number().int().positive(),
+            transcriptHash: z.string().regex(/^[a-f0-9]{64}$/),
+          })
+          .strict(),
+      )
+      .max(5)
+      .optional(),
     constraints: z.array(z.string()),
     approvedFacts: z.array(
       z

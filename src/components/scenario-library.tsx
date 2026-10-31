@@ -59,7 +59,7 @@ export function ScenarioLibrary({
           <h2 id="library-title">The practice library</h2>
         </div>
         <Link href="/create" className="resume-link">
-          <Plus size={16} /> Create a text draft
+          <Plus size={16} /> Create a scenario
         </Link>
       </div>
       <div className="catalog-filters">

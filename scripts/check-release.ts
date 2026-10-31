@@ -1,6 +1,6 @@
 import { loadEnvFile } from "node:process";
 import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join, resolve, dirname, sep } from "node:path";
 import { insuranceScenario } from "../src/lib/scenarios/insurance";
 
 try {
@@ -58,10 +58,35 @@ async function check() {
     )
       throw new Error("Private content in build");
   }
+  const privateRoots = [
+    resolve(".private-media"),
+    resolve(".backups"),
+    resolve("output/reports"),
+    ...(process.env.PERSONA_MEDIA_DIR
+      ? [resolve(process.env.PERSONA_MEDIA_DIR)]
+      : []),
+  ];
+  const traces = (await filesAt(".next/server")).filter((file) =>
+    file.endsWith(".nft.json"),
+  );
+  for (const trace of traces) {
+    const entries = JSON.parse(await readFile(trace, "utf8")).files as string[];
+    for (const entry of entries) {
+      const target = resolve(dirname(trace), entry);
+      if (
+        privateRoots.some(
+          (root) => target === root || target.startsWith(root + sep),
+        ) ||
+        target === resolve(".env")
+      )
+        throw new Error("Private retained files in server trace");
+    }
+  }
   console.log(
     JSON.stringify({
       configuration: "passed",
       clientPrivacy: "passed",
+      privateFileTracing: "passed",
       scannedFiles: files.length,
       deployment: local ? "localhost" : "https-configured",
       provider: process.env.AI_PROVIDER,

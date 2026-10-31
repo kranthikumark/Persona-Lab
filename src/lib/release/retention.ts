@@ -1,10 +1,12 @@
 import "server-only";
 import { db } from "@/lib/db";
+import { purgeSourceAssets } from "@/lib/media/service";
 
 export async function purgeExpiredSessions(batchSize = 100) {
   if (!Number.isInteger(batchSize) || batchSize < 1 || batchSize > 1000)
     throw new Error("Cleanup batch size must be between 1 and 1000.");
-  return db.$transaction(async (tx) => {
+  const removedBefore = await purgeSourceAssets(batchSize);
+  const result = await db.$transaction(async (tx) => {
     // Concurrent cleanup workers claim distinct bounded batches. First detach
     // references inside each aggregate so branch/snapshot cascades can run.
     const rows = await tx.$queryRaw<{ id: string }[]>`
@@ -37,4 +39,8 @@ export async function purgeExpiredSessions(batchSize = 100) {
       deletedRateBuckets: buckets.count,
     };
   });
+  return {
+    ...result,
+    deletedSourceAssets: removedBefore + (await purgeSourceAssets(batchSize)),
+  };
 }

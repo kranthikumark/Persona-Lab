@@ -1,0 +1,20 @@
+{
+  "localDate": "2026-10-31",
+  "scope": "Owned synthetic video source; one real Meta audio transcription; no publication or human language-review claim",
+  "step": "deletion",
+  "videoUpload": true,
+  "metaTranscription": {
+    "status": "transcribed",
+    "provider": "meta",
+    "model": "muse-voice-transcribe-1.0",
+    "nonempty": true,
+    "locale": "en-IN"
+  },
+  "reviewedAndAttached": true,
+  "foreignFileAccess": 404,
+  "privateRangeRead": 206,
+  "fileAfterDelete": 404,
+  "remainingSources": 0,
+  "status": "passed",
+  "draftCleanup": 200
+}

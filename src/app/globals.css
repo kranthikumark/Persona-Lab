@@ -4446,3 +4446,48 @@ body {
 
 .simli-wait { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 65px 25px; color: #fff; background: #10131dcc; font-size: 14px; text-align: center; z-index: 4; }
 .simli-controls { z-index: 5; display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+
+/* Private reference recordings in Scenario Studio. */
+.source-studio { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--border); min-width: 0; }
+.source-heading, .source-card-heading { display: flex; align-items: center; gap: 12px; }
+.source-heading { justify-content: space-between; flex-wrap: wrap; }
+.source-heading h3 { margin: 7px 0; font-size: 21px; letter-spacing: -.5px; }
+.source-private, .source-status { flex-shrink: 0; color: var(--violet); border: 1px solid var(--border); background: var(--surface-raised); border-radius: 20px; padding: 5px 9px; font-size: 10px; }
+.source-intro, .source-footnote, .source-expiry, .source-card-heading p { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.source-intro { max-width: 620px; margin: 10px 0 22px; }
+.source-upload, .source-review { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; min-width: 0; }
+.source-upload { border: 1px solid var(--border); border-radius: 16px; padding: 18px; background: var(--surface-raised); }
+.source-upload legend { padding: 0 7px; font-size: 12px; font-weight: 600; }
+.source-file { position: relative; display: flex; align-items: center; gap: 15px; padding: 20px 14px; border: 1px dashed var(--border); border-radius: 12px; cursor: pointer; min-width: 0; background: var(--surface); }
+.source-file span { min-width: 0; overflow-wrap: anywhere; font-size: 13px; }
+.source-file small { display: block; font-size: 10px; color: var(--muted); margin-top: 6px; }
+.source-file input { position: absolute; inset: 0; opacity: 0; width: 100%; cursor: pointer; }
+.source-file:focus-within { outline: 2px solid var(--violet); outline-offset: 3px; }
+.source-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.source-options label, .source-review > label { display: grid; gap: 8px; font-size: 12px; min-width: 0; }
+.source-options select, .source-review textarea { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--foreground); padding: 11px 12px; font: inherit; }
+.source-review textarea { resize: vertical; min-height: 90px; line-height: 1.7; }
+.source-consent, .source-review > .source-consent { display: flex; align-items: flex-start; gap: 9px; font-size: 11px; color: var(--muted); line-height: 1.6; }
+.source-consent input { flex-shrink: 0; width: 16px; height: 16px; margin: 1px 0 0; accent-color: var(--violet); }
+.source-notice { display: flex; gap: 8px; align-items: center; font-size: 12px; line-height: 1.7; }
+.source-footnote { margin: 13px 0 24px; font-size: 10px; }
+.source-list { display: grid; gap: 16px; }
+.source-card { border: 1px solid var(--border); border-radius: 16px; background: var(--surface); padding: 19px; min-width: 0; }
+.source-card-heading > div { min-width: 0; flex: 1; }
+.source-card h4 { margin: 0; font-size: 13px; overflow-wrap: anywhere; }
+.source-card-heading p { margin: 4px 0 0; font-size: 10px; }
+.source-expiry { font-size: 10px; margin: 12px 0; }
+.source-card audio, .source-card video { width: 100%; margin: 4px 0 18px; max-height: 280px; border-radius: 10px; }
+.source-card video { background: #11131b; }
+.source-review small, .source-transcribe small { font-size: 10px; color: var(--muted); line-height: 1.7; }
+.source-transcribe { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.source-review { margin-bottom: 15px; }
+.source-status.reviewed { color: var(--violet); }
+.source-upload:disabled, .source-review:disabled { opacity: .65; }
+@media(max-width:600px) { .source-options { grid-template-columns: 1fr; } .source-studio { margin-top: 22px; } .source-card { padding: 14px; } .source-card-heading { flex-wrap: wrap; } .source-status { margin-left: 32px; } .source-private { display: none; } .source-heading h3 { font-size: 18px; } }
+@media(forced-colors:active) { .source-file, .source-card, .source-upload, .source-status { border-color: CanvasText; } }
+.source-history { margin: 0 0 14px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 11px; }
+.source-history summary { cursor: pointer; color: var(--violet); }
+.source-history > div { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+.source-history p { max-height: 240px; overflow: auto; overflow-wrap: anywhere; white-space: pre-wrap; line-height: 1.8; color: var(--muted); margin: 8px 0; }
+.source-heading-actions { display: flex; align-items: center; gap: 8px; }

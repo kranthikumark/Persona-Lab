@@ -141,3 +141,7 @@ On localhost macOS, practice can use installed Geeta/Geeta Enhanced through loca
 ### Simli live video preview
 
 The user-selected Simli key and face ID stay in the ignored server environment. On localhost macOS, run `npm run dev:locales`, open practice and click **Enable video avatar**. Then use **Replay reply** or **Auto speak replies** and send a response. The configured face renders reply audio as synchronized video; Meta still creates the saved conversation and handles dictation. Video is an explicit two-minute preview with bounded admissions; ending video restores the portrait and device speech. The current PCM speech source requires installed Mac voices and is not yet available on AWS Ubuntu. See [setup, verification and remaining acceptance](docs/V5_09_SIMLI.md).
+
+### Private audio/video reference sources (V5-10)
+
+Open `/create` through **Create a scenario**. Save a private WAV/MP3/M4A/MP4/WebM source (0.25–60 seconds, up to 20 MiB), choose 1-day or 7-day retention, then explicitly transcribe its audio with Meta or enter the words yourself. Review and attach the transcript before operator publication. Source files are held in the private local `.private-media/` store; delete controls remove the raw source and all transcript versions. `npm run db:purge` handles expiry and interrupted deletion. See [setup and verification](docs/V5_10_ACCEPTANCE.md).

@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { api } from "@/lib/client";
 import { type DraftContent } from "@/lib/catalog/schema";
 import { DEFAULT_CATALOG } from "@/lib/practice/metadata";
+import { ScenarioSources } from "./scenario-sources";
 
 type Draft = {
   id: string;
@@ -104,7 +105,7 @@ export function ScenarioCreator({ mode }: { mode: string }) {
     }
   }
   return (
-    <Shell page="Text Scenario Studio" mode={mode}>
+    <Shell page="Scenario Studio" mode={mode}>
       <main
         className="studio-main creator-main"
         id="page-content"
@@ -131,10 +132,9 @@ export function ScenarioCreator({ mode }: { mode: string }) {
         <div className="creator-note">
           <Check size={18} />
           <p>
-            Private to this browser · expires after 30 days. Only an operator
-            with server access can review and publish. English text only; new
-            characters, policy facts, translated versions and media authoring
-            require separate verification.
+            Drafts are private to this browser for 30 days; source recordings
+            expire sooner. Only an operator with server access can review and
+            publish. The verified scenario foundation remains English.
           </p>
         </div>
         {error && (
@@ -344,6 +344,17 @@ export function ScenarioCreator({ mode }: { mode: string }) {
                     </div>
                   </fieldset>
                 </form>
+                <ScenarioSources
+                  key={selected.id}
+                  draft={selected}
+                  disabled={busy || dirty}
+                  onBusy={setBusy}
+                  onChange={(draft) => {
+                    setSelected(draft);
+                    setContent(draft.content);
+                    void load();
+                  }}
+                />
                 <details className="operator-handoff">
                   <summary>How to request publication</summary>
                   <p>
